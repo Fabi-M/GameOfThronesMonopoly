@@ -1,0 +1,12 @@
+{
+    "authors": [
+        {
+            "name": "Selina Stöcklein",
+            "email": "selina.stoecklein18@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.0.0"
+    }
+}
