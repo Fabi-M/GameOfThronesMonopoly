@@ -4,6 +4,11 @@
             "name": "Selina Stöcklein",
             "email": "selina.stoecklein18@gmail.com",
             "role": "Developer"
+        },
+        {
+            "name": "Fabian Müller",
+            "email": "Mueller_Fabi@gmx.net",
+            "role": "Developer"
         }
     ],
     "require": {
