@@ -42,6 +42,11 @@ class BaseController
     /** @var User */
     protected $activeUser;
 
+    /** @var string[] */
+    private $baseJSFiles = array(
+        '/js/Gamemanager.js'
+    );
+
     // </editor-fold>
 
 
@@ -67,11 +72,23 @@ class BaseController
             ));
         }
 
+        $this->addTwig();
+
         register_shutdown_function(array($this, "fatalErrorHandler"));
     }
 
+
     // </editor-fold>
 
+    private function addTwig()
+    {
+        $loader = new FilesystemLoader('../private/');
+        $this->twig = new Environment($loader, ['cache' => false]);
+        $this->twig->addGlobal('BASEPATH', "http://localhost/GameOfThronesMonopoly"); // add base path to twigs global variables, like 'https://azubis.upjers.com/awesomestoragetool'
+
+        $this->addScriptCollector();
+        $this->addStyleSheetCollector();
+    }
 
     /**
      * Check if the user has the needed permission
