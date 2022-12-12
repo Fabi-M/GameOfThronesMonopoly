@@ -3,7 +3,7 @@
 namespace GameOfThronesMonopoly\Core\DataBase;
 
 use GameOfThronesMonopoly\Config\Secrets;
-use PDO as PDO;
+use PDO;
 
 /**
  * Class DataBaseConnection

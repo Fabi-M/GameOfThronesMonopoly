@@ -1,0 +1,13 @@
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !/js [NC]
+RewriteCond %{REQUEST_URI} !/css [NC]
+RewriteCond %{REQUEST_URI} !/scss [NC]
+RewriteCond %{REQUEST_URI} !/git [NC]
+
+RewriteRule ^(.*[^/]) /GameOfThronesMonopoly/public/index.php?url=$1 [L,QSA]
+
+
+

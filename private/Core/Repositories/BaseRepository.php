@@ -2,10 +2,10 @@
 
 namespace GameOfThronesMonopoly\Core\Repositories;
 
+use GameOfThrones\Core\Datamapper\Repository\MainRepositoryClass;
 use PDO;
 use PDOStatement;
 use GameOfThronesMonopoly\Core\Exceptions\SQLException;
-use Up\Datamapper\Repository\MainRepositoryClass;
 
 /**
  * Class BaseRepository
@@ -36,7 +36,7 @@ class BaseRepository extends MainRepositoryClass
      * @return void
      * @throws SQLException
      */
-    protected static function checkForError(string $__CLASS__, PDOStatement $stmt)
+    protected static function checkForError(string $__CLASS__, PDOStatement $stmt): void
     {
         $error = $stmt->errorInfo();
         if ($error[1] != 0) {

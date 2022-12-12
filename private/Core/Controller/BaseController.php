@@ -15,37 +15,18 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Up\Datamapper\EntityManager;
 
-
 /**
  * Class BaseController
  * Parent of all controllers, builds some basic objects and checks the users permission
  */
 class BaseController
 {
-
-    // <editor-fold defaultstate="collapsed" desc="Attributes">
-
-    /** @var EntityManager */
-    protected $em;
-
-    /** @var PDO */
-    protected $pdo;
-
     /** @var ResponseService */
     protected $responseService;
-
     /**
      * @var Environment
      */
     protected $twig;
-
-    /** @var User */
-    protected $activeUser;
-
-    // </editor-fold>
-
-
-    // <editor-fold defaultstate="collapsed" desc="Constructor">
 
     /**
      * Constructor
@@ -60,28 +41,8 @@ class BaseController
         $loader = new FilesystemLoader('../private/');
         $this->twig = new Environment($loader, ['cache' => false]);
 
-        $request = $_POST['request'];
-        if (!empty($request->UserId)) {
-            $this->activeUser = UserFactory::filterOne($this->em, array(
-                'WHERE' => array('user_id', 'equal', $request->UserId)
-            ));
-        }
-
-        register_shutdown_function(array($this, "fatalErrorHandler"));
-    }
-
-    // </editor-fold>
-
-
-    /**
-     * Check if the user has the needed permission
-     * @param int $permission
-     * @return bool
-     */
-    public function checkPermission(int $permission): bool
-    {
-        if ($permission == 0) return true; // permission 0 -> everyone is allowed to execute this request
-        return $this->activeUser->hasPermission($permission);
+        register_shutdown_function([$this, "fatalErrorHandler"]);
+        set_error_handler([$this, 'errorHandler']);
     }
 
     /**
@@ -121,8 +82,6 @@ class BaseController
 
         $msg = "Error: [$errorNumber] $errorString --- Error on line $errorLine in $errorFile " . 'Trace: ' . $trace;
 
-        error_log("Errorhandler " . $msg);
-
         $response = new ErrorResponse();
         $response->setSuccess(false);
         $response->setErrorMessage(ExceptionString::DEFAULT_USER_ERROR);
@@ -135,17 +94,19 @@ class BaseController
     /**
      * fill some basic and needed information into the response
      * @param BaseResponse $response
-     * @param bool $success
-     * @param string $errorMessage
-     * @param string $backendErrorMessage
+     * @param bool         $success
+     * @param string       $errorMessage
+     * @param string       $backendErrorMessage
      * @return void
      */
-    protected function fillBaseResponse(BaseResponse $response, bool $success, string $errorMessage = '', string $backendErrorMessage = '')
-    {
+    protected function fillBaseResponse(
+        BaseResponse $response,
+        bool $success,
+        string $errorMessage = '',
+        string $backendErrorMessage = ''
+    ) {
         $response->setBackendErrorMessage($backendErrorMessage);
         $response->setErrorMessage($errorMessage);
         $response->setSuccess($success);
     }
-
-
 }
