@@ -23,6 +23,8 @@ class BaseController
     /** @var PDO */
     protected $pdo;
 
+    protected $sessionId;
+
     /**
      * @var Environment
      */
@@ -43,6 +45,10 @@ class BaseController
      */
     public function __construct()
     {
+        if(!isset($_SESSION)){
+            session_start();
+            $this->sessionId = session_id();
+        }
         $pdo = DataBaseConnection::getInstance()->getConnection();
         $this->em = new EntityManager($pdo);
         $this->pdo = $pdo;

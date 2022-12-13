@@ -41,5 +41,12 @@ class RoutingRepository
             'method' => 'get',
             'comment' => ''
         ],
+        [
+            'url' => '/testGame',
+            'controller' => 'GameOfThronesMonopoly\Game\Controller\GameManagerController',
+            'action' => 'TestAction',
+            'method' => 'get',
+            'comment' => ''
+        ],
     ];
 }
