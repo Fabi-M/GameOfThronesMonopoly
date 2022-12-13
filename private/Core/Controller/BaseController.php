@@ -20,6 +20,8 @@ class BaseController
     /** @var EntityManager */
     protected $em;
 
+    protected StyleSheetCollector $styleSheetCollector;
+
     /** @var PDO */
     protected $pdo;
 
@@ -92,6 +94,7 @@ class BaseController
         }
         $this->styleSheetCollector = $styleSheetCollector;
         $this->twig->addGlobal('STYLESHEETCOLLECTOR', $this->styleSheetCollector);
+        
     }
 
 
