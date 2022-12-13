@@ -1,0 +1,48 @@
+{% extends 'Core/Views/Base.html.twig' %}
+
+
+{% block javascript %}
+new Statistics();
+new HistoryStatistics();
+new Orders();
+{% endblock %}
+
+
+{% block site %}
+
+
+    <div id="homepagecontainer" class="container">
+        <div class="row">
+            <div class="col-sm" >
+                {% include ('/Statistics/Views/HistoryStatistics.html.twig') %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm" id="orders">
+                {% include ('/Ordering/Views/OrdersJTable.html.twig') %}
+            </div>
+            <div class="col-sm" id="statistics">
+                {% include ('/Statistics/Views/Statistics.html.twig') %}
+            </div>
+        </div>
+
+
+    </div>
+    {#
+    <div id="homepagecontainer" class="container">
+        <div class="row">
+            <div class="col-sm" id="orders">
+                <div class="col-sm" >
+                    {% include ('/Statistics/Views/HistoryStatistics.html.twig') %}
+                </div>
+                {% include ('/Ordering/Views/OrdersJTable.html.twig') %}
+            </div>
+            <div class="col-sm" id="statistics">
+                {% include ('/Statistics/Views/Statistics.html.twig') %}
+            </div>
+        </div>
+
+
+    </div> #}
+
+{% endblock %}
