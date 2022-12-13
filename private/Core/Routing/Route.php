@@ -122,10 +122,6 @@ class Route
 
                         $variables = array($route['config'], $matches);
 
-                        if (!self::userHasPermission($variables[0]['controller'], (int)$variables[0]['permission'])) {
-                            throw new RouteException(ExceptionString::PERMISSION_EXCEPTION);
-                        }
-
                         /** call function! */
                         if ($return_value = call_user_func_array($route['function'], $variables)) {
                             return $return_value;
@@ -158,22 +154,4 @@ class Route
             }
         }
     }
-
-    /**
-     * Check if the user is allowed to use this route
-     * @param string $controllerNamespace
-     * @param int $permission
-     * @return bool
-     */
-    private static function userHasPermission(string $controllerNamespace, int $permission): bool
-    {
-        /** @var BaseController $class */
-        $class = new $controllerNamespace();
-        if ($permission != 0 && !$class->checkPermission($permission)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
 }
