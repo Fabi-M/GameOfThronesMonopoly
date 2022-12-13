@@ -1,0 +1,46 @@
+<!-- @author Fabian Müller -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Monopoly</title>
+
+    {# CSS #}
+    {% set cssFiles =  STYLESHEETCOLLECTOR.getStyleSheetPaths %}
+    {% for path in cssFiles %}
+        <link rel="stylesheet" href="{{ BASEPATH }}/public{{ path }}?p={{ date().timestamp }}"/>
+    {% endfor %}
+
+    {# JS #}
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous"></script>
+    {% set jsFiles = SCRIPTCOLLECTOR.getScriptPaths %}
+    {% for path in jsFiles %}
+        <script src="{{ BASEPATH }}/public{{ path }}?p={{ date().timestamp }}"></script>
+    {% endfor %}
+
+    {# Block for adding more Javascript #}
+    {% block scripts %}
+
+    {% endblock scripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.BASEPATH = "{{ BASEPATH }}";
+        });
+    </script>
+
+</head>
+{% endif %}
+<body>
+    {# for replacing extended twigs #}
+    <div id="mainSite">
+        {# Block for adding more content #}
+        {% block site %}
+
+        {% endblock %}
+    </div>
+</body>
