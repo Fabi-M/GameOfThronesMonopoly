@@ -20,7 +20,6 @@ class RoutingRepository
      */
     public static function getAllRoutes(): array
     {
-        return self::$allRoutes;
         $instance = DataBaseConnection::getInstance();
         $pdo = $instance->getConnection();
         $stmt = $pdo->prepare("SELECT * FROM route");
@@ -32,21 +31,4 @@ class RoutingRepository
         }
         return $data;
     }
-
-    private static $allRoutes = [
-        [
-            'url' => '/test',
-            'controller' => 'GameOfThronesMonopoly\Test\Controller\TestController',
-            'action' => 'TestAction',
-            'method' => 'get',
-            'comment' => ''
-        ],
-        [
-            'url' => '/testGame',
-            'controller' => 'GameOfThronesMonopoly\Game\Controller\GameManagerController',
-            'action' => 'endTurnAction',
-            'method' => 'get',
-            'comment' => ''
-        ],
-    ];
 }
