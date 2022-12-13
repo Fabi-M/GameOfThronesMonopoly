@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Core\Twig;
-
+namespace GameOfThronesMonopoly\Core\Twig;
 
 class StyleSheetCollector
 {
@@ -10,7 +8,7 @@ class StyleSheetCollector
 
     public function __construct()
     {
-        $this->styleSheetPaths=array();
+        $this->styleSheetPaths = [];
     }
 
     /**

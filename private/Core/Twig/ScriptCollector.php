@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\Twig;
+namespace GameOfThronesMonopoly\Core\Twig;
 
 
 class ScriptCollector

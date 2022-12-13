@@ -2,12 +2,11 @@
 
 namespace GameOfThronesMonopoly\Core\Controller;
 
-use Core\Twig\ScriptCollector;
-use Core\Twig\StyleSheetCollector;
+use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
+use GameOfThronesMonopoly\Core\Twig\ScriptCollector;
+use GameOfThronesMonopoly\Core\Twig\StyleSheetCollector;
 use PDO;
 use GameOfThronesMonopoly\Core\DataBase\DataBaseConnection;
-use GameOfThronesMonopoly\Core\Exceptions\ResponseException;
-use GameOfThronesMonopoly\Core\Strings\ExceptionString;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -99,7 +98,6 @@ class BaseController
     /**
      * Handle fatal errors
      * @return void
-     * @throws ResponseException
      */
     public function fatalErrorHandler()
     {

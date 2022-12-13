@@ -5,8 +5,8 @@ namespace GameOfThronesMonopoly\Core\Datamapper;
 
 
 use Exception;
-use GameOfThrones\Core\Datamapper\Repository\DefaultRepositoryFactory;
-use GameOfThrones\Core\Datamapper\Repository\MainRepositoryClass;
+use GameOfThronesMonopoly\Core\Datamapper\Repository\DefaultRepositoryFactory;
+use GameOfThronesMonopoly\Core\Datamapper\Repository\MainRepositoryClass;
 use ReflectionException;
 
 /**

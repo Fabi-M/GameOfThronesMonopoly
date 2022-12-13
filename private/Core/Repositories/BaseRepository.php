@@ -2,7 +2,7 @@
 
 namespace GameOfThronesMonopoly\Core\Repositories;
 
-use GameOfThrones\Core\Datamapper\Repository\MainRepositoryClass;
+use GameOfThronesMonopoly\Core\Datamapper\Repository\MainRepositoryClass;
 use PDO;
 use PDOStatement;
 use GameOfThronesMonopoly\Core\Exceptions\SQLException;

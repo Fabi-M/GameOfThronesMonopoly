@@ -1,5 +1,5 @@
 <?php
-namespace GameOfThrones\Core\Datamapper\Repository;
+namespace GameOfThronesMonopoly\Core\Datamapper\Repository;
 
 class getRepositories
 {
