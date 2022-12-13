@@ -2,18 +2,14 @@
 
 namespace GameOfThronesMonopoly\Core\Controller;
 
+use Core\Twig\ScriptCollector;
+use Core\Twig\StyleSheetCollector;
 use PDO;
 use GameOfThronesMonopoly\Core\DataBase\DataBaseConnection;
 use GameOfThronesMonopoly\Core\Exceptions\ResponseException;
-use GameOfThronesMonopoly\Core\Response\BaseResponse;
-use GameOfThronesMonopoly\Core\Response\ErrorResponse;
-use GameOfThronesMonopoly\Core\Response\Service\ResponseService;
 use GameOfThronesMonopoly\Core\Strings\ExceptionString;
-use GameOfThronesMonopoly\User\Factories\UserFactory;
-use GameOfThronesMonopoly\User\Model\User;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Up\Datamapper\EntityManager;
 
 
 /**
@@ -22,35 +18,25 @@ use Up\Datamapper\EntityManager;
  */
 class BaseController
 {
-
-    // <editor-fold defaultstate="collapsed" desc="Attributes">
-
     /** @var EntityManager */
     protected $em;
 
     /** @var PDO */
     protected $pdo;
 
-    /** @var ResponseService */
-    protected $responseService;
-
     /**
      * @var Environment
      */
     protected $twig;
-
-    /** @var User */
-    protected $activeUser;
 
     /** @var string[] */
     private $baseJSFiles = array(
         '/js/Gamemanager.js'
     );
 
-    // </editor-fold>
-
-
-    // <editor-fold defaultstate="collapsed" desc="Constructor">
+    /** @var string[] */
+    private $baseCSSFiles = array(
+    );
 
     /**
      * Constructor
@@ -61,24 +47,13 @@ class BaseController
         $pdo = DataBaseConnection::getInstance()->getConnection();
         $this->em = new EntityManager($pdo);
         $this->pdo = $pdo;
-        $this->responseService = ResponseService::getInstance();
         $loader = new FilesystemLoader('../private/');
         $this->twig = new Environment($loader, ['cache' => false]);
-
-        $request = $_POST['request'];
-        if (!empty($request->UserId)) {
-            $this->activeUser = UserFactory::filterOne($this->em, array(
-                'WHERE' => array('user_id', 'equal', $request->UserId)
-            ));
-        }
 
         $this->addTwig();
 
         register_shutdown_function(array($this, "fatalErrorHandler"));
     }
-
-
-    // </editor-fold>
 
     private function addTwig()
     {
@@ -91,15 +66,35 @@ class BaseController
     }
 
     /**
-     * Check if the user has the needed permission
-     * @param int $permission
-     * @return bool
+     * add all needed js file paths
      */
-    public function checkPermission(int $permission): bool
+    private function addScriptCollector()
     {
-        if ($permission == 0) return true; // permission 0 -> everyone is allowed to execute this request
-        return $this->activeUser->hasPermission($permission);
+        // add basic js scripts
+        $scriptCollector = new ScriptCollector();
+        $scripts = $this->baseJSFiles;
+        foreach ($scripts as $scriptPath) {
+            $scriptCollector->addBottom($scriptPath);
+        }
+        $this->scriptCollector = $scriptCollector;
+        $this->twig->addGlobal('SCRIPTCOLLECTOR', $this->scriptCollector);
     }
+
+    /**
+     * add all needed css file paths
+     */
+    private function addStyleSheetCollector()
+    {
+        // add basic css scripts
+        $styleSheetCollector = new StyleSheetCollector();
+        $scripts = $this->baseCSSFiles;
+        foreach ($scripts as $scriptPath) {
+            $styleSheetCollector->addBottom($scriptPath);
+        }
+        $this->styleSheetCollector = $styleSheetCollector;
+        $this->twig->addGlobal('STYLESHEETCOLLECTOR', $this->styleSheetCollector);
+    }
+
 
     /**
      * Handle fatal errors
@@ -128,7 +123,6 @@ class BaseController
      * @param string $errorFile
      * @param int $errorLine
      * @return void
-     * @throws ResponseException
      */
     public function errorHandler(int $errorNumber, string $errorString, string $errorFile, int $errorLine)
     {
@@ -139,30 +133,5 @@ class BaseController
         $msg = "Error: [$errorNumber] $errorString --- Error on line $errorLine in $errorFile " . 'Trace: ' . $trace;
 
         error_log("Errorhandler " . $msg);
-
-        $response = new ErrorResponse();
-        $response->setSuccess(false);
-        $response->setErrorMessage(ExceptionString::DEFAULT_USER_ERROR);
-        $response->setBackendErrorMessage($msg);
-
-        $this->responseService->addResponse($response);
-        die($this->responseService->flush());
     }
-
-    /**
-     * fill some basic and needed information into the response
-     * @param BaseResponse $response
-     * @param bool $success
-     * @param string $errorMessage
-     * @param string $backendErrorMessage
-     * @return void
-     */
-    protected function fillBaseResponse(BaseResponse $response, bool $success, string $errorMessage = '', string $backendErrorMessage = '')
-    {
-        $response->setBackendErrorMessage($backendErrorMessage);
-        $response->setErrorMessage($errorMessage);
-        $response->setSuccess($success);
-    }
-
-
 }

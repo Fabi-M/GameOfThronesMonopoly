@@ -14,6 +14,7 @@
     {% endfor %}
 
     {# JS #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     {% set jsFiles = SCRIPTCOLLECTOR.getScriptPaths %}
     {% for path in jsFiles %}
         <script src="{{ BASEPATH }}/public{{ path }}?p={{ date().timestamp }}"></script>
@@ -26,8 +27,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             window.BASEPATH = "{{ BASEPATH }}";
-            {% block javascript %}
-            {% endblock %}
         });
     </script>
 
