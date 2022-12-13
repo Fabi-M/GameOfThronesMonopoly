@@ -7,8 +7,6 @@
 namespace GameOfThronesMonopoly\Core\Routing;
 
 
-use ErrorException;
-use mysql_xdevapi\Exception;
 use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Core\Routing\Exceptions\RouteException;
 use GameOfThronesMonopoly\Core\Strings\ExceptionString;

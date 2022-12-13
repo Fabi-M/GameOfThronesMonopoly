@@ -1,6 +1,5 @@
 <?php
 
-
 namespace GameOfThronesMonopoly\Core\Routing\Repositories;
 
 use GameOfThronesMonopoly\Core\DataBase\DataBaseConnection;
@@ -21,15 +20,26 @@ class RoutingRepository
      */
     public static function getAllRoutes(): array
     {
+        return self::$allRoutes;
         $instance = DataBaseConnection::getInstance();
         $pdo = $instance->getConnection();
         $stmt = $pdo->prepare("SELECT * FROM route");
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (empty($data)){
+        if (empty($data)) {
             throw new Exception(ExceptionString::ROUTE_EXCEPTION);
         }
         return $data;
     }
+
+    private static $allRoutes = [
+        [
+            'url' => '/test',
+            'controller' => 'GameOfThronesMonopoly\Test\Controller\TestController',
+            'action' => 'TestAction',
+            'method' => 'get',
+            'comment' => ''
+        ],
+    ];
 }
