@@ -6,6 +6,7 @@ use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
+use GameOfThronesMonopoly\Game\Model\Dice;
 use GameOfThronesMonopoly\Game\Model\GameManager;
 
 class GameManagerController extends BaseController
@@ -32,4 +33,14 @@ class GameManagerController extends BaseController
             [
             ]);
     }
+
+    /**
+     * @url /roll
+     * @return void
+     */
+    public function RollAction(){
+        $dice = new Dice();
+        json_encode($dice->roll());
+    }
+
 }
