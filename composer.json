@@ -14,5 +14,10 @@
     "require": {
         "twig/twig": "^2.0.0",
         "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "GameOfThronesMonopoly\\": "private/"
+        }
     }
 }
