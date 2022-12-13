@@ -8,7 +8,10 @@ class Gamemanager{
     }
 
     endTurn(){
-        
+        this.#currentPlayer++;
+        if(this.#currentPlayer > this.#maxPlayer){
+            this.#currentPlayer = 1;
+        }
     }
 
 
