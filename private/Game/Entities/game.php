@@ -2,27 +2,19 @@
 
 namespace GameOfThronesMonopoly\Game\Entities;
 
-class Game
+use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
+
+/**
+ * Entity of the user
+ * @Primary id;
+ * @Repository
+ */
+class game extends BaseEntity
 {
     private int $id;
     private string $session_id;
     private int $active_player_id;
     private int $max_player_id;
-
-    /**
-     * @param int $id
-     * @param string $session_id
-     * @param int $active_player_id
-     * @param int $max_player_id
-     */
-    public function __construct(int $id, string $session_id, int $active_player_id, int $max_player_id)
-    {
-        $this->id = $id;
-        $this->session_id = $session_id;
-        $this->active_player_id = $active_player_id;
-        $this->max_player_id = $max_player_id;
-    }
-
 
     /**
      * @return int

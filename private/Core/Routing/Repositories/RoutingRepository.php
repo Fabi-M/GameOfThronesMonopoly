@@ -44,7 +44,7 @@ class RoutingRepository
         [
             'url' => '/testGame',
             'controller' => 'GameOfThronesMonopoly\Game\Controller\GameManagerController',
-            'action' => 'TestAction',
+            'action' => 'endTurnAction',
             'method' => 'get',
             'comment' => ''
         ],

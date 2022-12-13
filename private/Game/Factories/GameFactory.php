@@ -4,7 +4,6 @@ namespace GameOfThronesMonopoly\Game\Factories;
 
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Model\Game;
-use GameOfThronesMonopoly\Game\Model\Player;
 
 /**
  * Class UserFactory
@@ -12,7 +11,7 @@ use GameOfThronesMonopoly\Game\Model\Player;
  */
 class GameFactory
 {
-    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game\Entities:Game';
+    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:Game';
 
     /**
      * @param EntityManager $em
