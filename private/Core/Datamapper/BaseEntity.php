@@ -45,7 +45,6 @@ class BaseEntity
      */
     public function getPrimaryKey(): mixed
     {
-        var_dump('get' . ucfirst($this->readPrimaryKey()));
         return call_user_func(array($this, 'get' . ucfirst($this->readPrimaryKey())));
     }
 

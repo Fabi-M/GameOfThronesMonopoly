@@ -228,7 +228,6 @@ class MainRepositoryClass
 
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
-        var_dump($stmt);
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
             /** @var BaseEntity $entity */
             $entity = $this->reflectionEntity->newInstance();
