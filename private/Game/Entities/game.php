@@ -6,85 +6,87 @@ use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
 
 /**
  * Entity of the user
- * @Primary id;
+ * @primaryKey id
  * @Repository
  */
 class game extends BaseEntity
 {
-    private int $id;
-    private string $session_id;
-    private int $active_player_id;
-    private int $max_player_id;
+    protected $id;
+    protected $sessionId;
+    protected $activePlayerId;
+    protected $maxActivePlayers;
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     * @return Game
+     * @param mixed $id
+     * @return game
      */
-    public function setId(int $id): Game
+    public function setId($id)
     {
         $this->id = $id;
         return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getSessionId(): string
+    public function getSessionId()
     {
-        return $this->session_id;
+        return $this->sessionId;
     }
 
     /**
-     * @param string $session_id
-     * @return Game
+     * @param mixed $sessionId
+     * @return game
      */
-    public function setSessionId(string $session_id): Game
+    public function setSessionId($sessionId)
     {
-        $this->session_id = $session_id;
+        $this->sessionId = $sessionId;
         return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getActivePlayerId(): int
+    public function getActivePlayerId()
     {
-        return $this->active_player_id;
+        return $this->activePlayerId;
     }
 
     /**
-     * @param int $active_player_id
-     * @return Game
+     * @param mixed $activePlayerId
+     * @return game
      */
-    public function setActivePlayerId(int $active_player_id): Game
+    public function setActivePlayerId($activePlayerId)
     {
-        $this->active_player_id = $active_player_id;
+        $this->activePlayerId = $activePlayerId;
         return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getMaxPlayerId(): int
+    public function getMaxActivePlayers()
     {
-        return $this->max_player_id;
+        return $this->maxActivePlayers;
     }
 
     /**
-     * @param int $max_player_id
-     * @return Game
+     * @param mixed $maxActivePlayers
+     * @return game
      */
-    public function setMaxPlayerId(int $max_player_id): Game
+    public function setMaxActivePlayers($maxActivePlayers)
     {
-        $this->max_player_id = $max_player_id;
+        $this->maxActivePlayers = $maxActivePlayers;
         return $this;
     }
+
+
 }

@@ -174,7 +174,7 @@ class UnitOfWork
         $params = [];
 
         foreach ($keyArray as $key) {
-            $getFunc = "get" . $key . "";
+            $getFunc = "get" . ucfirst($key) . "";
             $sql .= "" . $key . " = :" . $key . "";
             $value = $entity->$getFunc();
             if (is_string($value)) {

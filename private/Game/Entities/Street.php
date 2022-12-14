@@ -4,9 +4,9 @@ namespace GameOfThronesMonopoly\Game\Entities;
 
 class Street
 {
-    private int $id;
-    private string $name;
-    private int $price;
+    protected int $id;
+    protected string $name;
+    protected int $price;
 
     /**
      * @param int $id
