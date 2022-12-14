@@ -2,6 +2,7 @@
 
 namespace GameOfThronesMonopoly\Core\Datamapper\Repository;
 
+use GameOfThrones\Core\Datamapper\Repository\MainRepositoryClass;
 use ReflectionClass;
 use ReflectionException;
 

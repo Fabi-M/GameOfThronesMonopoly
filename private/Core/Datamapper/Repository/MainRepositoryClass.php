@@ -1,6 +1,6 @@
 <?php
 
-namespace GameOfThrones\Core\Datamapper\Repository;
+namespace GameOfThronesMonopoly\Core\Datamapper\Repository;
 
 use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
