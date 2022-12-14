@@ -8,8 +8,11 @@ class Renetestcontroller extends BaseController
 {
     public function TestAction(){
         var_dump($this->sessionId);
-        echo $this->twig->render("Core/Views/Base.html.twig",
+        var_dump(__DIR__.'\..\..\..\public\img\Playfield.jpg');
+
+        echo $this->twig->render("Game/Views/Game.html.twig",
             [
+                'imgPath'=>__DIR__.'\..\..\..\public\img\Playfield.jpg'
             ]);
     }
 }
