@@ -17,7 +17,7 @@ class GameManagerController extends BaseController
             ]);
     }
 
-    public function endTurnAction(){
+    public function EndTurnAction(){
         var_dump($this->sessionId);
         var_dump($this->em);
         echo "HALLOOOO";
