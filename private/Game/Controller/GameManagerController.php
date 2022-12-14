@@ -49,8 +49,9 @@ class GameManagerController extends BaseController
     }
 
     public function StartNewGame(){
+        echo "<pre>";
         $gameService = new GameService();
         $game = $gameService->GetGameBySessionId($this->em, $this->sessionId);
-        var_dump("Hallo Welt");
+        $this->em->flush();
     }
 }

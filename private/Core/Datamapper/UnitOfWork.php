@@ -52,6 +52,7 @@ class UnitOfWork
         try {
             $db->beginTransaction();
             foreach ($this->query as $key => $value) {
+                var_dump($key);
                 if ($key == 'update') {
                     $this->_updateOrInsert($value);
                     $this->query['update'] = [];
@@ -79,6 +80,7 @@ class UnitOfWork
     private function _updateOrInsert($entityArray): void
     {
         foreach ($entityArray as $entity) {
+            var_dump($entity);
             if (method_exists($entity, "getPrimaryKey")) {
                 if ($entity->getPrimaryKey() == null) {
                     $this->_insertInto($entity);

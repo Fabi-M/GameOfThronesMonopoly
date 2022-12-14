@@ -42,6 +42,5 @@ class Game
         }
         $this->gameEntity->setActivePlayerId($playerId);
         $em->persist($this->gameEntity);
-        var_dump($playerId);
     }
 }
