@@ -80,14 +80,15 @@ class UnitOfWork
     private function _updateOrInsert($entityArray): void
     {
         foreach ($entityArray as $entity) {
-            var_dump($entity);
             if (method_exists($entity, "getPrimaryKey")) {
+                var_dump($entity);
                 if ($entity->getPrimaryKey() == null) {
                     $this->_insertInto($entity);
                 } else {
                     $this->_update($entity);
                 }
             } else {
+                var_dump("HALLO");
                 return;
             }
         }

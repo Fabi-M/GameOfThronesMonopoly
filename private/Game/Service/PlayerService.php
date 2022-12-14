@@ -14,6 +14,5 @@ class PlayerService
         $playerEntity->setPosition(0);
         $playerEntity->setMoney(1500);
         $em->persist($playerEntity);
-        $em->flush();
     }
 }

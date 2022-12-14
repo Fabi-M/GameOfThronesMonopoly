@@ -48,6 +48,12 @@ class GameManagerController extends BaseController
         json_encode($dice->roll());
     }
 
+    /**
+     * @url
+     * @author
+     * @return void
+     * @throws \Exception
+     */
     public function StartNewGame(){
         echo "<pre>";
         $gameService = new GameService();

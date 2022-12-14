@@ -2,125 +2,129 @@
 
 namespace GameOfThronesMonopoly\Game\Entities;
 
+use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
+
 /**
  * Entity of the player
  * @primaryKey id
- * @Repository player
+ * @Repository
  */
-class player
+class player extends BaseEntity
 {
-    protected int $id;
-    protected int $gameId;
-    protected int $ingameId;
-    protected int $money;
-    protected int $position;
-    protected string $sessionId;
+    protected $id;
+    protected $gameId;
+    protected $ingameId;
+    protected $money;
+    protected $position;
+    protected $sessionId;
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param mixed $id
      * @return player
      */
-    public function setId(int $id): player
+    public function setId($id)
     {
         $this->id = $id;
         return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getGameId(): int
+    public function getGameId()
     {
         return $this->gameId;
     }
 
     /**
-     * @param int $gameId
+     * @param mixed $gameId
      * @return player
      */
-    public function setGameId(int $gameId): player
+    public function setGameId($gameId)
     {
         $this->gameId = $gameId;
         return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getIngameId(): int
+    public function getIngameId()
     {
         return $this->ingameId;
     }
 
     /**
-     * @param int $ingameId
+     * @param mixed $ingameId
      * @return player
      */
-    public function setIngameId(int $ingameId): player
+    public function setIngameId($ingameId)
     {
         $this->ingameId = $ingameId;
         return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getMoney(): int
+    public function getMoney()
     {
         return $this->money;
     }
 
     /**
-     * @param int $money
+     * @param mixed $money
      * @return player
      */
-    public function setMoney(int $money): player
+    public function setMoney($money)
     {
         $this->money = $money;
         return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getPosition(): int
+    public function getPosition()
     {
         return $this->position;
     }
 
     /**
-     * @param int $position
+     * @param mixed $position
      * @return player
      */
-    public function setPosition(int $position): player
+    public function setPosition($position)
     {
         $this->position = $position;
         return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getSessionId(): string
+    public function getSessionId()
     {
         return $this->sessionId;
     }
 
     /**
-     * @param string $sessionId
+     * @param mixed $sessionId
      * @return player
      */
-    public function setSessionId(string $sessionId): player
+    public function setSessionId($sessionId)
     {
         $this->sessionId = $sessionId;
         return $this;
     }
+
+
 }
