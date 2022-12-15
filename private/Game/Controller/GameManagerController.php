@@ -21,7 +21,7 @@ class GameManagerController extends BaseController
 
     /**
      * Ends the current turn
-     * @url /endTurn
+     * @url /EndTurn
      * @author Fabian Müller
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -40,17 +40,30 @@ class GameManagerController extends BaseController
     }
 
     /**
-     * @url /roll
+     * Rolls the Dice for Moving
+     * @url /Roll/Move
+     * @author Christian Teubner
      * @return void
      */
-    public function RollAction(){
+    public function RollForMoveAction(){
+        $dice = new Dice();
+        json_encode($dice->roll());
+    }
+
+    /**
+     * Rolls the Dice for Escaping
+     * @url /Roll/Escape
+     * @author Christian Teubner
+     * @return void
+     */
+    public function RollForEscapeAction(){
         $dice = new Dice();
         json_encode($dice->roll());
     }
 
     /**
      * Start a new game
-     * @url /startGame
+     * @url /StartGame
      * @author Fabian Müller
      * @return void
      * @throws \Exception
