@@ -36,10 +36,12 @@ class Game
 
     public function endTurn(EntityManager $em){
         $playerId = $this->gameEntity->getActivePlayerId()+1;
-        $maxPlayerCount = $this->gameEntity->getMaxPlayerId();
+        $maxPlayerCount = $this->gameEntity->getMaxActivePlayers();
         if($playerId > $maxPlayerCount){
-            $this->gameEntity->setActivePlayerId($playerId-$maxPlayerCount);
+            $playerId -= $maxPlayerCount;
         }
+        $this->gameEntity->setActivePlayerId($playerId);
         $em->persist($this->gameEntity);
+        var_dump($playerId);
     }
 }

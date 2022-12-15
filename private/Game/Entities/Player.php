@@ -4,12 +4,12 @@ namespace GameOfThronesMonopoly\Game\Entities;
 
 class Player
 {
-    private int $id;
-    private int $game_id;
-    private int $ingame_id;
-    private int $money;
-    private int $position;
-    private string $session_id;
+    protected int $id;
+    protected int $game_id;
+    protected int $ingame_id;
+    protected int $money;
+    protected int $position;
+    protected string $session_id;
 
     /**
      * @param int $id

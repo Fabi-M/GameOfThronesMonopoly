@@ -19,13 +19,9 @@ class GameManagerController extends BaseController
     }
 
     public function EndTurnAction(){
-        var_dump($this->sessionId);
-        var_dump($this->em);
-        echo "HALLOOOO";
         $game = GameFactory::filterOne($this->em, array(
-            'WHERE' => array('session_id', 'equal', $this->sessionId)
+            'WHERE' => array('sessionId', 'equal', $this->sessionId)
         ));
-        var_dump($game);
         $game->EndTurn($this->em);
         $this->em->flush();
 
