@@ -50,13 +50,12 @@ class GameManagerController extends BaseController
 
     /**
      * Start a new game
-     * @url
+     * @url /startGame
      * @author Fabian Müller
      * @return void
      * @throws \Exception
      */
     public function StartNewGame(){
-        echo "<pre>";
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $this->em->flush();
