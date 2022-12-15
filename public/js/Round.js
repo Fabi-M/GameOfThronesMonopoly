@@ -5,16 +5,26 @@ class Round {
     }
 
     /**
-     *
+     * @author Selina Stöcklein
+     * @param event
+     * @param data
      */
     endRound(event, data) {
-        event.preventDefault();
-        console.log("klick");
-        let valid = true;
-        $('[required]').each(function () {
-            if ($(this).is(':invalid') || !$(this).val()) valid = false;
-        })
-        if (!valid) return;
-        console.log("valid");
+
+        let that = data['this'];
+        let url = BASEPATH + '/EndTurn';
+        let request = new Ajax(url, false, that.displayNextPlayerPopup, data);
+        request.execute();
+    }
+
+    /**
+     * @author Selina Stöcklein
+     * @param data
+     */
+    displayNextPlayerPopup(data) {
+        //TODO 15.12.2022 Selina: PopUp mit Info, welcher Spieler nun am Zug ist
+        // + Spielstand/Inventar des nächsten Spielers anzeigen
+        // eventuell spieler infos neu von PHP laden lassen?
+        // (um falsche daten im Browser zu vermeiden)
     }
 }
