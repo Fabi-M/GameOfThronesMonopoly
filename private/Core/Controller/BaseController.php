@@ -27,7 +27,7 @@ class BaseController
 
     protected $sessionId;
 
-    protected const IMGPATH = 'http://hosting175021.ae88e.netcup.net/img/';
+    protected const IMG_PATH = 'http://hosting175021.ae88e.netcup.net/img/';
 
     /**
      * @var Environment
