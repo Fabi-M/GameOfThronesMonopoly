@@ -34,6 +34,12 @@ class Game
         return $this;
     }
 
+    /**
+     *
+     * @author Fabian Müller
+     * @param EntityManager $em
+     * @return void
+     */
     public function endTurn(EntityManager $em){
         $playerId = $this->gameEntity->getActivePlayerId()+1;
         $maxPlayerCount = $this->gameEntity->getMaxActivePlayers();

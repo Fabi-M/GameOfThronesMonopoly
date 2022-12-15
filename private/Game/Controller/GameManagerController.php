@@ -30,7 +30,7 @@ class GameManagerController extends BaseController
      */
     public function EndTurnAction(){
         $gameService = new GameService();
-        $game = $gameService->GetGameBySessionId($this->em, $this->sessionId);
+        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $game->EndTurn($this->em);
         $this->em->flush();
 
@@ -49,15 +49,16 @@ class GameManagerController extends BaseController
     }
 
     /**
+     * Start a new game
      * @url
-     * @author
+     * @author Fabian Müller
      * @return void
      * @throws \Exception
      */
     public function StartNewGame(){
         echo "<pre>";
         $gameService = new GameService();
-        $game = $gameService->GetGameBySessionId($this->em, $this->sessionId);
+        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $this->em->flush();
     }
 }
