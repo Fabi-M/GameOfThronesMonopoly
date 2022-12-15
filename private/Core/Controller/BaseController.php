@@ -36,7 +36,6 @@ class BaseController
 
     /** @var string[] */
     private $baseJSFiles = array(
-        '/js/Core/Gamemanager.js'
     );
 
     /** @var string[] */

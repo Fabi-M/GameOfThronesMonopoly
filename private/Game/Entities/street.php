@@ -2,23 +2,11 @@
 
 namespace GameOfThronesMonopoly\Game\Entities;
 
-class Street
+class street
 {
     protected int $id;
     protected string $name;
     protected int $price;
-
-    /**
-     * @param int $id
-     * @param string $name
-     * @param int $price
-     */
-    public function __construct(int $id, string $name, int $price)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->price = $price;
-    }
 
     /**
      * @return int
@@ -30,9 +18,9 @@ class Street
 
     /**
      * @param int $id
-     * @return Street
+     * @return street
      */
-    public function setId(int $id): Street
+    public function setId(int $id): street
     {
         $this->id = $id;
         return $this;
@@ -48,9 +36,9 @@ class Street
 
     /**
      * @param string $name
-     * @return Street
+     * @return street
      */
-    public function setName(string $name): Street
+    public function setName(string $name): street
     {
         $this->name = $name;
         return $this;
@@ -66,9 +54,9 @@ class Street
 
     /**
      * @param int $price
-     * @return Street
+     * @return street
      */
-    public function setPrice(int $price): Street
+    public function setPrice(int $price): street
     {
         $this->price = $price;
         return $this;

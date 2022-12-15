@@ -28,8 +28,6 @@ class GameFactory
         if (empty($entity)) {
             return null;
         }
-        echo "<pre>";
-        var_dump($entity);
         return new Game($entity);
     }
 

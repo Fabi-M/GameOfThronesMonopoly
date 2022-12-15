@@ -8,6 +8,7 @@ use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Model\Dice;
 use GameOfThronesMonopoly\Game\Model\GameManager;
+use GameOfThronesMonopoly\Game\Service\GameService;
 
 class GameManagerController extends BaseController
 {
@@ -18,10 +19,18 @@ class GameManagerController extends BaseController
             ]);
     }
 
+    /**
+     * Ends the current turn
+     * @url /EndTurn
+     * @author Fabian Müller
+     * @return void
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function EndTurnAction(){
-        $game = GameFactory::filterOne($this->em, array(
-            'WHERE' => array('sessionId', 'equal', $this->sessionId)
-        ));
+        $gameService = new GameService();
+        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $game->EndTurn($this->em);
         $this->em->flush();
 
@@ -31,12 +40,37 @@ class GameManagerController extends BaseController
     }
 
     /**
-     * @url /roll
+     * Rolls the Dice for Moving
+     * @url /Roll/Move
+     * @author Christian Teubner
      * @return void
      */
-    public function RollAction(){
+    public function RollForMoveAction(){
         $dice = new Dice();
         json_encode($dice->roll());
     }
 
+    /**
+     * Rolls the Dice for Escaping
+     * @url /Roll/Escape
+     * @author Christian Teubner
+     * @return void
+     */
+    public function RollForEscapeAction(){
+        $dice = new Dice();
+        json_encode($dice->roll());
+    }
+
+    /**
+     * Start a new game
+     * @url /StartGame
+     * @author Fabian Müller
+     * @return void
+     * @throws \Exception
+     */
+    public function StartNewGame(){
+        $gameService = new GameService();
+        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+        $this->em->flush();
+    }
 }

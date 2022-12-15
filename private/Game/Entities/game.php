@@ -5,7 +5,7 @@ namespace GameOfThronesMonopoly\Game\Entities;
 use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
 
 /**
- * Entity of the user
+ * Entity of the game
  * @primaryKey id
  * @Repository
  */
