@@ -318,14 +318,138 @@ left: 13.2%;
   background-color: blue;
   left: 78.8%;
 }
+body{
+  font-family: 'Merienda', cursive;
+}
+
+/*CSS Spielkarte*/
+.single-card { 
+    border: 1px solid black;
+    font-family: 'Merienda', cursive;
+    font-size:13px;
+    width:200px;
+    height:300px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    zoom:50%;
+}
+.single-card .street-name { 
+    font-size:17px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.street-color { 
+    background-color: red;
+    height:50px;
+}
+.row-street-properties { 
+    height:83%;
+}
+.row-width { 
+    width:200px;
+}
+.kauf-bereich { 
+    border-top:1px solid black;
+}
+.kosten-bereich { 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left:5px;
+}
+.kauf-bereich { 
+    padding-top:20px;
+    padding-left:5px;
+}
+.line-height { 
+    padding-top:2px;
+    padding-bottom:2px;
+}
+/*CSS Spielkarte Ende*/
+.spieleranzeige {
+  margin-bottom:30px;
+}
+
+.margin-buttons{
+    margin-right: 0;
+    margin-left: auto;
+}
+.spieler-strassen-anzeige { 
+  margin-left:10px;
+}
+.strassen-bereich { 
+  background-color:green;
+  width:30px;
+}
+
+
+
+.card-1,
+.card-2,
+.card-3,
+.card-4,
+.card-5,
+.card-6,
+.card-7,
+.card-8,
+.card-9,
+.card-21,
+.card-22,
+.card-23,
+.card-24,
+.card-25,
+.card-26,
+.card-27,
+.card-28,
+.card-29,
+.card-11,
+.card-12,
+.card-13,
+.card-14,
+.card-15,
+.card-16,
+.card-17,
+.card-18,
+.card-19,
+.card-31,
+.card-32,
+.card-33,
+.card-34,
+.card-35,
+.card-36,
+.card-37,
+.card-38,
+.card-39 { 
+  display: flex;
+}
+
+.spieler-bereich-1, .strassen-bereich-1 { 
+  z-index:999;
+  height:100%;
+}
+.spieler-bereich-1 { 
+  width: 75%;
+  background-color:yellow;
+}
+.strassen-bereich-1 { 
+  width:25%;
+  background-color:green;
+}
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
 <div class="container text-center content">
   <div class="row row-besides">
+
+
+    <!-- Spielfeld -->
+
     <div class="col relative-positioning">
-        <div class="card-0"></div>
-        <div class="card-1"></div>
+        <div class="card-0" id="card-0"></div>
+        <div class="card-1">
+          <div class="spieler-bereich-1"></div>
+          <div class="strassen-bereich-1"></div>
+        </div>
         <div class="card-2"></div>
         <div class="card-3"></div>
         <div class="card-4"></div>
@@ -364,13 +488,64 @@ left: 13.2%;
         <div class="card-37"></div>
         <div class="card-38"></div>
         <div class="card-39"></div>
-
-
-
-
       <img class="spielfeld" src="{{imgPath}}">
     </div>
-    <div class="col">
+
+    <!-- Spieler und Straßenanzeige -->
+
+    <div class="col spieler-strassen-anzeige">
+      <div class="spieleranzeige">
+        Spieleranzeige
+      </div>
+    <!-- Karteplatzhalter -->
+
+      <div class="container text-center single-card">
+        <div class="row">
+            <div class="col street-color street-name">
+                Testname
+    
+            </div>
+        </div>
+        <div class="row row-street-properties">
+            <div class="col street-properties">
+                <div class="kosten-bereich">
+                    <div class="row row-width">
+                        Miete:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 1 Haus:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 2 Häusern:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 3 Häusern:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 4 Häusern:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 1 Hotel:
+                    </div>
+                </div>
+                <div class="kauf-bereich">
+                    <div class="row line-height">
+                        Kosten für 1 Haus:
+                    </div>
+                    <div class="row line-height">
+                        Kosten für 1 Hotel:
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Karteplatzhalter Ende -->
+
+
+    <!-- Menu-Buttons -->
+
+    </div>
+    <div class="col margin-buttons">
       <div class="row interaktionsbuttons">
         <div class="row">
           <input class="interaktionsbutton" type="button" id="wuerfeln" name ="wuerfeln" value="Würfeln">
