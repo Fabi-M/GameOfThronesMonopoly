@@ -21,7 +21,7 @@ class GameManagerController extends BaseController
 
     /**
      * Ends the current turn
-     * @url /endTurn
+     * @url /EndTurn
      * @author Fabian Müller
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -63,7 +63,7 @@ class GameManagerController extends BaseController
 
     /**
      * Start a new game
-     * @url /startGame
+     * @url /StartGame
      * @author Fabian Müller
      * @return void
      * @throws \Exception

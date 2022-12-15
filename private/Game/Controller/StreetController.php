@@ -10,7 +10,7 @@ class StreetController extends BaseController
 
     /**
      * Buys the selected Street
-     * @url /street/buy
+     * @url /Street/Buy
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -26,7 +26,7 @@ class StreetController extends BaseController
 
     /**
      * Sell the selected Street
-     * @url /street/sell
+     * @url /Street/Sell
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -42,7 +42,7 @@ class StreetController extends BaseController
 
     /**
      * Buy a house on the selected Street
-     * @url /street/house/buy
+     * @url /Street/House/Buy
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -58,7 +58,7 @@ class StreetController extends BaseController
 
     /**
      * Sell a house on the selected Street
-     * @url /street/house/sell
+     * @url /Street/House/Sell
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -74,7 +74,7 @@ class StreetController extends BaseController
 
     /**
      * Buy a hotel on the selected Street
-     * @url /street/hotel/buy
+     * @url /Street/Hotel/Buy
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -90,7 +90,7 @@ class StreetController extends BaseController
 
     /**
      * Sell a hotel on the selected Street
-     * @url /street/house/sell
+     * @url /Street/House/Sell
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -106,7 +106,7 @@ class StreetController extends BaseController
 
     /**
      * Trade the selected Street to another Player
-     * @url /street/trade
+     * @url /Street/Trade
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
