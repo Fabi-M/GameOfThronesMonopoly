@@ -4,6 +4,7 @@ namespace GameOfThronesMonopoly\Game\Controller;
 
 use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Game\Service\GameService;
+use GameOfThronesMonopoly\Game\Service\StreetService;
 
 class StreetController extends BaseController
 {
@@ -20,8 +21,9 @@ class StreetController extends BaseController
     public function BuyStreetAction(){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
+        $streetService = new StreetService($game, $this->em);
+        $streetService->buyStreet();
+        $this->em->flush();
     }
 
     /**

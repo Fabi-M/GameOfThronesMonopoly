@@ -17,9 +17,7 @@ class GameService
      */
     public function getGameBySessionId($em, $sessionId): ?\GameOfThronesMonopoly\Game\Model\Game
     {
-        $game = GameFactory::filterOne($em, array(
-            'WHERE' => array('sessionId', 'equal', $sessionId)
-        ));
+        $game = GameFactory::filterOne($em, array(array('sessionId', 'equal', $sessionId)));
         if(!isset($game)){
             $game = $this->createGame($em, $sessionId);
         }
