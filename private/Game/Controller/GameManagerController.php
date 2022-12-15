@@ -40,10 +40,23 @@ class GameManagerController extends BaseController
     }
 
     /**
-     * @url /roll
+     * Rolls the Dice for Moving
+     * @url /Roll/Move
+     * @author Christian Teubner
      * @return void
      */
-    public function RollAction(){
+    public function RollForMoveAction(){
+        $dice = new Dice();
+        json_encode($dice->roll());
+    }
+
+    /**
+     * Rolls the Dice for Escaping
+     * @url /Roll/Escape
+     * @author Christian Teubner
+     * @return void
+     */
+    public function RollForEscapeAction(){
         $dice = new Dice();
         json_encode($dice->roll());
     }
