@@ -6,9 +6,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 
 .interaktionsbuttons {
-    display: flex;
-    justify-content: space-around;
+   margin-left: 10px;
+   height:94%;
 }
+.interaktionsbuttons-margin { 
+  margin-left: 10px;
+}
+
 .content {
     height: 98vh;
     display: flex;
@@ -17,6 +21,7 @@
     justify-content: space-between;
 }
 .interaktionsbutton { 
+  margin-bottom:10px !important;
   width:13em;
   height: 3em;
   font-size: 18px; 
@@ -55,38 +60,347 @@
 .interaktionsbutton:focus {
   box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
 }
+.spielfeld { 
+  height:98vh;
+}
 
 @media (max-width: 420px) {
   .interaktionsbutton {
     height: 48px;
   }
 }
+.row-besides{ 
+  display:flex;
+  justify-content: space-between;
+}
+.relative-positioning {
+  position: relative;
+}
+.absolute-grid { 
+  position:absolute;
+}
+.card-0 { 
+  background-color: red;
+    width: 13.1%;
+    height: 13.1%;
+    position: absolute;
+    top: 86.5%;
+}
+.card-10 { 
+  background-color: red;
+    width: 13.1%;
+    height: 13.1%;
+    position: absolute;
+}
+.card-20 { 
+  background-color: red;
+    width: 13.1%;
+    height: 13.1%;
+    position: absolute;
+    left: 87.0%;
+}
+.card-30{ 
+  background-color: red;
+    width: 13.1%;
+    height: 13.1%;
+    position: absolute;
+    left: 87.0%;
+    top: 86.5%;
+}
+.card-1,
+.card-2,
+.card-3,
+.card-4,
+.card-5,
+.card-6,
+.card-7,
+.card-8,
+.card-9,
+.card-21,
+.card-22,
+.card-23,
+.card-24,
+.card-25,
+.card-26,
+.card-27,
+.card-28,
+.card-29 { 
+    width: 13.1%;
+    height: 8.15%;
+    position: absolute;
+}
+.card-9 { 
+  background-color: blue;
+  top: 13.15%;
+}
+.card-8 { 
+  background-color: red;
+  top: 21.3%;
+}
+.card-7 { 
+  background-color: blue;
+  top: 29.45%;
+}
+.card-6 { 
+  background-color: red;
+  top: 37.6%;
+}
+.card-5 { 
+  background-color: blue;
+  top: 45.75%;
+}
+.card-4 { 
+  background-color: red;
+  top: 53.9%;
+}
+.card-3 { 
+  background-color: blue;
+  top: 62.05%;
+}
+.card-2 { 
+  background-color: red;
+  top: 70.2%;
+}
+.card-1 { 
+  background-color: blue;
+  top: 78.35%;
+}
+.card-11,
+.card-12,
+.card-13,
+.card-14,
+.card-15,
+.card-16,
+.card-17,
+.card-18,
+.card-19,
+.card-31,
+.card-32,
+.card-33,
+.card-34,
+.card-35,
+.card-36,
+.card-37,
+.card-38,
+.card-39 { 
+  height: 13.1%;
+  width: 8.2%;
+  position: absolute;
+}
+.card-11 { 
+  background-color: blue;
+left: 13.2%;
+}
+.card-12 { 
+  background-color: red;
+  left: 21.4%;
+}
+.card-13 { 
+  background-color: blue;
+  left: 29.6%;
+}
+.card-14 { 
+  background-color: red;
+  left: 37.8%;
+}
+.card-15 { 
+  background-color: blue;
+  left: 46.0%;
+}
+.card-16 { 
+  background-color: red;
+  left: 54.2%;
+}
+.card-17 { 
+  background-color: blue;
+  left: 62.4%;
+}
+.card-18 { 
+  background-color: red;
+  left: 70.6%;
+}
+.card-19 { 
+  background-color: blue;
+  left: 78.8%;
+}
+.card-21,
+.card-22,
+.card-23,
+.card-24,
+.card-25,
+.card-26,
+.card-27,
+.card-28,
+.card-29 {
+  left: 87.0%;;
+}
+.card-21 { 
+  background-color: blue;
+  top: 13.15%;
+}
+.card-22 { 
+  background-color: red;
+  top: 21.3%;
+}
+.card-23 { 
+  background-color: blue;
+  top: 29.45%;
+}
+.card-24 { 
+  background-color: red;
+  top: 37.6%;
+}
+.card-25 { 
+  background-color: blue;
+  top: 45.75%;
+}
+.card-26 { 
+  background-color: red;
+  top: 53.9%;
+}
+.card-27 { 
+  background-color: blue;
+  top: 62.05%;
+}
+.card-28 { 
+  background-color: red;
+  top: 70.2%;
+}
+.card-29 { 
+  background-color: blue;
+  top: 78.35%;
+}
+.card-31,
+.card-32,
+.card-33,
+.card-34,
+.card-35,
+.card-36,
+.card-37,
+.card-38,
+.card-39 {
+  top: 86.5%;
+}
+
+.card-31 { 
+  background-color: blue;
+left: 13.2%;
+}
+.card-32 { 
+  background-color: red;
+  left: 21.4%;
+}
+.card-33 { 
+  background-color: blue;
+  left: 29.6%;
+}
+.card-34 { 
+  background-color: red;
+  left: 37.8%;
+}
+.card-35 { 
+  background-color: blue;
+  left: 46.0%;
+}
+.card-36 { 
+  background-color: red;
+  left: 54.2%;
+}
+.card-37 { 
+  background-color: blue;
+  left: 62.4%;
+}
+.card-38 { 
+  background-color: red;
+  left: 70.6%;
+}
+.card-39 { 
+  background-color: blue;
+  left: 78.8%;
+}
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
 <div class="container text-center content">
-  <div class="row">
+  <div class="row row-besides">
+    <div class="col relative-positioning">
+        <div class="card-0"></div>
+        <div class="card-1"></div>
+        <div class="card-2"></div>
+        <div class="card-3"></div>
+        <div class="card-4"></div>
+        <div class="card-5"></div>
+        <div class="card-6"></div>
+        <div class="card-7"></div>
+        <div class="card-8"></div>
+        <div class="card-9"></div>
+        <div class="card-10"></div>
+        <div class="card-11"></div>
+        <div class="card-12"></div>
+        <div class="card-13"></div>
+        <div class="card-14"></div>
+        <div class="card-15"></div>
+        <div class="card-16"></div>
+        <div class="card-17"></div>
+        <div class="card-18"></div>
+        <div class="card-19"></div>
+        <div class="card-20"></div>
+        <div class="card-21"></div>
+        <div class="card-22"></div>
+        <div class="card-23"></div>
+        <div class="card-24"></div>
+        <div class="card-25"></div>
+        <div class="card-26"></div>
+        <div class="card-27"></div>
+        <div class="card-28"></div>
+        <div class="card-29"></div>
+        <div class="card-30"></div>
+        <div class="card-31"></div>
+        <div class="card-32"></div>
+        <div class="card-33"></div>
+        <div class="card-34"></div>
+        <div class="card-35"></div>
+        <div class="card-36"></div>
+        <div class="card-37"></div>
+        <div class="card-38"></div>
+        <div class="card-39"></div>
+
+
+
+
+      <img class="spielfeld" src="{{imgPath}}">
+    </div>
     <div class="col">
-      <img src="{{imgPath}}">
+      <div class="row interaktionsbuttons">
+        <div class="row">
+          <input class="interaktionsbutton" type="button" id="wuerfeln" name ="wuerfeln" value="Würfeln">
+        </div>
+        <div class="row">
+          <input class="interaktionsbutton" type="button" id="verkaufen" name ="verkaufen" value="Straße verkaufen">
+        </div>
+        <div class="row">
+          <input class="interaktionsbutton" type="button" id="haus_kaufen" name ="haus_kaufen" value="Haus kaufen">
+        </div>
+        <div class="row">
+          <input class="interaktionsbutton" type="button" id="hotel_kaufen" name ="hotel_kaufen" value="Hotel kaufen">
+        </div>
+        <div class="row">
+          <input class="interaktionsbutton" type="button" id="handelsmenue_oeffnen" name ="handelsmenue_oeffnen" value="Handelsmenü öffnen">
+        </div>
+      </div>
+      <div class="row next-player-button interaktionsbuttons-margin">
+        <input class="interaktionsbutton" type="button" id="next_player" name ="next_player" value="nächster Spieler">
+      </div>
     </div>
   </div>
-  <div class="row interaktionsbuttons">
-    <div class="col">
-      <input class="interaktionsbutton" type="button" name ="verkaufen" value="verkaufen">
-    </div>
-    <div class="col">
-      <input class="interaktionsbutton" type="button" name ="haus_kaufen" value="Haus kaufen">
-    </div>
-    <div class="col">
-      <input class="interaktionsbutton" type="button" name ="hotel_kaufen" value="Hotel kaufen">
-    </div>
-    <div class="col">
-      <input class="interaktionsbutton" type="button" name ="haus_kaufen" value="Handelsmenü öffnen">
-    </div>
-    <div class="col">
-      <input class="interaktionsbutton" type="button" name ="next_player" value="nächster Spieler">
-    </div>
-  </div>
+  
 </div>
+
+
+
+
+
+
+
 
 {% endblock %}
