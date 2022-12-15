@@ -1,0 +1,92 @@
+{% extends 'Core/Views/Base.html.twig' %}
+
+{% block site %}
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+
+.interaktionsbuttons {
+    display: flex;
+    justify-content: space-around;
+}
+.content {
+    height: 98vh;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.interaktionsbutton { 
+  width:13em;
+  height: 3em;
+  font-size: 18px; 
+  font-family: 'Merienda', cursive;
+  align-items: center;
+  background-color: initial;
+  background-image: linear-gradient(#464d55, #25292e);
+  border-radius: 8px;
+  border-width: 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .1),0 3px 6px rgba(0, 0, 0, .05);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  height: 52px;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 32px;
+  transition: all 150ms;
+}
+
+
+.interaktionsbutton:hover {
+  box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
+  opacity: .85;
+}
+
+.interaktionsbutton:active {
+  outline: 0;
+}
+
+.interaktionsbutton:focus {
+  box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
+}
+
+@media (max-width: 420px) {
+  .interaktionsbutton {
+    height: 48px;
+  }
+}
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+<div class="container text-center content">
+  <div class="row">
+    <div class="col">
+      <img src="{{imgPath}}">
+    </div>
+  </div>
+  <div class="row interaktionsbuttons">
+    <div class="col">
+      <input class="interaktionsbutton" type="button" name ="verkaufen" value="verkaufen">
+    </div>
+    <div class="col">
+      <input class="interaktionsbutton" type="button" name ="haus_kaufen" value="Haus kaufen">
+    </div>
+    <div class="col">
+      <input class="interaktionsbutton" type="button" name ="hotel_kaufen" value="Hotel kaufen">
+    </div>
+    <div class="col">
+      <input class="interaktionsbutton" type="button" name ="haus_kaufen" value="Handelsmenü öffnen">
+    </div>
+    <div class="col">
+      <input class="interaktionsbutton" type="button" name ="next_player" value="nächster Spieler">
+    </div>
+  </div>
+</div>
+
+{% endblock %}

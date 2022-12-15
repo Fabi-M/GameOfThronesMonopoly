@@ -10,4 +10,3 @@ RewriteCond %{REQUEST_URI} !/git [NC]
 RewriteRule ^(.*[^/]) /GameOfThronesMonopoly/public/index.php?url=$1 [L,QSA]
 
 
-

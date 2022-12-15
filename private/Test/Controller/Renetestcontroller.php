@@ -7,9 +7,10 @@ use GameOfThronesMonopoly\Core\Controller\BaseController;
 class Renetestcontroller extends BaseController
 {
     public function TestAction(){
-        var_dump($this->sessionId);
-        echo $this->twig->render("Core/Views/Base.html.twig",
+
+        echo $this->twig->render("Game/Views/Game.html.twig",
             [
+                'imgPath'=>self::IMG_PATH.'Playfield.jpg'
             ]);
     }
 }

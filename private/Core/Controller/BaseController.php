@@ -20,10 +20,14 @@ class BaseController
     /** @var EntityManager */
     protected $em;
 
+    protected StyleSheetCollector $styleSheetCollector;
+
     /** @var PDO */
     protected $pdo;
 
     protected $sessionId;
+
+    protected const IMG_PATH = 'http://hosting175021.ae88e.netcup.net/img/';
 
     /**
      * @var Environment
@@ -98,6 +102,7 @@ class BaseController
         }
         $this->styleSheetCollector = $styleSheetCollector;
         $this->twig->addGlobal('STYLESHEETCOLLECTOR', $this->styleSheetCollector);
+        
     }
 
 
