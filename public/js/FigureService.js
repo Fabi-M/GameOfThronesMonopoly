@@ -33,13 +33,8 @@ class FigureService {
     setFigures() {
         // alle figures unter ihrer id als instanz von figure mit $() enthalten in einer liste speichern
         let $allFigures = $('.playerFigure');
-        $.each(typeOptions, key => {
-            let typeOption = typeOptions[key]; // array of type option, containing 'name' and 'identifier'
-            let optionId = typeOption['identifier'] + 'Option'; // build id of new option
-
-            $('<option>').val(typeOption['identifier']).text(typeOption['name']).attr({ // create new option // add value // add text // add id
-                id: optionId
-            }).appendTo('#typeSelect'); // append created option to #typeSelect
+        $.each($allFigures, key => {
+            console.log(key);
         });
     }
 }
