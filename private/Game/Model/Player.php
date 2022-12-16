@@ -6,7 +6,7 @@ use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 
 class Player
 {
-    private $playerEntity;
+    private \GameOfThronesMonopoly\Game\Entities\player $playerEntity;
 
     /**
      * @return \GameOfThronesMonopoly\Game\Entities\player
@@ -41,5 +41,19 @@ class Player
         $playerEntity->setPosition(0);
         $playerEntity->setMoney(1500);
         $em->persist($playerEntity);
+    }
+
+    public function buyStreet(){
+        if(!$this->hasFunds($this->playerEntity->getPosition())) return;
+        
+    }
+    public function hasFunds($street){
+        return $street->getStreetEntity()->getStreetCosts() <= $this->playerEntity->getMoney();
+    }
+
+    public function payMoney(EntityManager $em, $amount){
+        $cash = $this->playerEntity->getMoney()-$amount;
+        $this->playerEntity->setMoney($cash);
+        $em->persist($this->playerEntity);
     }
 }

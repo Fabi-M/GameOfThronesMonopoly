@@ -5,6 +5,7 @@ namespace GameOfThronesMonopoly\Game\Service;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerXFieldFactory;
+use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Model\Game;
 use GameOfThronesMonopoly\Game\Model\Player;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
@@ -33,7 +34,8 @@ class StreetService
     public function checkIfBuyable()
     {
         $playerXStreet = PlayerXFieldFactory::filterOne($this->em, array(
-                array('playerId', 'equal', $this->player->getPlayerEntity()->getId())
+                array('playerId', 'equal', $this->player->getPlayerEntity()->getId()),
+                array('fieldId', 'equal', $this->player->getPlayerEntity()->getPosition())
             )
         );
         return !$playerXStreet;
@@ -52,9 +54,20 @@ class StreetService
                 array('ingameId', 'equal', $this->game->getGameEntity()->getActivePlayerId())
             )
         );
+        //$this->player->getPlayerEntity()->setPosition(24);
         if(!$this->checkIfBuyable()) return;
+        if(!$this->hasFunds($this->player->getPlayerEntity()->getPosition())) return;
         $playerXField = new PlayerXField();
         $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
+    }
+
+    public function hasFunds($streetId){
+        $street = StreetFactory::filterOne($this->em, array(
+            array('playfieldId', 'equal', $streetId)
+        ));
+        $this->player->payMoney($this->em, $street->getStreetEntity()->getStreetCosts());
+        if($street->getStreetEntity()->getStreetCosts() <= $this->player->getPlayerEntity()->getMoney()) return true;
+        return false;
     }
 
     public function sellStreet(){

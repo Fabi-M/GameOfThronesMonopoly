@@ -2,63 +2,70 @@
 
 namespace GameOfThronesMonopoly\Game\Entities;
 
-class street
+use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
+
+/**
+ * Entity of the street
+ * @primaryKey id
+ * @Repository
+ */
+class street extends BaseEntity
 {
-    protected int $id;
-    protected string $name;
-    protected int $price;
+    protected $id;
+    protected $name;
+    protected $streetCosts;
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param mixed $id
      * @return street
      */
-    public function setId(int $id): street
+    public function setId($id)
     {
         $this->id = $id;
         return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param mixed $name
      * @return street
      */
-    public function setName(string $name): street
+    public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getPrice(): int
+    public function getStreetCosts()
     {
-        return $this->price;
+        return $this->streetCosts;
     }
 
     /**
-     * @param int $price
+     * @param mixed $streetCosts
      * @return street
      */
-    public function setPrice(int $price): street
+    public function setStreetCosts($streetCosts)
     {
-        $this->price = $price;
+        $this->streetCosts = $streetCosts;
         return $this;
     }
 

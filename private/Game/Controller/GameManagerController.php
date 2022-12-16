@@ -33,10 +33,6 @@ class GameManagerController extends BaseController
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $game->EndTurn($this->em);
         $this->em->flush();
-
-        echo $this->twig->render("Core/Views/Base.html.twig",
-            [
-            ]);
     }
 
     /**
