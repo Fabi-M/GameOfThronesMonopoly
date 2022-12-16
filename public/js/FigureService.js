@@ -4,23 +4,33 @@
  **/
 class FigureService {
 
-    #playerFigures= null;
+    #playerFigures = null;
 
-    static instance = null;
+    static #instance = null;
 
     constructor() {
-        if(FigureService.instance == null){
+        if (FigureService.instance == null) {
             console.log("singleton");
             FigureService.instance = this;
             this.setFigures();
-        }else{
+        } else {
             console.log("nope");
             delete this;
         }
         console.log('FigureService');
     }
 
-    moveFigure(playerId, playFieldId){
+    static getInstance() {
+        if (FigureService.#instance == null) {
+            FigureService.#instance = new FigureService();
+        }
+        return FigureService.#instance;
+    }
+
+    moveFigure(playerId, playFieldId) {
+        console.log('moveFigure')
+        console.log(playerId)
+        console.log(playFieldId)
         let $figure = this.getFigure(playerId);
 
     }
@@ -31,6 +41,7 @@ class FigureService {
     }
 
     setFigures() {
+        console.log('set figures')
         // alle figures unter ihrer id als instanz von figure mit $() enthalten in einer liste speichern
         let $allFigures = $('.playerFigure');
         $.each($allFigures, key => {

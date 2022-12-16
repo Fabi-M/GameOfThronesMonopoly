@@ -1,7 +1,7 @@
 class Dice {
     constructor() {
         let events = new Events();
-        events.addEvent('click', $('#wuerfeln'), this.throwDices, {"this" : this});
+        events.addEvent('click', $('#wuerfeln'), this.throwDices, {"this": this});
     }
 
     /**
@@ -14,13 +14,16 @@ class Dice {
         //TODO 15.12.2022 Selina: Alle buttons die wie Dice interagieren sollen brauchen die Klasse "dice"
         let action = $('.dice').attr('data-action');
         let url = BASEPATH + '/Roll/' + action;
-        if(action == 'Move'){
-
-            let request = new Ajax(url, false, that.displayPopup, data);
-        }else if(action == 'Prison') {
+        let request = null;
+        if (action == 'Move') {
+            let figureService = FigureService.getInstance();
+            console.log(figureService)
+            let request = new Ajax(url, false, figureService.moveFigure, data);
+        } else if (action == 'Prison') {
             let request = new Ajax(url, false, that.displayPopup, data);
         }
-        request.execute();
+        console.log(action);
+        request?.execute();
     }
 
     /**
