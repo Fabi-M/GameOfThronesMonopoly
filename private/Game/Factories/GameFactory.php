@@ -5,10 +5,6 @@ namespace GameOfThronesMonopoly\Game\Factories;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Model\Game;
 
-/**
- * Class UserFactory
- * Builds models of the user and returns them
- */
 class GameFactory
 {
     const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:Game';

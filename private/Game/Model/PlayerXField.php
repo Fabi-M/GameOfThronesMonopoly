@@ -25,6 +25,14 @@ class PlayerXField
         return $this->playerXFieldEntity;
     }
 
+    /**
+     * Create a new playerXField Entity
+     * @author Fabian Müller
+     * @param $em
+     * @param $playerId
+     * @param $fieldId
+     * @return void
+     */
     public function create($em, $playerId, $fieldId){
         $this->playerXFieldEntity = new player_x_field();
         $this->playerXFieldEntity->setBuildings(0);

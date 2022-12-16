@@ -26,6 +26,8 @@ class StreetService
     }
 
     /**
+     * Check if the street is buyable
+     * @author Fabian Müller
      * @return bool
      */
     public function checkIfBuyable()
@@ -37,6 +39,12 @@ class StreetService
         return !$playerXStreet;
     }
 
+    /**
+     * Buy the street that the player is currently standing on
+     * @author Fabian Müller
+     * @return void
+     */
+    // todo Money check
     public function buyStreet()
     {
         $this->player = PlayerFactory::filterOne($this->em, array(

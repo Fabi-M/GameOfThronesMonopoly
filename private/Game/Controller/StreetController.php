@@ -12,7 +12,7 @@ class StreetController extends BaseController
     /**
      * Buys the selected Street
      * @url /street/buy
-     * @author Christian Teubner
+     * @author Fabian Müller
      * @return void
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError

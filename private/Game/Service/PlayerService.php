@@ -8,7 +8,7 @@ use GameOfThronesMonopoly\Game\Entities\player;
 class PlayerService
 {
     /**
-     *
+     * Create all players for the new game
      * @author Fabian Müller
      * @param $em
      * @param $sessionId
