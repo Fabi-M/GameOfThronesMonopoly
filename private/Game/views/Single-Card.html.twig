@@ -7,12 +7,45 @@
 
 .single-card { 
     border: 1px solid black;
+    font-family: 'Merienda', cursive;
+    font-size:13px;
     width:200px;
     height:300px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;}
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+.single-card .street-name { 
+    font-size:17px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+}
 .street-color { 
     background-color: red;
     height:50px;
+}
+.row-street-properties { 
+    height:83%;
+}
+.row-width { 
+    width:200px;
+}
+.kauf-bereich { 
+    border-top:1px solid black;
+}
+.kosten-bereich { 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left:5px;
+}
+.kauf-bereich { 
+    padding-top:20px;
+    padding-left:5px;
+}
+.line-height { 
+    padding-top:2px;
+    padding-bottom:2px;
 }
 
 </style>
@@ -24,9 +57,36 @@
 
         </div>
     </div>
-    <div class="row">
+    <div class="row row-street-properties">
         <div class="col street-properties">
-            
+            <div class="kosten-bereich">
+                <div class="row row-width">
+                    Miete:
+                </div>
+                <div class="row line-height">
+                    Miete mit 1 Haus:
+                </div>
+                <div class="row line-height">
+                    Miete mit 2 Häusern:
+                </div>
+                <div class="row line-height">
+                    Miete mit 3 Häusern:
+                </div>
+                <div class="row line-height">
+                    Miete mit 4 Häusern:
+                </div>
+                <div class="row line-height">
+                    Miete mit 1 Hotel:
+                </div>
+            </div>
+            <div class="kauf-bereich">
+                <div class="row line-height">
+                    Kosten für 1 Haus:
+                </div>
+                <div class="row line-height">
+                    Kosten für 1 Hotel:
+                </div>
+            </div>
         </div>
     </div>
 </div>
