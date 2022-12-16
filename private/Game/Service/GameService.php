@@ -33,6 +33,7 @@ class GameService
      */
     public function createGame($em, $sessionId): \GameOfThronesMonopoly\Game\Model\Game
     {
+        // in game model auslagern ---
         $game = new \GameOfThronesMonopoly\Game\Model\Game(new game());
         $gameEntity = $game->getGameEntity();
         $gameEntity->setActivePlayerId(1);
@@ -40,6 +41,7 @@ class GameService
         $gameEntity->setSessionId($sessionId);
         $em->persist($gameEntity);
         $em->flush();
+        // ---
         $playerService = new PlayerService();
         $playerService->createAllPlayers($em, $sessionId, $gameEntity->getId(), $gameEntity->getMaxActivePlayers());
         return $game;

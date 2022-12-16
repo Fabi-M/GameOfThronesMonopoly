@@ -52,6 +52,7 @@ class StreetService
                 array('ingameId', 'equal', $this->game->getGameEntity()->getActivePlayerId())
             )
         );
+        // eventuell bool returnen
         if(!$this->checkIfBuyable()) return;
         $playerXField = new PlayerXField();
         $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
