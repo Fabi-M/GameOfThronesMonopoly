@@ -31,9 +31,12 @@ class GameManagerController extends BaseController
     public function EndTurnAction(){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $game->EndTurn($this->em);
+        $game->endTurn($this->em);
         $this->em->flush();
 
+        //TODO 16.12.2022 Selina: Hier SpielerId zurückgeben, damit im PopUp
+        // gezeigt werden kann wer als nächstes dran ist
+        // echo next player
         echo $this->twig->render("Core/Views/Base.html.twig",
             [
             ]);
@@ -72,5 +75,7 @@ class GameManagerController extends BaseController
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $this->em->flush();
+
+        //TODO 16.12.2022 Selina: Spielstand returnen, damit HTML CSS was anzeigen kann
     }
 }

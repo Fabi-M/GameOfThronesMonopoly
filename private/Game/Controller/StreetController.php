@@ -4,14 +4,15 @@ namespace GameOfThronesMonopoly\Game\Controller;
 
 use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Game\Service\GameService;
+use GameOfThronesMonopoly\Game\Service\StreetService;
 
 class StreetController extends BaseController
 {
 
     /**
      * Buys the selected Street
-     * @url /Street/Buy
-     * @author Christian Teubner
+     * @url /street/buy
+     * @author Fabian Müller
      * @return void
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -20,13 +21,14 @@ class StreetController extends BaseController
     public function BuyStreetAction(){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
+        $streetService = new StreetService($game, $this->em);
+        $streetService->buyStreet();
+        $this->em->flush();
     }
 
     /**
      * Sell the selected Street
-     * @url /Street/Sell
+     * @url /street/sell
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -42,7 +44,7 @@ class StreetController extends BaseController
 
     /**
      * Buy a house on the selected Street
-     * @url /Street/House/Buy
+     * @url /street/house/buy
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -58,7 +60,7 @@ class StreetController extends BaseController
 
     /**
      * Sell a house on the selected Street
-     * @url /Street/House/Sell
+     * @url /street/house/sell
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -74,7 +76,7 @@ class StreetController extends BaseController
 
     /**
      * Buy a hotel on the selected Street
-     * @url /Street/Hotel/Buy
+     * @url /street/hotel/buy
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -90,7 +92,7 @@ class StreetController extends BaseController
 
     /**
      * Sell a hotel on the selected Street
-     * @url /Street/House/Sell
+     * @url /street/house/sell
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
@@ -106,7 +108,7 @@ class StreetController extends BaseController
 
     /**
      * Trade the selected Street to another Player
-     * @url /Street/Trade
+     * @url /street/trade
      * @author Christian Teubner
      * @return void
      * @throws \Twig\Error\LoaderError
