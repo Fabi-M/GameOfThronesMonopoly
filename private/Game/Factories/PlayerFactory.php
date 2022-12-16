@@ -4,16 +4,17 @@ namespace GameOfThronesMonopoly\Game\Factories;
 
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Model\Game;
+use GameOfThronesMonopoly\Game\Model\Player;
 
-class GameFactory
+class PlayerFactory
 {
-    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:Game';
+    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:player';
 
     /**
      * @param EntityManager $em
      * @param array $filter
      */
-    public static function filterOne(EntityManager $em, array $filter): Game | null
+    public static function filterOne(EntityManager $em, array $filter): Player | null
     {
         $entity = $em->getRepository(self::GAME_NAMESPACE)->findOneBy(
             array(
@@ -24,7 +25,7 @@ class GameFactory
         if (empty($entity)) {
             return null;
         }
-        return new Game($entity);
+        return new Player($entity);
     }
 
 }
