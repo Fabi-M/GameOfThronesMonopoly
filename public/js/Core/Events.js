@@ -13,12 +13,14 @@ class Events {
      * @param dataForCallback // data that will be send to callback function
      */
     addEvent(specificEvent, $target, callback, dataForCallback = null) {
+        console.log('set event');
         $target.on(specificEvent, event => {
             callback(event, dataForCallback); // send the event and optional dataForCallback along
         });
     }
 
     addDynamicEvent(specificEvent, childSelector, callback, dataForCallback = null){
+        console.log('add dynamic');
         $(document).on(specificEvent, childSelector, event => {
             callback(event, dataForCallback);
         })

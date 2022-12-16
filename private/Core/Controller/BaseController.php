@@ -41,6 +41,7 @@ class BaseController
     /** @var string[] */
     private $baseCSSFiles = array(
     );
+    protected ScriptCollector $scriptCollector;
 
     /**
      * Constructor
@@ -56,7 +57,6 @@ class BaseController
         $this->em = new EntityManager($pdo);
         $this->pdo = $pdo;
         $loader = new FilesystemLoader('../private/');
-        $this->twig = new Environment($loader, ['cache' => false]);
 
         $this->addTwig();
 

@@ -1,13 +1,16 @@
 class Dice {
     constructor() {
+        console.log("Consturct");
+        console.log($('.dice'));
         let events = new Events();
-        events.addEvent('click', $('.dice'), this.throwDices); //Placeholder must be changed later
+        events.addEvent('click', $('.dice'), this.throwDices);
     }
 
     /**
-     * @author Selina Stöcklein
+     * @author Selina Stöcklein & Christian Teubner
      */
     throwDices(event, data) {
+        console.log("Here");
         let that = data['this'];
         //TODO 15.12.2022 Selina: soll je nach action Move oder Prison an URL anhängen "data-action='Move'"
         //TODO 15.12.2022 Selina: Alle buttons die wie Dice interagieren sollen brauchen die Klasse "dice"
@@ -18,7 +21,7 @@ class Dice {
     }
 
     /**
-     * @author Selina Stöcklein
+     * @author Selina Stöcklein & Christian Teubner
      * @param result
      */
     displayPopup(result) {
