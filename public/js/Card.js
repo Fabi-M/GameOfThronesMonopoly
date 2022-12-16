@@ -4,7 +4,6 @@ class Card {
         //TODO 15.12.2022 Selina: placeholder austauschen
         events.addEvent('click', $('#BUYCARDPLACEHOLDER'), this.buyCard, {'this':this}); //Placeholder must be changed later
         events.addEvent('click', $('#VIEWCARDPLACEHOLDER'), this.viewCard,{'this':this}); //Placeholder must be changed later
-        events.addEvent('click', $('#TRADECARDPLACEHOLDER'), this.tradeCard,{'this':this}); //Placeholder must be changed later
         events.addEvent('click', $('#MORTGAGECARDPLACEHOLDER'), this.mortgageCard,{'this':this}); //Placeholder must be changed later
     }
 
