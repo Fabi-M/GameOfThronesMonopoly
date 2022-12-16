@@ -1,9 +1,7 @@
 class Dice {
     constructor() {
-        console.log("Consturct");
-        console.log($('.dice'));
         let events = new Events();
-        events.addEvent('click', $('.dice'), this.throwDices);
+        events.addEvent('click', $('#wuerfeln'), this.throwDices, {"this" : this});
     }
 
     /**
