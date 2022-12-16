@@ -12,8 +12,13 @@ class Dice {
         //TODO 15.12.2022 Selina: soll je nach action Move oder Prison an URL anhängen "data-action='Move'"
         //TODO 15.12.2022 Selina: Alle buttons die wie Dice interagieren sollen brauchen die Klasse "dice"
         let action = $('.dice').attr('data-action');
-        let url = BASEPATH + '/Roll/' + action; // post playfield_id
-        let request = new Ajax(url, {'playfield_id': that}, that.displayPopup, data);
+        let url = BASEPATH + '/Roll/' + action;
+        if(action == 'Move'){
+
+            let request = new Ajax(url, false, that.displayPopup, data);
+        }else if(action == 'Prison') {
+            let request = new Ajax(url, false, that.displayPopup, data);
+        }
         request.execute();
     }
 
