@@ -8,7 +8,6 @@ class Dice {
      * @author Selina Stöcklein & Christian Teubner
      */
     throwDices(event, data) {
-        console.log("Here");
         let that = data['this'];
         //TODO 15.12.2022 Selina: soll je nach action Move oder Prison an URL anhängen "data-action='Move'"
         //TODO 15.12.2022 Selina: Alle buttons die wie Dice interagieren sollen brauchen die Klasse "dice"
@@ -23,9 +22,7 @@ class Dice {
      * @param result
      */
     displayPopup(result) {
-        // result == '' wenn der spieler nur läuft brauchen wir kein popup
-        if (result != "") {
-            // PopUp anzeigen mit msg! Z.B. "Du kommst aus dem Gefängnis frei!"
-        }
+        var resultObj = JSON.parse(result);
+        alert("Deine gewürfelte Zahlen: \n" + resultObj[0] + " und " + resultObj[1]);
     }
 }

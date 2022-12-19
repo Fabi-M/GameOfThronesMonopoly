@@ -40,4 +40,8 @@ class PlayerXField
         $this->playerXFieldEntity->setFieldId($fieldId);
         $em->persist($this->playerXFieldEntity);
     }
+
+    public function delete($em){
+        $em->remove($this->playerXFieldEntity);
+    }
 }
