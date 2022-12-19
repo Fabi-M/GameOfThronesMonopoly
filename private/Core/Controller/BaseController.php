@@ -49,6 +49,7 @@ class BaseController
      */
     public function __construct()
     {
+        header('Access-Control-Allow-Origin: *');
         if(!isset($_SESSION)){
             session_start();
             $this->sessionId = session_id();

@@ -50,7 +50,7 @@ class GameManagerController extends BaseController
      */
     public function RollForMoveAction(){
         $dice = new Dice();
-        json_encode($dice->roll());
+        echo json_encode($dice->roll());
     }
 
     /**
