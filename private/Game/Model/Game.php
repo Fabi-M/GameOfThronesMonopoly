@@ -7,30 +7,32 @@ use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 class Game
 {
 
+
     public const MAX_PLAY_FIELDS = 39; // 0-39
     private \GameOfThronesMonopoly\Game\Entities\Game $gameEntity;
 
+
     /**
-     * @param \GameOfThronesMonopoly\Game\Entities\Game $gameEntity
+     * @param \GameOfThronesMonopoly\Game\Entities\game $gameEntity
      */
-    public function __construct(\GameOfThronesMonopoly\Game\Entities\Game $gameEntity)
+    public function __construct(\GameOfThronesMonopoly\Game\Entities\game $gameEntity)
     {
         $this->gameEntity = $gameEntity;
     }
 
     /**
-     * @return \GameOfThronesMonopoly\Game\Entities\Game
+     * @return \GameOfThronesMonopoly\Game\Entities\game
      */
-    public function getGameEntity(): \GameOfThronesMonopoly\Game\Entities\Game
+    public function getGameEntity(): \GameOfThronesMonopoly\Game\Entities\game
     {
         return $this->gameEntity;
     }
 
     /**
-     * @param \GameOfThronesMonopoly\Game\Entities\Game $gameEntity
+     * @param \GameOfThronesMonopoly\Game\Entities\game $gameEntity
      * @return Game
      */
-    public function setGameEntity(\GameOfThronesMonopoly\Game\Entities\Game $gameEntity): Game
+    public function setGameEntity(\GameOfThronesMonopoly\Game\Entities\game $gameEntity): Game
     {
         $this->gameEntity = $gameEntity;
         return $this;

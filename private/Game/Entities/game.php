@@ -26,7 +26,6 @@ class game extends BaseEntity
 
     /**
      * @param mixed $id
-     * @return game
      */
     public function setId($id)
     {
@@ -44,7 +43,7 @@ class game extends BaseEntity
 
     /**
      * @param mixed $sessionId
-     * @return game
+     * @return
      */
     public function setSessionId($sessionId)
     {
@@ -62,7 +61,7 @@ class game extends BaseEntity
 
     /**
      * @param mixed $activePlayerId
-     * @return game
+     * @return
      */
     public function setActivePlayerId($activePlayerId)
     {
@@ -80,7 +79,7 @@ class game extends BaseEntity
 
     /**
      * @param mixed $maxActivePlayers
-     * @return game
+     * @return
      */
     public function setMaxActivePlayers($maxActivePlayers)
     {

@@ -3,10 +3,22 @@
 namespace GameOfThronesMonopoly\Game\Model;
 
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
+use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 
 class Player
 {
     private $playerEntity;
+    private $em;
+
+    /**
+     * @param mixed $em
+     * @return Player
+     */
+    public function setEm($em)
+    {
+        $this->em = $em;
+        return $this;
+    }
 
     /**
      * @return \GameOfThronesMonopoly\Game\Entities\player
@@ -45,10 +57,10 @@ class Player
     }
 
     /**
-     * @author Selina Stöcklein
      * @param EntityManager $em
      * @param array         $rolled
      * @return void
+     * @author Selina Stöcklein
      */
     public function move(EntityManager $em, array $rolled)
     {
@@ -59,5 +71,55 @@ class Player
         $this->getPlayerEntity()->setPosition($newPosition);
         $em->persist($this->getPlayerEntity());
         return $newPosition;
+    }
+
+    /**
+     * Buy the street that the player is currently on
+     * @param $em
+     * @return bool
+     * @author Fabian Müller
+     */
+    public function buyStreet($em)
+    {
+        $this->em = $em;
+        return $this->checkFunds();
+    }
+
+    /**
+     * Check if the player has enough money to buy the street
+     * @return bool
+     * @author Fabian Müller
+     */
+    public function checkFunds()
+    {
+        $street = StreetFactory::filterOne($this->em, [
+            ['playfieldId', 'equal', $this->playerEntity->getPosition()]
+        ]);
+        if ($street->getStreetEntity()->getStreetCosts() > $this->playerEntity->getMoney()) {
+            return false;
+        };
+        $this->payMoney($street->getStreetEntity()->getStreetCosts());
+        return true;
+    }
+
+    /**
+     * Pay money
+     * @param $amount
+     * @return void
+     * @author Fabian Müller
+     */
+    public function payMoney($amount)
+    {
+        $cash = $this->playerEntity->getMoney() - $amount;
+        $this->playerEntity->setMoney($cash);
+        $this->em->persist($this->playerEntity);
+    }
+
+    public function sellStreet($id)
+    {
+        $street = StreetFactory::filterOne($this->em, [
+            ['playfieldId', 'equal', $id]
+        ]);
+        $this->payMoney(-($street->getStreetEntity()->getStreetCosts() / 2));
     }
 }
