@@ -4,20 +4,17 @@
  **/
 class FigureService {
 
-    #playerFigures = null;
+    #playerFigures = {};
 
     static #instance = null;
 
     constructor() {
         if (FigureService.instance == null) {
-            console.log("singleton");
             FigureService.instance = this;
             this.setFigures();
         } else {
-            console.log("nope");
             delete this;
         }
-        console.log('FigureService');
     }
 
     static getInstance() {
@@ -27,28 +24,45 @@ class FigureService {
         return FigureService.#instance;
     }
 
+    /**
+     * @author Selina Stöcklein
+     */
     moveFigure(result) {
+        console.log(result)
         var resultObj = JSON.parse(result);
-        var playerId=resultObj['activePlayerId'];
-        var playFieldId=resultObj['playFieldId']
-        console.log('moveFigure')
-        console.log(playerId)
-        console.log(playFieldId)
-        let $figure = this.getFigure(playerId);
+        var playerId = resultObj['activePlayerId'];
+        var playFieldId = resultObj['playFieldId'];
+
+        let figure = FigureService.getInstance().getFigure(playerId);
+        console.log(figure)
+        figure.move(playFieldId);
+        alert("Deine gewürfelte Zahlen: \n"
+            + resultObj['dice'][0] + " und "
+            + resultObj['dice'][1]
+            + " Spieler: " + resultObj['activePlayerId']
+            + " Feld: " + resultObj['playFieldId']
+        );
 
     }
 
 
+    /**
+     * @author Selina Stöcklein
+     */
     getFigure(playerId) {
         return this.#playerFigures[playerId];
     }
 
+    /**
+     * @author Selina Stöcklein
+     */
     setFigures() {
-        console.log('set figures')
         // alle figures unter ihrer id als instanz von figure mit $() enthalten in einer liste speichern
         let $allFigures = $('.playerFigure');
+        let playerId = 1;
         $.each($allFigures, key => {
-            console.log(key);
+            this.#playerFigures[playerId] = new Figure($allFigures[key]);
+            playerId++
         });
     }
 }

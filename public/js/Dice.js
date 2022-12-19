@@ -16,10 +16,10 @@ class Dice {
         let request = null;
         if (action === 'Move') {
             let figureService = FigureService.getInstance();
-            console.log(figureService)
-            let request = new Ajax(url, false, figureService.moveFigure, data);
+            console.log(url)
+            request = new Ajax(url, false, figureService.moveFigure, data);
         } else if (action === 'Prison') {
-            let request = new Ajax(url, false, that.displayPopup, data);
+            request = new Ajax(url, false, that.displayPopup, data);
         }
         console.log(action);
         request?.execute();
