@@ -44,9 +44,8 @@ class StreetService
     /**
      * Buy the street that the player is currently standing on
      * @author Fabian Müller
-     * @return void
+     * @return bool
      */
-    // todo Money check
     public function buyStreet()
     {
         $this->player = PlayerFactory::filterOne($this->em, array(
@@ -54,23 +53,29 @@ class StreetService
                 array('ingameId', 'equal', $this->game->getGameEntity()->getActivePlayerId())
             )
         );
-        //$this->player->getPlayerEntity()->setPosition(24);
-        if(!$this->checkIfBuyable()) return;
-        if(!$this->hasFunds($this->player->getPlayerEntity()->getPosition())) return;
+        $this->player->getPlayerEntity()->setPosition(24);
+        if(!$this->checkIfBuyable()) return false;
+        if(!$this->player->buyStreet($this->em)) return false;
         $playerXField = new PlayerXField();
         $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
+        return true;
     }
 
-    public function hasFunds($streetId){
-        $street = StreetFactory::filterOne($this->em, array(
-            array('playfieldId', 'equal', $streetId)
+    public function sellStreet($id){
+        $this->player = PlayerFactory::filterOne($this->em, array(
+                array('sessionId', 'equal', $this->game->getGameEntity()->getSessionId()),
+                array('ingameId', 'equal', $this->game->getGameEntity()->getActivePlayerId())
+            )
+        );
+        $this->player->setEm($this->em);
+        $playerXField = PlayerXFieldFactory::filterOne($this->em, array(
+            array('playerId', 'equal', $this->player->getPlayerEntity()->getId()),
+            array('fieldId', 'equal', $id)
         ));
-        $this->player->payMoney($this->em, $street->getStreetEntity()->getStreetCosts());
-        if($street->getStreetEntity()->getStreetCosts() <= $this->player->getPlayerEntity()->getMoney()) return true;
-        return false;
-    }
-
-    public function sellStreet(){
-
+        if($playerXField == null) return false;
+        if($playerXField->getPlayerXFieldEntity()->getBuildings() > 0) return false;
+        $playerXField->delete($this->em);
+        $this->player->sellStreet($id);
+        return true;
     }
 }

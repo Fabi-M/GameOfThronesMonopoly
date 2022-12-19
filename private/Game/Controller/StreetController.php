@@ -2,6 +2,7 @@
 
 namespace GameOfThronesMonopoly\Game\Controller;
 
+use Exception;
 use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\StreetService;
@@ -12,34 +13,33 @@ class StreetController extends BaseController
     /**
      * Buys the selected Street
      * @url /street/buy
-     * @author Fabian Müller
      * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Exception
+     * @author Fabian Müller
      */
     public function BuyStreetAction(){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $streetService = new StreetService($game, $this->em);
-        $streetService->buyStreet();
+        $success = $streetService->buyStreet();
         $this->em->flush();
+        echo json_encode($success);
     }
 
     /**
-     * Sell the selected Street
-     * @url /street/sell
-     * @author Christian Teubner
+     * Sell the selected street
+     * @url /street/sell/(.*)
      * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Exception
+     * @author Fabian Müller
      */
-    public function SellStreetAction(){
+    public function SellStreetAction($id){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
+        $streetService = new StreetService($game, $this->em);
+        $success = $streetService->sellStreet($id);
+        $this->em->flush();
+        echo json_encode($success);
     }
 
     /**
