@@ -1,11 +1,11 @@
 class Dice {
     constructor() {
         let events = new Events();
-        events.addEvent('click', $('.dice'), this.throwDices); //Placeholder must be changed later
+        events.addEvent('click', $('#wuerfeln'), this.throwDices, {"this" : this});
     }
 
     /**
-     * @author Selina Stöcklein
+     * @author Selina Stöcklein & Christian Teubner
      */
     throwDices(event, data) {
         let that = data['this'];
@@ -18,13 +18,11 @@ class Dice {
     }
 
     /**
-     * @author Selina Stöcklein
+     * @author Selina Stöcklein & Christian Teubner
      * @param result
      */
     displayPopup(result) {
-        // result == '' wenn der spieler nur läuft brauchen wir kein popup
-        if (result != "") {
-            // PopUp anzeigen mit msg! Z.B. "Du kommst aus dem Gefängnis frei!"
-        }
+        var resultObj = JSON.parse(result);
+        alert("Deine gewürfelte Zahlen: \n" + resultObj[0] + " und " + resultObj[1]);
     }
 }

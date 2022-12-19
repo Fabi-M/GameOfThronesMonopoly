@@ -41,6 +41,7 @@ class BaseController
     /** @var string[] */
     private $baseCSSFiles = array(
     );
+    protected ScriptCollector $scriptCollector;
 
     /**
      * Constructor
@@ -48,6 +49,7 @@ class BaseController
      */
     public function __construct()
     {
+        header('Access-Control-Allow-Origin: *');
         if(!isset($_SESSION)){
             session_start();
             $this->sessionId = session_id();
@@ -56,7 +58,6 @@ class BaseController
         $this->em = new EntityManager($pdo);
         $this->pdo = $pdo;
         $loader = new FilesystemLoader('../private/');
-        $this->twig = new Environment($loader, ['cache' => false]);
 
         $this->addTwig();
 

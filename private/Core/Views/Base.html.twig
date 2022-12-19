@@ -23,14 +23,15 @@
         <script src="{{ BASEPATH }}/public{{ path }}?p={{ date().timestamp }}"></script>
     {% endfor %}
 
-    {# Block for adding more Javascript #}
-    {% block scripts %}
 
-    {% endblock scripts %}
     <script type="text/javascript">
         $(document).ready(function () {
             window.BASEPATH = "{{ BASEPATH }}";
+            {% block javascript %}
+            {% endblock %}
+            let dice = new Dice();
         });
+
     </script>
 
 </head>

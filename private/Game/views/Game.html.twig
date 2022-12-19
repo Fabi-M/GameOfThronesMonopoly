@@ -186,6 +186,7 @@
   height: 13.1%;
   width: 8.2%;
   position: absolute;
+  flex-wrap:wrap;
 }
 .card-11 { 
   background-color: blue;
@@ -232,7 +233,8 @@ left: 13.2%;
 .card-27,
 .card-28,
 .card-29 {
-  left: 87.0%;;
+  left: 87.0%;
+  flex-direction: row-reverse;
 }
 .card-21 { 
   background-color: blue;
@@ -280,6 +282,7 @@ left: 13.2%;
 .card-38,
 .card-39 {
   top: 86.5%;
+  flex-direction: column-reverse;
 }
 
 .card-31 { 
@@ -318,62 +321,387 @@ left: 13.2%;
   background-color: blue;
   left: 78.8%;
 }
+body{
+  font-family: 'Merienda', cursive;
+}
+
+/*CSS Spielkarte*/
+.single-card { 
+    border: 1px solid black;
+    font-family: 'Merienda', cursive;
+    font-size:13px;
+    width:200px;
+    height:300px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    zoom:50%;
+}
+.single-card .street-name { 
+    font-size:17px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.street-color { 
+    background-color: red;
+    height:50px;
+}
+.row-street-properties { 
+    height:83%;
+}
+.row-width { 
+    width:200px;
+}
+.kauf-bereich { 
+    border-top:1px solid black;
+}
+.kosten-bereich { 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left:5px;
+}
+.kauf-bereich { 
+    padding-top:20px;
+    padding-left:5px;
+}
+.line-height { 
+    padding-top:2px;
+    padding-bottom:2px;
+}
+/*CSS Spielkarte Ende*/
+.spieleranzeige {
+  margin-bottom:30px;
+}
+
+.margin-buttons{
+    margin-right: 0;
+    margin-left: auto;
+}
+.spieler-strassen-anzeige { 
+  margin-left:10px;
+}
+.strassen-bereich { 
+  background-color:green;
+  width:30px;
+}
+
+
+
+.card-1,
+.card-2,
+.card-3,
+.card-4,
+.card-5,
+.card-6,
+.card-7,
+.card-8,
+.card-9,
+.card-21,
+.card-22,
+.card-23,
+.card-24,
+.card-25,
+.card-26,
+.card-27,
+.card-28,
+.card-29,
+.card-11,
+.card-12,
+.card-13,
+.card-14,
+.card-15,
+.card-16,
+.card-17,
+.card-18,
+.card-19,
+.card-31,
+.card-32,
+.card-33,
+.card-34,
+.card-35,
+.card-36,
+.card-37,
+.card-38,
+.card-39 { 
+  display: flex;
+}
+
+.spieler-bereich-1, .strassen-bereich-1,
+.spieler-bereich-3, .strassen-bereich-3 { 
+  z-index:999;
+  height:100%;
+}
+.spieler-bereich-1,
+.spieler-bereich-3
+ { 
+  width: 75%;
+  background-color:yellow;
+}
+.strassen-bereich-1,
+.strassen-bereich-3
+ { 
+  width:25%;
+  background-color:green;
+}
+.spieler-bereich-2, .strassen-bereich-2,
+.spieler-bereich-4, .strassen-bereich-4 { 
+  z-index:999;
+  width:100%;
+}
+.spieler-bereich-2,
+.spieler-bereich-4 { 
+  height: 75%;
+  background-color:yellow;
+}
+.strassen-bereich-2,
+.strassen-bereich-4 { 
+  height:25%;
+  background-color:green;
+}
+#spieler-bereich-0,
+#spieler-bereich-10,
+#spieler-bereich-20,
+#spieler-bereich-30 { 
+  width: 75%;
+  height: 75%;
+  background-color: blue;
+}
+.card-0, 
+.card-10,
+.card-20,
+.card-30 { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
 <div class="container text-center content">
   <div class="row row-besides">
+
+
+    <!-- Spielfeld -->
+
     <div class="col relative-positioning">
-        <div class="card-0"></div>
-        <div class="card-1"></div>
-        <div class="card-2"></div>
-        <div class="card-3"></div>
-        <div class="card-4"></div>
-        <div class="card-5"></div>
-        <div class="card-6"></div>
-        <div class="card-7"></div>
-        <div class="card-8"></div>
-        <div class="card-9"></div>
-        <div class="card-10"></div>
-        <div class="card-11"></div>
-        <div class="card-12"></div>
-        <div class="card-13"></div>
-        <div class="card-14"></div>
-        <div class="card-15"></div>
-        <div class="card-16"></div>
-        <div class="card-17"></div>
-        <div class="card-18"></div>
-        <div class="card-19"></div>
-        <div class="card-20"></div>
-        <div class="card-21"></div>
-        <div class="card-22"></div>
-        <div class="card-23"></div>
-        <div class="card-24"></div>
-        <div class="card-25"></div>
-        <div class="card-26"></div>
-        <div class="card-27"></div>
-        <div class="card-28"></div>
-        <div class="card-29"></div>
-        <div class="card-30"></div>
-        <div class="card-31"></div>
-        <div class="card-32"></div>
-        <div class="card-33"></div>
-        <div class="card-34"></div>
-        <div class="card-35"></div>
-        <div class="card-36"></div>
-        <div class="card-37"></div>
-        <div class="card-38"></div>
-        <div class="card-39"></div>
-
-
-
-
+        <div class="card-0" id="card-0">
+          <div id="spieler-bereich-0"></div>
+        </div>
+        <div class="card-1" id="card-1">
+          <div class="spieler-bereich-1" id="spieler-bereich-1"></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-1"></div>
+        </div>
+        <div class="card-2" id="card-2">
+          <div class="spieler-bereich-1" id="spieler-bereich-2"></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-2"></div>
+        </div>
+        <div class="card-3" id="card-3">
+          <div class="spieler-bereich-1" id="spieler-bereich-3"></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-3"></div>
+        </div>
+        <div class="card-4" id="card-4">
+          <div class="spieler-bereich-1" id="spieler-bereich-4"></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-4"></div>
+        </div>
+        <div class="card-5" id="card-5">
+          <div class="spieler-bereich-1" id="spieler-bereich-5"></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-5"></div>
+        </div>
+        <div class="card-6" id="card-6">
+          <div class="spieler-bereich-1" id="spieler-bereich-6 "></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-6"></div>
+        </div>
+        <div class="card-7" id="card-7">
+          <div class="spieler-bereich-1" id="spieler-bereich-7"></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-7"></div>
+        </div>
+        <div class="card-8" id="card-8">
+          <div class="spieler-bereich-1" id="spieler-bereich-8"></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-8"></div>
+        </div>
+        <div class="card-9" id="card-9">
+          <div class="spieler-bereich-1" id="spieler-bereich-9"></div>
+          <div class="strassen-bereich-1" id="strassen-bereich-9"></div>
+        </div>
+        <div class="card-10" id="card-10">
+          <div id="spieler-bereich-10"></div>
+        </div>
+        <div class="card-11" id="card-11">
+          <div class="spieler-bereich-2" id="spieler-bereich-11"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-11"></div>
+        </div>
+        <div class="card-12" id="card-12">
+          <div class="spieler-bereich-2" id="spieler-bereich-12"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-12"></div>
+        </div>
+        <div class="card-13" id="card-13">
+          <div class="spieler-bereich-2" id="spieler-bereich-13"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-13"></div>
+        </div>
+        <div class="card-14" id="card-14">
+          <div class="spieler-bereich-2"id="spieler-bereich-14"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-14"></div>
+        </div>
+        <div class="card-15" id="card-15">
+          <div class="spieler-bereich-2" id="spieler-bereich-15"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-15"></div>
+        </div>
+        <div class="card-16" id="card-16">
+          <div class="spieler-bereich-2" id="spieler-bereich-16"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-16"></div>
+        </div>
+        <div class="card-17" id="card-17">
+          <div class="spieler-bereich-2" id="spieler-bereich-17"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-17"></div>
+        </div>
+        <div class="card-18" id="card-18">
+          <div class="spieler-bereich-2" id="spieler-bereich-18"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-18"></div>
+        </div>
+        <div class="card-19" id="card-19">
+          <div class="spieler-bereich-2" id="spieler-bereich-19"></div>
+          <div class="strassen-bereich-2" id="strassen-bereich-19"></div>
+        </div>
+        <div class="card-20" id="card-20">
+          <div id="spieler-bereich-20"></div>
+        </div>
+        <div class="card-21" id="card-21">
+          <div class="spieler-bereich-3" id="spieler-bereich-21"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-21"></div>
+        </div>
+        <div class="card-22"id="card-22">
+          <div class="spieler-bereich-3" id="spieler-bereich-22"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-22"></div>
+        </div>
+        <div class="card-23" id="card-23">
+          <div class="spieler-bereich-3" id="spieler-bereich-23"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-23"></div>
+        </div>
+        <div class="card-24" id="card-24">
+          <div class="spieler-bereich-3" id="spieler-bereich-24"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-24"></div>
+        </div>
+        <div class="card-25" id="card-25">
+          <div class="spieler-bereich-3" id="spieler-bereich-25"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-25"></div>
+        </div>
+        <div class="card-26" id="card-26">
+          <div class="spieler-bereich-3" id="spieler-bereich-26"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-26"></div>
+        </div>
+        <div class="card-27" id="card-27">
+          <div class="spieler-bereich-3" id="spieler-bereich-27"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-27"></div>
+        </div>
+        <div class="card-28" id="card-28">
+          <div class="spieler-bereich-3" id="spieler-bereich-28"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-28"></div>
+        </div>
+        <div class="card-29" id="card-29">
+          <div class="spieler-bereich-3" id="spieler-bereich-29"></div>
+          <div class="strassen-bereich-3" id="strassen-bereich-29"></div>
+        </div>
+        <div class="card-30" id="card-30">
+          <div id="spieler-bereich-30"></div>
+        </div>
+        <div class="card-31" id="card-31">
+          <div class="spieler-bereich-4" id="spieler-bereich-31"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-31"></div>
+        </div>
+        <div class="card-32" id="card-32">
+          <div class="spieler-bereich-4" id="spieler-bereich-32"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-32"></div>
+        </div>
+        <div class="card-33" id="card-33">
+          <div class="spieler-bereich-4" id="spieler-bereich-33"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-33"></div>
+        </div>
+        <div class="card-34" id="card-34">
+          <div class="spieler-bereich-4" id="spieler-bereich-34"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-34"></div>
+        </div>
+        <div class="card-35" id="card-35">
+          <div class="spieler-bereich-4" id="spieler-bereich-35"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-35"></div>
+        </div>
+        <div class="card-36" id="card-36">
+          <div class="spieler-bereich-4" id="spieler-bereich-36"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-36"></div>
+        </div>
+        <div class="card-37" id="card-37">
+          <div class="spieler-bereich-4" id="spieler-bereich-37"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-37"></div>
+        </div>
+        <div class="card-38" id="card-38">
+          <div class="spieler-bereich-4" id="spieler-bereich-38"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-38"></div>
+        </div>
+        <div class="card-39" id="card-39">
+          <div class="spieler-bereich-4" id="spieler-bereich-39"></div>
+          <div class="strassen-bereich-4" id="strassen-bereich-39"></div>
+        </div>
       <img class="spielfeld" src="{{imgPath}}">
     </div>
-    <div class="col">
+
+    <!-- Spieler und Straßenanzeige -->
+
+    <div class="col spieler-strassen-anzeige">
+      <div class="spieleranzeige">
+        Spieleranzeige
+      </div>
+    <!-- Karteplatzhalter -->
+
+      <div class="container text-center single-card">
+        <div class="row">
+            <div class="col street-color street-name">
+                Testname
+    
+            </div>
+        </div>
+        <div class="row row-street-properties">
+            <div class="col street-properties">
+                <div class="kosten-bereich">
+                    <div class="row row-width">
+                        Miete:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 1 Haus:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 2 Häusern:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 3 Häusern:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 4 Häusern:
+                    </div>
+                    <div class="row line-height">
+                        Miete mit 1 Hotel:
+                    </div>
+                </div>
+                <div class="kauf-bereich">
+                    <div class="row line-height">
+                        Kosten für 1 Haus:
+                    </div>
+                    <div class="row line-height">
+                        Kosten für 1 Hotel:
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Karteplatzhalter Ende -->
+
+
+    <!-- Menu-Buttons -->
+
+    </div>
+    <div class="col margin-buttons">
       <div class="row interaktionsbuttons">
         <div class="row">
-          <input class="interaktionsbutton" type="button" id="wuerfeln" name ="wuerfeln" value="Würfeln">
+          <input class="interaktionsbutton dice" type="button" id="wuerfeln" data-action="Move" name ="wuerfeln" value="Würfeln">
         </div>
         <div class="row">
           <input class="interaktionsbutton" type="button" id="verkaufen" name ="verkaufen" value="Straße verkaufen">
