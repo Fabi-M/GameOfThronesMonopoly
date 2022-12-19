@@ -22,6 +22,7 @@ class Testcontroller extends BaseController
         $this->scriptCollector->addBottom('/js/Core/Events.js');
         $this->scriptCollector->addBottom('/js/Figure.js');
         $this->scriptCollector->addBottom('/js/FigureService.js');
+        $this->scriptCollector->addBottom('/js/PlayFieldService.js');
         $this->scriptCollector->addBottom('/js/Dice.js');
         echo $this->twig->render(
             "Game/Views/Game.html.twig",

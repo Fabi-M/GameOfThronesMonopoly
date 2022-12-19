@@ -2,34 +2,24 @@
 
 namespace GameOfThronesMonopoly\Game\Controller;
 
+use Exception;
 use GameOfThronesMonopoly\Core\Controller\BaseController;
-use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
-use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Model\Dice;
-use GameOfThronesMonopoly\Game\Model\GameManager;
-use GameOfThronesMonopoly\Game\Model\Player;
 use GameOfThronesMonopoly\Game\Service\GameService;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class GameManagerController extends BaseController
 {
-    public function TestAction()
-    {
-        var_dump($this->sessionId);
-        echo $this->twig->render(
-            "Core/Views/Base.html.twig",
-            [
-            ]
-        );
-    }
-
     /**
      * Ends the current turn
      * @url    /EndTurn
      * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      * @author Fabian Müller
      */
     public function EndTurnAction()
@@ -53,6 +43,7 @@ class GameManagerController extends BaseController
      * Rolls the Dice for Moving
      * @url    /Roll/Move
      * @return void
+     * @throws Exception
      * @author Christian Teubner, Selina Stöcklein
      */
     public function RollForMoveAction()
@@ -64,16 +55,17 @@ class GameManagerController extends BaseController
         $dice = new Dice();
         $rolled = $dice->roll();
         // get the active player and let it move
-        /** @var Player $activePlayer */
         $activePlayer = PlayerFactory::getActivePlayer($this->em, $game);
         $playFieldId = $activePlayer->move($this->em, $rolled);
         // save
         $this->em->flush();
-        echo json_encode([
-                             'dice' => $rolled,
-                             'playFieldId' => 0,
-                             'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
-                         ]);
+        echo json_encode(
+            [
+                'dice' => $rolled,
+                'playFieldId' => $playFieldId,
+                'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
+            ]
+        );
     }
 
     /**
