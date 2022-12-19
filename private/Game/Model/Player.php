@@ -26,14 +26,15 @@ class Player
 
     /**
      * Create a new player with the given data
-     * @author Fabian Müller
      * @param EntityManager $em
-     * @param $sessionId
-     * @param $playerId
-     * @param $gameId
+     * @param               $sessionId
+     * @param               $playerId
+     * @param               $gameId
      * @return void
+     * @author Fabian Müller
      */
-    public function create($em, $sessionId, $playerId, $gameId){
+    public function create($em, $sessionId, $playerId, $gameId)
+    {
         $playerEntity = new \GameOfThronesMonopoly\Game\Entities\player();
         $playerEntity->setSessionId($sessionId);
         $playerEntity->setGameId($gameId);
@@ -41,5 +42,22 @@ class Player
         $playerEntity->setPosition(0);
         $playerEntity->setMoney(1500);
         $em->persist($playerEntity);
+    }
+
+    /**
+     * @author Selina Stöcklein
+     * @param EntityManager $em
+     * @param array         $rolled
+     * @return void
+     */
+    public function move(EntityManager $em, array $rolled)
+    {
+        $oldPosition = $this->getPlayerEntity()->getPosition();
+        // 0-39 felder
+        $newPosition = $oldPosition + array_sum($rolled);
+        $newPosition = $newPosition <= Game::MAX_PLAY_FIELDS ? $newPosition : $newPosition - 40;
+        $this->getPlayerEntity()->setPosition($newPosition);
+        $em->persist($this->getPlayerEntity());
+        return $newPosition;
     }
 }

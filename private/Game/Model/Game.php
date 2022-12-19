@@ -6,6 +6,8 @@ use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 
 class Game
 {
+
+    public const MAX_PLAY_FIELDS = 39; // 0-39
     private \GameOfThronesMonopoly\Game\Entities\Game $gameEntity;
 
     /**

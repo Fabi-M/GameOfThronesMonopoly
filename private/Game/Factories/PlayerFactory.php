@@ -28,4 +28,8 @@ class PlayerFactory
         return new Player($entity);
     }
 
+    public static function getActivePlayer(EntityManager $em, ?Game $game)
+    {
+
+    }
 }

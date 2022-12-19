@@ -27,7 +27,10 @@ class FigureService {
         return FigureService.#instance;
     }
 
-    moveFigure(playerId, playFieldId) {
+    moveFigure(result) {
+        var resultObj = JSON.parse(result);
+        var playerId=resultObj['activePlayerId'];
+        var playFieldId=resultObj['playFieldId']
         console.log('moveFigure')
         console.log(playerId)
         console.log(playFieldId)

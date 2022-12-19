@@ -14,11 +14,11 @@ class Dice {
         let action = $('.dice').attr('data-action');
         let url = BASEPATH + '/Roll/' + action;
         let request = null;
-        if (action == 'Move') {
+        if (action === 'Move') {
             let figureService = FigureService.getInstance();
             console.log(figureService)
             let request = new Ajax(url, false, figureService.moveFigure, data);
-        } else if (action == 'Prison') {
+        } else if (action === 'Prison') {
             let request = new Ajax(url, false, that.displayPopup, data);
         }
         console.log(action);
@@ -31,6 +31,11 @@ class Dice {
      */
     displayPopup(result) {
         var resultObj = JSON.parse(result);
-        alert("Deine gewürfelte Zahlen: \n" + resultObj[0] + " und " + resultObj[1]);
+
+        alert("Deine gewürfelte Zahlen: \n"
+            + resultObj['dice'][0] + " und "
+            + resultObj['dice'][1]
+            + " Spieler: " + resultObj['activePlayerId']
+        );
     }
 }
