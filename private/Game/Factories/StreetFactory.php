@@ -28,4 +28,21 @@ class StreetFactory
         return new Street($entity);
     }
 
+    /**
+     * @param EntityManager $em
+     * @param array $filter
+     */
+    public static function filter(EntityManager $em, array $filter): Street | null
+    {
+        $entity = $em->getRepository(self::GAME_NAMESPACE)->findBy(
+            array(
+                'WHERE' => $filter
+            )
+        );
+
+        if (empty($entity)) {
+            return null;
+        }
+        return new Street($entity);
+    }
 }

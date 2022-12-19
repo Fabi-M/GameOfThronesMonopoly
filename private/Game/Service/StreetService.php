@@ -13,7 +13,7 @@ use GameOfThronesMonopoly\Game\Model\PlayerXField;
 class StreetService
 {
     private Game $game;
-    private Player $player;
+    private $player;
     private EntityManager $em;
 
     /**
@@ -48,12 +48,8 @@ class StreetService
      */
     public function buyStreet()
     {
-        $this->player = PlayerFactory::filterOne($this->em, array(
-                array('sessionId', 'equal', $this->game->getGameEntity()->getSessionId()),
-                array('ingameId', 'equal', $this->game->getGameEntity()->getActivePlayerId())
-            )
-        );
-        $this->player->getPlayerEntity()->setPosition(24);
+        $this->getPlayer();
+        $this->player->getPlayerEntity()->setPosition(24); // todo
         if(!$this->checkIfBuyable()) return false;
         if(!$this->player->buyStreet($this->em)) return false;
         $playerXField = new PlayerXField();
@@ -61,12 +57,14 @@ class StreetService
         return true;
     }
 
+    /**
+     * Sell the selected street
+     * @author Fabian Müller
+     * @param $id
+     * @return bool
+     */
     public function sellStreet($id){
-        $this->player = PlayerFactory::filterOne($this->em, array(
-                array('sessionId', 'equal', $this->game->getGameEntity()->getSessionId()),
-                array('ingameId', 'equal', $this->game->getGameEntity()->getActivePlayerId())
-            )
-        );
+        $this->getPlayer();
         $this->player->setEm($this->em);
         $playerXField = PlayerXFieldFactory::filterOne($this->em, array(
             array('playerId', 'equal', $this->player->getPlayerEntity()->getId()),
@@ -77,5 +75,31 @@ class StreetService
         $playerXField->delete($this->em);
         $this->player->sellStreet($id);
         return true;
+    }
+
+    public function buyHouse($fieldId){
+        $this->getPlayer();
+        $playerXField = PlayerXFieldFactory::filterOne($this->em, array(
+            array('playerId', 'equal', $this->player->getPlayerEntity()->getId()),
+            array('fieldId', 'equal', $fieldId)
+        ));
+        if($playerXField == null) return false;
+
+        $playerXField->getPlayerXFieldEntity()->setBuildings($playerXField->getPlayerXFieldEntity()->getBuildings()+1);
+        var_dump($playerXField);
+        $this->em->persist($playerXField);
+        return true;
+    }
+
+    public function getPlayer(){
+        $this->player = PlayerFactory::filterOne($this->em, array(
+                array('sessionId', 'equal', $this->game->getGameEntity()->getSessionId()),
+                array('ingameId', 'equal', $this->game->getGameEntity()->getActivePlayerId())
+            )
+        );
+    }
+
+    public function checkIfFullStreet(){
+
     }
 }
