@@ -36,6 +36,7 @@ class FigureService {
         let figure = FigureService.getInstance().getFigure(playerId);
         console.log(figure)
         figure.move(playFieldId);
+        return;
         alert("Deine gewürfelte Zahlen: \n"
             + resultObj['dice'][0] + " und "
             + resultObj['dice'][1]

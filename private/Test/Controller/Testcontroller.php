@@ -16,6 +16,7 @@ class Testcontroller extends BaseController
         $this->scriptCollector->addBottom('/js/FigureService.js');
         $this->scriptCollector->addBottom('/js/PlayFieldService.js');
         $this->scriptCollector->addBottom('/js/Dice.js');
+        $this->styleSheetCollector->addBottom('/css/GameStyle.css');
         echo $this->twig->render(
             "Game/Views/Game.html.twig",
             [
