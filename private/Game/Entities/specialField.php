@@ -15,7 +15,7 @@ class specialField extends BaseEntity
 {
     protected int $id;
     protected int $playfieldId;
-    protected int $price;
+    protected ?int $price;
     protected string $action;
     protected string $name;
     protected string $comment;
@@ -61,9 +61,9 @@ class specialField extends BaseEntity
     }
 
     /**
-     * @param int $price
+     * @param ?int $price
      */
-    public function setPrice(int $price): void
+    public function setPrice(?int $price): void
     {
         $this->price = $price;
     }
