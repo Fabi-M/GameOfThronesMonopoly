@@ -12,7 +12,8 @@ class Renetestcontroller extends BaseController
         $this->scriptCollector->addBottom('/js/Core/Ajax.js');
         $this->scriptCollector->addBottom('/js/Core/Events.js');
         $this->scriptCollector->addBottom('/js/Dice.js');
-        echo $this->twig->render("Game/Views/Game.html.twig",
+        $this->styleSheetCollector->addBottom('/css/GameStyle.css');
+        echo $this->twig->render("Game/Views/Card-Pop-Up.html.twig",
             [
                 'imgPath'=>self::IMG_PATH.'Playfield.jpg'
             ]);
