@@ -116,19 +116,19 @@ class ModalDialog {
         this.element.modal('show');
         this.element.find('.modal-title').html(this.title)
         this.element.find('.modal-body').html(this.body);
-        let yesButton = this.element.find('.modal-button-yes');
+        let closeBtn = this.element.find('.modalDialogCloseBtn');
 
         if (this.successFunction !== false) {
-            yesButton.removeClass('invisible').addClass('visible');
+            closeBtn.removeClass('invisible').addClass('visible');
 
-            yesButton.click(event => {
+            closeBtn.click(event => {
                 let result = this.successFunction(this.successFunctionOptions)
                 if (result !== false) {
                     this.destruct();
                 }
             }).html(this.successFunctionName);
         } else {
-            yesButton.addClass('invisible').removeClass('visible');
+            closeBtn.addClass('invisible').removeClass('visible');
 
         }
 
