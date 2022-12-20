@@ -535,6 +535,9 @@
    align-items: center;
    justify-content: center;
  }
+ img { 
+  vertical-align:unset;
+ }
 
 /*Single-Card*/
 .single-card { 
@@ -584,4 +587,14 @@
 
 .single-card-template .single-card { 
     zoom: 1.5;
+}
+.playerFigure { 
+  z-index: 1000; 
+  height: 4vh; 
+} 
+.container-margin { 
+  margin: 10px;
+}
+.container.container-align { 
+margin-left:10px;
 }
