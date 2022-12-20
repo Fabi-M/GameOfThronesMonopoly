@@ -24,5 +24,12 @@ class CardController extends BaseController
         echo $this->twig->render('Game/views/CardInfoPopUp.html.twig');
     }
 
+    public function ViewPlayerCardAction(){
+        $gameService = new GameService();
+        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+
+        echo $this->twig->render('Game/views/PlayerCardInfoPopUp.html.twig');
+    }
+
 
 }
