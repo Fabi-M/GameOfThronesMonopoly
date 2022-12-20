@@ -56,4 +56,33 @@ class StreetFactory
         }
         return new Street($entity);
     }
+
+    /**
+     * @param array $filter
+     */
+    public
+    static function filter(
+        EntityManager $em,
+        array $filter
+    ): ?array {
+        $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
+            [
+                'WHERE' => $filter
+            ]
+        );
+
+        $models = [];
+        foreach ($entities as $entity) {
+            $models [] = new Street($entity);
+        }
+        return $models;
+    }
+
+    public static function getByFieldId($em, $fieldId
+    ) {
+        return self::filterOne($em, [
+                                      ['playfieldID', 'equal', $fieldId]
+                                  ]
+        );
+    }
 }
