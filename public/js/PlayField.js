@@ -19,6 +19,7 @@ class PlayField {
 
     showCardPopUp(html) {
         let popUp = new ModalDialog();
+        popUp.disableFooterAndHeader();
         popUp.Body = html;
         popUp.showDialog();
     }
