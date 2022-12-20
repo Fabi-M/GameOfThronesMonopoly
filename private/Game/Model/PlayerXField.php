@@ -38,6 +38,7 @@ class PlayerXField
         $this->playerXFieldEntity->setBuildings(0);
         $this->playerXFieldEntity->setPlayerId($playerId);
         $this->playerXFieldEntity->setFieldId($fieldId);
+        $this->playerXFieldEntity->setMortgage(0);
         $em->persist($this->playerXFieldEntity);
     }
 

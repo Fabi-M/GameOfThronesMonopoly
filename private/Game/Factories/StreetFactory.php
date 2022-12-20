@@ -28,4 +28,29 @@ class StreetFactory
         return new Street($entity);
     }
 
+    /**
+     * @param EntityManager $em
+     * @param array $filter
+     */
+    public static function filter(EntityManager $em, array $filter): ?array
+    {
+        $entities = $em->getRepository(self::GAME_NAMESPACE)->findBy(
+            array(
+                'WHERE' => $filter
+            )
+        );
+
+        $models = [];
+        foreach($entities as $entity){
+            $models []= new Street($entity);
+        }
+        return $models;
+    }
+
+    public static function getByFieldId($em, $fieldId){
+        return self::filterOne($em, array(
+                array('playfieldID', 'equal', $fieldId)
+            )
+        );
+    }
 }

@@ -33,77 +33,44 @@ class StreetController extends BaseController
      * @throws Exception
      * @author Fabian Müller
      */
-    public function SellStreetAction($id){
+    public function SellStreetAction($fieldId){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $streetService = new StreetService($game, $this->em);
-        $success = $streetService->sellStreet($id);
+        $success = $streetService->sellStreet($fieldId);
         $this->em->flush();
         echo json_encode($success);
     }
 
     /**
      * Buy a house on the selected Street
-     * @url /street/house/buy
-     * @author Christian Teubner
+     * @url /street/house/buy/(.*)
      * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Exception
+     * @author Fabian Müller
      */
-    public function BuyHouseAction(){
+    public function BuyHouseAction($fieldId){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
+        $streetService = new StreetService($game, $this->em);
+        $streetService->buyHouse($fieldId);
+        $this->em->flush();
         //Here the Game Logic
     }
 
     /**
      * Sell a house on the selected Street
-     * @url /street/house/sell
-     * @author Christian Teubner
+     * @url /street/house/sell/(.*)
      * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Exception
+     * @author Fabian Müller
      */
-    public function SellHouseAction(){
+    public function SellHouseAction($fieldId){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
-    }
-
-    /**
-     * Buy a hotel on the selected Street
-     * @url /street/hotel/buy
-     * @author Christian Teubner
-     * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function BuyHotelAction(){
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
-    }
-
-    /**
-     * Sell a hotel on the selected Street
-     * @url /street/house/sell
-     * @author Christian Teubner
-     * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function SellHotelAction(){
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
+        $streetService = new StreetService($game, $this->em);
+        $streetService->sellHouse($fieldId);
+        $this->em->flush();
     }
 
     /**
