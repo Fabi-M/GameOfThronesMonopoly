@@ -7,22 +7,25 @@
 
     <title>Monopoly</title>
 
-    {# CSS #}
-    {% set cssFiles =  STYLESHEETCOLLECTOR.getStyleSheetPaths %}
-    {% for path in cssFiles %}
-        <link rel="stylesheet" href="{{ BASEPATH }}/public{{ path }}?p={{ date().timestamp }}"/>
-    {% endfor %}
+
 
     {# JS #}
     <script
-            src="https://code.jquery.com/jquery-3.6.1.js"
-            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-            crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
     {% set jsFiles = SCRIPTCOLLECTOR.getScriptPaths %}
     {% for path in jsFiles %}
         <script src="{{ BASEPATH }}/public{{ path }}?p={{ date().timestamp }}"></script>
     {% endfor %}
 
+
+
+    {# CSS #}
+    {% set cssFiles =  STYLESHEETCOLLECTOR.getStyleSheetPaths %}
+    {% for path in cssFiles %}
+        <link rel="stylesheet" href="{{ BASEPATH }}/public{{ path }}?p={{ date().timestamp }}"/>
+    {% endfor %}
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -36,6 +39,33 @@
 
 </head>
 <body>
+
+    {# Modal for all kinds of infos #}
+    <div class="container">
+        <div class="modal fade" id="infoModal" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 id="infoModalHeader" class="modal-title">No data available (╥_╥)</h5>
+                        <button type="button" class="close modalDialogCloseBtn" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p id="infoModalText">Still no data... </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        {# Once upon a time there was a closing button... #}
+                        <button class="modal-button-no invisible btn btn-secondary "></button>
+                        <button class="modal-button-yes invisible btn btn-primary"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     {# for replacing extended twigs #}
     <div id="mainSite">
         {# Block for adding more content #}
