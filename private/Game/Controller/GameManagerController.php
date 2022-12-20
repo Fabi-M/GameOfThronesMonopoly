@@ -101,4 +101,20 @@ class GameManagerController extends BaseController
         $this->em->flush();
         //TODO 16.12.2022 Selina: Spielstand returnen, damit HTML CSS was anzeigen kann
     }
+
+    /**
+     * Show the Homepage
+     * @url    /Homepage
+     * @return void
+     * @throws \Exception
+     * @author Christian Teubner
+     */
+    public function ShowHomepageAction()
+    {
+        echo $this->twig->render(
+            "Game/views/StartPage.html.twig",
+            [
+            ]
+        );
+    }
 }
