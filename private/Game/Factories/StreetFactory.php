@@ -32,17 +32,25 @@ class StreetFactory
      * @param EntityManager $em
      * @param array $filter
      */
-    public static function filter(EntityManager $em, array $filter): Street | null
+    public static function filter(EntityManager $em, array $filter): ?array
     {
-        $entity = $em->getRepository(self::GAME_NAMESPACE)->findBy(
+        $entities = $em->getRepository(self::GAME_NAMESPACE)->findBy(
             array(
                 'WHERE' => $filter
             )
         );
 
-        if (empty($entity)) {
-            return null;
+        $models = [];
+        foreach($entities as $entity){
+            $models []= new Street($entity);
         }
-        return new Street($entity);
+        return $models;
+    }
+
+    public static function getByFieldId($em, $fieldId){
+        return self::filterOne($em, array(
+                array('playfieldID', 'equal', $fieldId)
+            )
+        );
     }
 }

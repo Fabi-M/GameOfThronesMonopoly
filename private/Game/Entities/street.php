@@ -14,6 +14,8 @@ class street extends BaseEntity
     protected $id;
     protected $name;
     protected $streetCosts;
+    protected $color;
+    protected $buildingCosts;
 
     /**
      * @return mixed
@@ -69,5 +71,40 @@ class street extends BaseEntity
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * @param mixed $color
+     * @return street
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBuildingCosts()
+    {
+        return $this->buildingCosts;
+    }
+
+    /**
+     * @param mixed $buildingCosts
+     * @return street
+     */
+    public function setBuildingCosts($buildingCosts)
+    {
+        $this->buildingCosts = $buildingCosts;
+        return $this;
+    }
 
 }

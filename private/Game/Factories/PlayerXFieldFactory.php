@@ -28,4 +28,12 @@ class PlayerXFieldFactory
         return new PlayerXField($entity);
     }
 
+    public static function getByFieldId(EntityManager $em, $playerId, $fieldId): ?PlayerXField
+    {
+        return PlayerXFieldFactory::filterOne($em, array(
+                array('playerId', 'equal', $playerId),
+                array('fieldId', 'equal', $fieldId)
+            )
+        );
+    }
 }

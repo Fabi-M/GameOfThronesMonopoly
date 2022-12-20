@@ -45,11 +45,9 @@ class StreetController extends BaseController
     /**
      * Buy a house on the selected Street
      * @url /street/house/buy/(.*)
-     * @author Fabian Müller
      * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Exception
+     * @author Fabian Müller
      */
     public function BuyHouseAction($fieldId){
         $gameService = new GameService();
@@ -62,50 +60,17 @@ class StreetController extends BaseController
 
     /**
      * Sell a house on the selected Street
-     * @url /street/house/sell
-     * @author Christian Teubner
+     * @url /street/house/sell/(.*)
      * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Exception
+     * @author Fabian Müller
      */
-    public function SellHouseAction(){
+    public function SellHouseAction($fieldId){
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
-    }
-
-    /**
-     * Buy a hotel on the selected Street
-     * @url /street/hotel/buy
-     * @author Christian Teubner
-     * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function BuyHotelAction(){
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
-    }
-
-    /**
-     * Sell a hotel on the selected Street
-     * @url /street/house/sell
-     * @author Christian Teubner
-     * @return void
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function SellHotelAction(){
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        //Here the Game Logic
+        $streetService = new StreetService($game, $this->em);
+        $streetService->sellHouse($fieldId);
+        $this->em->flush();
     }
 
     /**

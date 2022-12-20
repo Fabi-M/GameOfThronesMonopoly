@@ -2,6 +2,7 @@
 
 namespace GameOfThronesMonopoly\Core\Repositories;
 
+use GameOfThronesMonopoly\Core\DataBase\DataBaseConnection;
 use GameOfThronesMonopoly\Core\Datamapper\Repository\MainRepositoryClass;
 use PDO;
 use PDOStatement;
@@ -44,4 +45,7 @@ class BaseRepository extends MainRepositoryClass
         }
     }
 
+    protected static function getPDO(){
+        return DataBaseConnection::getInstance()->getConnection();
+    }
 }
