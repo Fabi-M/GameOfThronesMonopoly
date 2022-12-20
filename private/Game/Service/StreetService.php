@@ -2,6 +2,7 @@
 
 namespace GameOfThronesMonopoly\Game\Service;
 
+use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Core\Exceptions\SQLException;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
@@ -43,13 +44,14 @@ class StreetService
 
     /**
      * Buy the street that the player is currently standing on
-     * @author Fabian Müller
      * @return bool
+     * @throws Exception
+     * @author Fabian Müller
      */
     public function buyStreet()
     {
-        $this->getPlayer();
-        $this->player->getPlayerEntity()->setPosition(24); // todo nur zum testen, position wird über würfeln gesetzt
+        $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
+        //$this->player->getPlayerEntity()->setPosition(24); // todo nur zum testen, position wird über würfeln gesetzt
 
         if(!$this->checkIfBuyable()) return false; // street is already owned by another player
         if(!$this->player->buyStreet($this->em)) return false; // doesn't have enough money
@@ -64,6 +66,7 @@ class StreetService
      * Sell the selected street
      * @param $fieldId
      * @return bool
+     * @throws Exception
      * @author Fabian Müller
      */
     public function sellStreet($fieldId){
@@ -71,6 +74,7 @@ class StreetService
 
         if($this->playerXField == null) return false; // doesn't own street
         if($this->playerXField->getPlayerXFieldEntity()->getBuildings() > 0) return false; // has houses on street, needs to sell them first
+        // todo: check if player has houses on other streets with the same color -> can't sell street
 
         $this->playerXField->delete($this->em);
         $this->player->sellStreet($fieldId);
@@ -101,9 +105,10 @@ class StreetService
 
     /**
      * Sell a house on the selected street
-     * @author Fabian Müller
      * @param $fieldId
      * @return bool
+     * @throws Exception
+     * @author Fabian Müller
      */
     public function sellHouse($fieldId){
         $this->getAllModels($fieldId);
@@ -116,19 +121,6 @@ class StreetService
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
         return true;
-    }
-
-    /**
-     * Get the current active player;
-     * @author Fabian Müller
-     * @return void
-     */
-    public function getPlayer(){
-        $this->player = PlayerFactory::filterOne($this->em, array(
-                array('sessionId', 'equal', $this->game->getGameEntity()->getSessionId()),
-                array('ingameId', 'equal', $this->game->getGameEntity()->getActivePlayerId())
-            )
-        );
     }
 
     /**
@@ -148,9 +140,11 @@ class StreetService
      * Get all needed models with needed entities by fieldId
      * @param $fieldId
      * @return void
+     * @throws Exception
+     * @author Fabian Müller
      */
     public function getAllModels($fieldId){
-        $this->getPlayer();
+        $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
         $this->player->setEm($this->em);
         $this->street = StreetFactory::getByFieldId($this->em, $fieldId);
         $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->player->getPlayerEntity()->getId(), $fieldId);

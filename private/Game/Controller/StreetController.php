@@ -55,7 +55,6 @@ class StreetController extends BaseController
         $streetService = new StreetService($game, $this->em);
         $streetService->buyHouse($fieldId);
         $this->em->flush();
-        //Here the Game Logic
     }
 
     /**

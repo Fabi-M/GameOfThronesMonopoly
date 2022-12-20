@@ -2,7 +2,7 @@ class Card {
     constructor() {
         let events = new Events();
         //TODO 15.12.2022 Selina: placeholder austauschen
-        events.addEvent('click', $('#BUYCARDPLACEHOLDER'), this.buyCard, {'this':this}); //Placeholder must be changed later
+        events.addEvent('click', $('#buyStreet'), this.buyCard, {'this':this}); //Placeholder must be changed later
         events.addEvent('click', $('#VIEWCARDPLACEHOLDER'), this.viewCard,{'this':this}); //Placeholder must be changed later
         events.addEvent('click', $('#MORTGAGECARDPLACEHOLDER'), this.mortgageCard,{'this':this}); //Placeholder must be changed later
     }
@@ -13,6 +13,7 @@ class Card {
      * @param data
      */
     buyCard(event, data) {
+        console.log("HALLOOAOWODNIONEWFNONOIW");
         let that = data['this'];
         let url = BASEPATH + '/Street/Buy';
         let request = new Ajax(url, false, that.displayBuyResult, data);
@@ -25,6 +26,7 @@ class Card {
      * @param data
      */
     displayBuyResult(data) {
+        console.log(data);
         // Spieler anzeigen, ob Straße gekauft wurde oder nicht
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
     }

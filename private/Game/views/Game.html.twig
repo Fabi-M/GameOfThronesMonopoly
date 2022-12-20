@@ -2,6 +2,7 @@
 
 {% block javascript %}
 let gameField= new PlayField();
+let card = new Card();
 {% endblock %}
 
 {% block site %}
@@ -257,6 +258,11 @@ let gameField= new PlayField();
                 <div class="row next-player-button interaktionsbuttons-margin">
                     <input class="interaktionsbutton" type="button" id="next_player" name="next_player"
                         value="nächster Spieler">
+                </div>
+                <div class="row next-player-button interaktionsbuttons-margin">
+                    <!-- TODO nur zum testen, soll später in ein extra popup kommen -->
+                    <input class="interaktionsbutton" type="button" id="buyStreet" name="buyStreet"
+                           value="Straße kaufen">
                 </div>
             </div>
         </div>
