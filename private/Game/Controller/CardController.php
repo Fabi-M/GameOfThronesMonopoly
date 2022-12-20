@@ -21,7 +21,8 @@ class CardController extends BaseController
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
 
-        //Here the Game Logic
+        echo $this->twig->render('Game/views/CardInfoPopUp.html.twig');
     }
+
 
 }

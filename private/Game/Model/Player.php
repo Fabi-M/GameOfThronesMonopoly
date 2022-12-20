@@ -8,7 +8,6 @@ use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 class Player
 {
     private $playerEntity;
-
     private $em;
 
     /**
@@ -20,7 +19,6 @@ class Player
         $this->em = $em;
         return $this;
     }
-
 
     /**
      * @return \GameOfThronesMonopoly\Game\Entities\player
@@ -40,14 +38,15 @@ class Player
 
     /**
      * Create a new player with the given data
-     * @author Fabian Müller
      * @param EntityManager $em
-     * @param $sessionId
-     * @param $playerId
-     * @param $gameId
+     * @param               $sessionId
+     * @param               $playerId
+     * @param               $gameId
      * @return void
+     * @author Fabian Müller
      */
-    public function create($em, $sessionId, $playerId, $gameId){
+    public function create($em, $sessionId, $playerId, $gameId)
+    {
         $playerEntity = new \GameOfThronesMonopoly\Game\Entities\player();
         $playerEntity->setSessionId($sessionId);
         $playerEntity->setGameId($gameId);
@@ -58,27 +57,46 @@ class Player
     }
 
     /**
+     * @param EntityManager $em
+     * @param array         $rolled
+     * @return void
+     * @author Selina Stöcklein
+     */
+    public function move(EntityManager $em, array $rolled)
+    {
+        $oldPosition = $this->getPlayerEntity()->getPosition();
+        // 0-39 felder
+        $newPosition = $oldPosition + array_sum($rolled);
+        $newPosition = $newPosition <= Game::MAX_PLAY_FIELDS ? $newPosition : $newPosition - 40;
+        $this->getPlayerEntity()->setPosition($newPosition);
+        $em->persist($this->getPlayerEntity());
+        return $newPosition;
+    }
+
+    /**
      * Buy the street that the player is currently on
-     * @author Fabian Müller
      * @param $em
      * @return bool
+     * @author Fabian Müller
      */
-    public function buyStreet($em){
+    public function buyStreet($em)
+    {
         $this->em = $em;
         return $this->checkFunds();
     }
 
     /**
      * Check if the player has enough money to buy the street
-     * @author Fabian Müller
      * @return bool
+     * @author Fabian Müller
      */
-    public function checkFunds(){
-        $street = StreetFactory::filterOne($this->em, array(
-            array('playfieldId', 'equal', $this->playerEntity->getPosition())
-        ));
-        if($street->getStreetEntity()->getStreetCosts() > $this->playerEntity->getMoney()){
-                return false;
+    public function checkFunds()
+    {
+        $street = StreetFactory::filterOne($this->em, [
+            ['playfieldId', 'equal', $this->playerEntity->getPosition()]
+        ]);
+        if ($street->getStreetEntity()->getStreetCosts() > $this->playerEntity->getMoney()) {
+            return false;
         };
         $this->payMoney($street->getStreetEntity()->getStreetCosts());
         return true;
@@ -86,20 +104,22 @@ class Player
 
     /**
      * Pay money
-     * @author Fabian Müller
      * @param $amount
      * @return void
+     * @author Fabian Müller
      */
-    public function payMoney($amount){
-        $cash = $this->playerEntity->getMoney()-$amount;
+    public function payMoney($amount)
+    {
+        $cash = $this->playerEntity->getMoney() - $amount;
         $this->playerEntity->setMoney($cash);
         $this->em->persist($this->playerEntity);
     }
 
-    public function sellStreet($id){
-        $street = StreetFactory::filterOne($this->em, array(
-            array('playfieldId', 'equal', $id)
-        ));
-        $this->payMoney(-($street->getStreetEntity()->getStreetCosts()/2));
+    public function sellStreet($id)
+    {
+        $street = StreetFactory::filterOne($this->em, [
+            ['playfieldId', 'equal', $id]
+        ]);
+        $this->payMoney(-($street->getStreetEntity()->getStreetCosts() / 2));
     }
 }

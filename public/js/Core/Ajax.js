@@ -52,8 +52,6 @@ class Ajax {
 
         if (this.file !== undefined || this.requestData instanceof FormData) {
             this.options.cache = false;
-            //this.options.contentType = false;
-            //this.options.processData = false;
         }
         $.ajax(this.options)
             .done(function (response) {
@@ -64,7 +62,6 @@ class Ajax {
                 this.success(response);
             })
             .fail(function (foo) {
-                console.log(foo);
                 this.showMessage('HTTP ERROR, something went wrong in your ajax');
             });
     }
