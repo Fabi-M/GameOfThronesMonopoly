@@ -16,6 +16,7 @@ class player_x_field extends BaseEntity
     protected $buildings;
     protected $mortgage;
     protected $fieldId;
+    protected $gameId;
 
     /**
      * @return mixed
@@ -104,6 +105,24 @@ class player_x_field extends BaseEntity
     public function setMortgage($mortgage)
     {
         $this->mortgage = $mortgage;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGameId()
+    {
+        return $this->gameId;
+    }
+
+    /**
+     * @param mixed $gameId
+     * @return player_x_field
+     */
+    public function setGameId($gameId)
+    {
+        $this->gameId = $gameId;
         return $this;
     }
 

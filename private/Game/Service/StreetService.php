@@ -7,10 +7,13 @@ use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Core\Exceptions\SQLException;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerXFieldFactory;
+use GameOfThronesMonopoly\Game\Factories\PlayFieldFactory;
+use GameOfThronesMonopoly\Game\Factories\SpecialFieldFactory;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Model\Game;
 use GameOfThronesMonopoly\Game\Model\Player;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
+use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
 
 class StreetService
@@ -33,12 +36,15 @@ class StreetService
 
     /**
      * Check if the street is buyable
-     * @author Fabian Müller
      * @return bool
+     * @throws \ReflectionException
+     * @author Fabian Müller
      */
     public function checkIfBuyable()
     {
-        $playerXStreet = PlayerXFieldFactory::getByFieldId($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
+        $playerXStreet = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
+        $street = PlayFieldFactory::getPlayField($this->em, $this->player->getPlayerEntity()->getPosition());
+        if(gettype($street) != gettype(new Street(new \GameOfThronesMonopoly\Game\Entities\street()))) return false;
         return !$playerXStreet;
     }
 
@@ -57,7 +63,7 @@ class StreetService
         if(!$this->player->buyStreet($this->em)) return false; // doesn't have enough money
 
         $playerXField = new PlayerXField();
-        $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
+        $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition(), $this->game->getGameEntity()->getId());
 
         return true;
     }

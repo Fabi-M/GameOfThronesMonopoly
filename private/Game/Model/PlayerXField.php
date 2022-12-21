@@ -33,12 +33,13 @@ class PlayerXField
      * @param $fieldId
      * @return void
      */
-    public function create($em, $playerId, $fieldId){
+    public function create($em, $playerId, $fieldId, $gameId){
         $this->playerXFieldEntity = new player_x_field();
         $this->playerXFieldEntity->setBuildings(0);
         $this->playerXFieldEntity->setPlayerId($playerId);
         $this->playerXFieldEntity->setFieldId($fieldId);
         $this->playerXFieldEntity->setMortgage(0);
+        $this->playerXFieldEntity->setGameId($gameId);
         $em->persist($this->playerXFieldEntity);
     }
 
