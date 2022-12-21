@@ -29,6 +29,7 @@ class Dice {
      * @param result
      */
     displayPopup(result) {
+
         var resultObj = JSON.parse(result);
 
         alert("Deine gewürfelte Zahlen: \n"
