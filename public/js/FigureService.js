@@ -28,6 +28,8 @@ class FigureService {
      * @author Selina Stöcklein
      */
     moveFigure(result) {
+        $("#next_player").prop( "disabled", false );
+        $("#wuerfeln").prop( "disabled", true );
         console.log(result)
         var resultObj = JSON.parse(result);
         var playerId = resultObj['activePlayerId'];
