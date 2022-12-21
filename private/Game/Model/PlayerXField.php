@@ -2,12 +2,11 @@
 
 namespace GameOfThronesMonopoly\Game\Model;
 
-use Cassandra\RetryPolicy\Logging;
 use GameOfThronesMonopoly\Game\Entities\player_x_field;
 
 class PlayerXField
 {
-    private $playerXFieldEntity;
+    private ?player_x_field $playerXFieldEntity;
 
     /**
      * @param $playerXFieldEntity
@@ -18,9 +17,9 @@ class PlayerXField
     }
 
     /**
-     * @return mixed|null
+     * @return player_x_field
      */
-    public function getPlayerXFieldEntity(): mixed
+    public function getPlayerXFieldEntity():player_x_field
     {
         return $this->playerXFieldEntity;
     }
@@ -33,12 +32,13 @@ class PlayerXField
      * @param $fieldId
      * @return void
      */
-    public function create($em, $playerId, $fieldId){
+    public function create($em, $playerId, $fieldId, $gameId){
         $this->playerXFieldEntity = new player_x_field();
         $this->playerXFieldEntity->setBuildings(0);
         $this->playerXFieldEntity->setPlayerId($playerId);
         $this->playerXFieldEntity->setFieldId($fieldId);
         $this->playerXFieldEntity->setMortgage(0);
+        $this->playerXFieldEntity->setGameId($gameId);
         $em->persist($this->playerXFieldEntity);
     }
 

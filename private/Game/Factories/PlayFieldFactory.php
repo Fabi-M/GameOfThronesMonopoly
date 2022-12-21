@@ -2,6 +2,7 @@
 
 namespace GameOfThronesMonopoly\Game\Factories;
 
+use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Model\SpecialField;
 use GameOfThronesMonopoly\Game\Model\Street;
@@ -19,15 +20,16 @@ class PlayFieldFactory
      * @param int           $playFieldId
      * @return SpecialField|Street
      * @throws ReflectionException
+     * @throws Exception
      * @author Selina Stöcklein
      */
     public static function getPlayField(EntityManager $em, int $playFieldId): SpecialField|Street
     {
         // search in street
-        $card = StreetFactory::getByPlayFieldId($em, $playFieldId);
+        $card = StreetFactory::getByFieldId($em, $playFieldId);
         // search in specialCards
         if (empty($card)) {
-            $card = SpecialFieldFactory::getByPlayFieldId($em, $playFieldId);
+            $card = SpecialFieldFactory::getByFieldId($em, $playFieldId);
         }
 
         if (empty($card)) {

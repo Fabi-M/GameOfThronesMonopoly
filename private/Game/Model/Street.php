@@ -2,32 +2,40 @@
 
 namespace GameOfThronesMonopoly\Game\Model;
 
-use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
+use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
 
 class Street
 {
-    private \GameOfThronesMonopoly\Game\Entities\street $streetEntity;
+    private streetEntity $streetEntity;
+    private ?PlayerXField $xField;
 
     /**
-     * @param $streetEntity
+     * @param streetEntity $streetEntity
+     * @param PlayerXField|null $playerXField
      */
-    public function __construct(\GameOfThronesMonopoly\Game\Entities\street $streetEntity)
+    public function __construct(streetEntity $streetEntity, PlayerXField $playerXField = null)
     {
         $this->streetEntity = $streetEntity;
+        $this->xField = $playerXField;
     }
 
-    public function getStreetEntity()
+    public function getStreetEntity(): streetEntity
     {
         return $this->streetEntity;
     }
 
     /**
-     * @param $streetEntity
-     * @return
+     * @return PlayerXField
      */
-    public function setStreetEntity(\GameOfThronesMonopoly\Game\Entities\street $streetEntity)
+    public function getXField(): PlayerXField
     {
-        $this->streetEntity = $streetEntity;
-        return $this;
+        return $this->xField;
+    }
+
+    public function getRent()
+    {
+        $houses = $this->xField->getPlayerXFieldEntity()->getBuildings();
+        $getRent= 'getBuildingRent'.$houses;
+        return $this->streetEntity->$getRent();
     }
 }

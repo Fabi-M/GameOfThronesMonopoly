@@ -10,8 +10,6 @@ class Dice {
     throwDices(event, data) {
 
         let that = data['this'];
-        //TODO 15.12.2022 Selina: soll je nach action Move oder Prison an URL anhängen "data-action='Move'"
-        //TODO 15.12.2022 Selina: Alle buttons die wie Dice interagieren sollen brauchen die Klasse "dice"
         let action = $('.dice').attr('data-action');
         let url = BASEPATH + '/Roll/' + action;
         let request = null;

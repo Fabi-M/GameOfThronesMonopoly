@@ -20,23 +20,15 @@ class GameManagerController extends BaseController
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
-     * @author Fabian Müller
+     * @author Fabian Müller & Christian Teubner
      */
     public function EndTurnAction()
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $game->endTurn($this->em);
+        $nextPlayer = $game->endTurn($this->em);
         $this->em->flush();
-
-        //TODO 16.12.2022 Selina: Hier SpielerId zurückgeben, damit im PopUp
-        // gezeigt werden kann wer als nächstes dran ist
-        // echo next player
-        echo $this->twig->render(
-            "Core/Views/Base.html.twig",
-            [
-            ]
-        );
+        echo json_encode($nextPlayer);
     }
 
     /**
