@@ -105,44 +105,40 @@ class StreetController extends BaseController
     }
 
     /**
-     * @url /Street/Rent/Pay
+     * @url    /Street/Rent/Pay
      * @return void
-     * @throws ReflectionException
      * @author Selina Stöcklein
      */
     public function PayRentAction(): void
     {
         $fieldId = $_POST['playFieldId'];
-        var_dump($fieldId);
-        $game = GameFactory::getActiveGame($this->em, $this->sessionId);
         try {
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             // checken wieviel miete
             $player = PlayerFactory::getActivePlayer($this->em, $game);
             $street = StreetFactory::getByFieldId($this->em, $fieldId, $game->getGameEntity()->getId());
-            if (!($street instanceof Street) || $street->isOwned()){
+            if (!($street instanceof Street) || $street->isOwned()) {
                 throw new Exception("No Rent To Pay");
             }
             $owner = PlayerFactory::getPlayerById(
                 $this->em, $street->getXField()->getPlayerXFieldEntity()->getPlayerId()
             );
-            $rent = $street->getRent(); // 0 oder mehr
-            // abziehen
-            $player->changeBalance(-($rent));
-            $owner->changeBalance($rent);
+            $rent = $player->payRentTo($owner, $street);
             $isGameOver = $player->isGameOver();
-            $this->em->flush();
             $totalMoney = $player->getPlayerEntity()->getMoney();
+            $this->em->flush();
         } catch (Throwable $e) {
-            var_dump($e->getMessage());
             $totalMoney = 0;
             $rent = 0;
-            $isGameOver = true;
+            $isGameOver = false;
         }
 
-        echo json_encode([
-                             'totalMoney' => $totalMoney,
-                             'isGameOver' => $isGameOver,
-                             'payedRent' => $rent
-                         ]);
+        echo json_encode(
+            [
+                'totalMoney' => $totalMoney,
+                'isGameOver' => $isGameOver,
+                'payedRent' => $rent
+            ]
+        );
     }
 }
