@@ -22,9 +22,6 @@ class Round {
      */
     displayNextPlayerPopup(data) {
         console.log(data);
-        //TODO 15.12.2022 Selina: PopUp mit Info, welcher Spieler nun am Zug ist
-        // + Spielstand/Inventar des nächsten Spielers anzeigen
-        // eventuell spieler infos neu von PHP laden lassen?
-        // (um falsche daten im Browser zu vermeiden)
+        $('div.spieleranzeige').text('Spieler am Zug: ' + data);
     }
 }
