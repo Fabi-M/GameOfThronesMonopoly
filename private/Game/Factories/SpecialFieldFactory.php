@@ -23,7 +23,7 @@ class SpecialFieldFactory
      * @throws ReflectionException
      * @author Selina Stöcklein
      */
-    public static function getByPlayFieldId(EntityManager $em, int $playFieldId)
+    public static function getByFieldId(EntityManager $em, int $playFieldId)
     {
         /** @var specialFieldEntity $entity */
         $entity = $em->getRepository(self::SPECIAL_FIELD_NAMESPACE)->findOneBy(

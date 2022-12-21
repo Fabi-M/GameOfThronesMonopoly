@@ -150,4 +150,11 @@ class StreetService
         $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->player->getPlayerEntity()->getId(), $fieldId);
 
     }
+
+    public function getRentforStreet(mixed $fieldId)
+    {
+        // get street if it is owned by another player
+        // get rent based on houses
+        // return rent
+    }
 }
