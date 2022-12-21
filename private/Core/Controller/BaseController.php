@@ -57,7 +57,6 @@ class BaseController
         $pdo = DataBaseConnection::getInstance()->getConnection();
         $this->em = new EntityManager($pdo);
         $this->pdo = $pdo;
-        $loader = new FilesystemLoader('../private/');
 
         $this->addTwig();
 
@@ -82,9 +81,6 @@ class BaseController
         // add basic js scripts
         $scriptCollector = new ScriptCollector();
         $scripts = $this->baseJSFiles;
-        foreach ($scripts as $scriptPath) {
-            $scriptCollector->addBottom($scriptPath);
-        }
         $this->scriptCollector = $scriptCollector;
         $this->twig->addGlobal('SCRIPTCOLLECTOR', $this->scriptCollector);
         $this->addScriptCollectorScripts();
@@ -107,6 +103,7 @@ class BaseController
         $this->scriptCollector->addBottom('/js/FigureService.js');
         $this->scriptCollector->addBottom('/js/PlayFieldService.js');
         $this->scriptCollector->addBottom('/js/Dice.js');
+        $this->scriptCollector->addBottom('/js/Round.js');
         $this->scriptCollector->addBottom('/js/PlayField.js');
         $this->scriptCollector->addBottom('/js/Card.js');
     }
@@ -119,9 +116,6 @@ class BaseController
         // add basic css scripts
         $styleSheetCollector = new StyleSheetCollector();
         $scripts = $this->baseCSSFiles;
-        foreach ($scripts as $scriptPath) {
-            $styleSheetCollector->addBottom($scriptPath);
-        }
         $this->styleSheetCollector = $styleSheetCollector;
         $this->twig->addGlobal('STYLESHEETCOLLECTOR', $this->styleSheetCollector);
 
