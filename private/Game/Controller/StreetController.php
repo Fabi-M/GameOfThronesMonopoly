@@ -8,8 +8,10 @@ use GameOfThronesMonopoly\Core\Exceptions\SQLException;
 use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
+use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\StreetService;
+use ReflectionException;
 use Throwable;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -91,9 +93,6 @@ class StreetController extends BaseController
      * Trade the selected Street to another Player
      * @url    /street/trade
      * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
      * @author Christian Teubner
      */
     public function TradeStreetAction(): void
@@ -103,14 +102,24 @@ class StreetController extends BaseController
         //Here the Game Logic
     }
 
+    /**
+     * @url /Street/Rent/Pay
+     * @return void
+     * @throws ReflectionException
+     * @author Selina Stöcklein
+     */
     public function PayRentAction(): void
     {
         $fieldId = $_POST['playFieldId'];
+        var_dump($fieldId);
         $game = GameFactory::getActiveGame($this->em, $this->sessionId);
         try {
             // checken wieviel miete
             $player = PlayerFactory::getActivePlayer($this->em, $game);
-            $street = StreetFactory::getByFieldId($this->em, $fieldId);
+            $street = StreetFactory::getByFieldId($this->em, $fieldId, $game->getGameEntity()->getId());
+            if (!($street instanceof Street) || $street->isOwned()){
+                throw new Exception("No Rent To Pay");
+            }
             $owner = PlayerFactory::getPlayerById(
                 $this->em, $street->getXField()->getPlayerXFieldEntity()->getPlayerId()
             );
@@ -122,6 +131,7 @@ class StreetController extends BaseController
             $this->em->flush();
             $totalMoney = $player->getPlayerEntity()->getMoney();
         } catch (Throwable $e) {
+            var_dump($e->getMessage());
             $totalMoney = 0;
             $rent = 0;
             $isGameOver = true;

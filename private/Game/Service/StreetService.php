@@ -46,7 +46,11 @@ class StreetService
         $playerXStreet = PlayerXFieldFactory::getByFieldId(
             $this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition()
         );
-        $street = PlayFieldFactory::getPlayField($this->em, $this->player->getPlayerEntity()->getPosition());
+        $street = PlayFieldFactory::getPlayField(
+            $this->em,
+            $this->player->getPlayerEntity()->getPosition(),
+            null
+        );
         //TODO 21.12.2022 Selina: Bahnhöfe, Energiewerk, Wasserwerk
         if (!($street instanceof Street)) {
             return false;
@@ -74,7 +78,9 @@ class StreetService
 
         $playerXField = new PlayerXField();
         $playerXField->create(
-            $this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition(),
+            $this->em,
+            $this->player->getPlayerEntity()->getId(),
+            $this->player->getPlayerEntity()->getPosition(),
             $this->game->getGameEntity()->getId()
         );
 

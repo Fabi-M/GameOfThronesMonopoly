@@ -12,6 +12,7 @@ use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
 class street extends BaseEntity
 {
     protected int $id;
+    protected int $playFieldId;
     protected string $name;
     protected int $streetCosts;
     protected string $color;
@@ -225,6 +226,23 @@ class street extends BaseEntity
     {
         $this->mortgage = $mortgage;
     }
+
+    /**
+     * @return int
+     */
+    public function getPlayFieldId(): int
+    {
+        return $this->playFieldId;
+    }
+
+    /**
+     * @param int $playFieldId
+     */
+    public function setPlayFieldId(int $playFieldId): void
+    {
+        $this->playFieldId = $playFieldId;
+    }
+
 
 
 
