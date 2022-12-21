@@ -7,6 +7,8 @@ class PlayField {
     constructor() {
         let events = new Events();
         events.addEvent('click', $('.playField'), this.requestCardInfo, {"this": this});
+        events.addEvent('click', $('.player-card'), this.cardButons, {"this": this});
+
     }
 
     requestCardInfo(event, data) {
@@ -19,7 +21,16 @@ class PlayField {
 
     showCardPopUp(html) {
         let popUp = new ModalDialog();
+        popUp.destroyFooterAndHeader();
         popUp.Body = html;
         popUp.showDialog();
+    }
+
+    cardButons(event, data) {
+        // ajax
+        let url = BASEPATH + "/Card/InteractionButtons";
+        let playFieldId = 1;
+        let request = new Ajax(url, {'playFieldId': playFieldId}, data['this'].showCardPopUp, data);
+        request.execute();
     }
 }

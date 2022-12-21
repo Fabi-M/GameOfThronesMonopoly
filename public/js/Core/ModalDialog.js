@@ -75,6 +75,10 @@ class ModalDialog {
         this.abortFunctionOptions = abortFunctionOptions;
     }
 
+    destroyFooterAndHeader(){
+        this.element.find('.modal-header').remove();
+        this.element.find('.modal-footer').remove();
+    }
 
     disableCloseButton() {
         this.element.find('.modalDialogCloseBtn').addClass('invisible');

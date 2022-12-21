@@ -19,7 +19,7 @@ class Testcontroller extends BaseController
         $this->scriptCollector->addBottom('/js/PlayFieldService.js');
         $this->scriptCollector->addBottom('/js/Dice.js');
         $this->scriptCollector->addBottom('/js/PlayField.js');
-        $this->scriptCollector->addBottom('/js/Round.js');
+        $this->scriptCollector->addBottom('/js/Card.js');
         $this->styleSheetCollector->addBottom(
             '/node_modules/bootstrap/dist/css/bootstrap.min.css'
         );
