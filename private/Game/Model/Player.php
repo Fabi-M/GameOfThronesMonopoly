@@ -92,9 +92,11 @@ class Player
      */
     public function checkFunds()
     {
+        var_dump($this->playerEntity->getPosition());
         $street = StreetFactory::filterOne($this->em, [
             ['playfieldId', 'equal', $this->playerEntity->getPosition()]
         ]);
+        var_dump($street);
         if ($street->getStreetEntity()->getStreetCosts() > $this->playerEntity->getMoney()) {
             return false;
         };

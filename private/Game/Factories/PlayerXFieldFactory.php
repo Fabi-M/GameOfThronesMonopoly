@@ -31,7 +31,7 @@ class PlayerXFieldFactory
     public static function getByFieldId(EntityManager $em, $gameId, $fieldId): ?PlayerXField
     {
         return PlayerXFieldFactory::filterOne($em, array(
-                array('playerId', 'equal', $gameId),
+                array('gameId', 'equal', $gameId),
                 array('fieldId', 'equal', $fieldId)
             )
         );

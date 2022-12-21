@@ -43,8 +43,8 @@ class StreetService
     public function checkIfBuyable()
     {
         $playerXStreet = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
-        $street = PlayFieldFactory::getPlayField($this->em, $this->player->getPlayerEntity()->getPosition());
-        if(gettype($street) != gettype(new Street(new \GameOfThronesMonopoly\Game\Entities\street()))) return false;
+        $this->street = PlayFieldFactory::getPlayField($this->em, $this->player->getPlayerEntity()->getPosition());
+        if(gettype($this->street) != gettype(new Street(new \GameOfThronesMonopoly\Game\Entities\street()))) return false;
         return !$playerXStreet;
     }
 
@@ -54,7 +54,7 @@ class StreetService
      * @throws Exception
      * @author Fabian Müller
      */
-    public function buyStreet()
+    public function buyStreet(): bool|array
     {
         $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
         //$this->player->getPlayerEntity()->setPosition(24); // todo nur zum testen, position wird über würfeln gesetzt
@@ -65,13 +65,18 @@ class StreetService
         $playerXField = new PlayerXField();
         $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition(), $this->game->getGameEntity()->getId());
 
-        return true;
+        return [
+            "streetName" => $this->street->getStreetEntity()->getName(),
+            "playerId" => $this->player->getPlayerEntity()->getId(),
+            "success" => true,
+            "totalMoney" => $this->player->getPlayerEntity()->getMoney()
+            ]; // todo add response classes
     }
 
     /**
      * Sell the selected street
      * @param $fieldId
-     * @return bool
+     * @return array|bool
      * @throws Exception
      * @author Fabian Müller
      */
@@ -85,7 +90,12 @@ class StreetService
         $this->playerXField->delete($this->em);
         $this->player->sellStreet($fieldId);
 
-        return true;
+        return [
+            "streetName" => $this->street->getStreetEntity()->getName(),
+            "playerId" => $this->player->getPlayerEntity()->getId(),
+            "success" => true,
+            "totalMoney" => $this->player->getPlayerEntity()->getMoney()
+        ];
     }
 
     /**
@@ -95,7 +105,8 @@ class StreetService
      * @return bool
      * @throws SQLException
      */
-    public function buyHouse($fieldId){
+    public function buyHouse($fieldId): bool|array
+    {
         $this->getAllModels($fieldId);
 
         if($this->playerXField == null) return false; // street not owned
@@ -106,7 +117,13 @@ class StreetService
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()+1);
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
-        return true;
+        return [
+            "streetName" => $this->street->getStreetEntity()->getName(),
+            "playerId" => $this->player->getPlayerEntity()->getId(),
+            "success" => true,
+            "totalMoney" => $this->player->getPlayerEntity()->getMoney(),
+            "buildings" => $this->playerXField->getPlayerXFieldEntity()->getBuildings()
+        ];
     }
 
     /**
@@ -116,7 +133,8 @@ class StreetService
      * @throws Exception
      * @author Fabian Müller
      */
-    public function sellHouse($fieldId){
+    public function sellHouse($fieldId): bool|array
+    {
         $this->getAllModels($fieldId);
 
         if($this->playerXField == null) return false; // street not owned
@@ -126,16 +144,23 @@ class StreetService
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()-1);
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
-        return true;
+        return [
+            "streetName" => $this->street->getStreetEntity()->getName(),
+            "playerId" => $this->player->getPlayerEntity()->getId(),
+            "success" => true,
+            "totalMoney" => $this->player->getPlayerEntity()->getMoney(),
+            "buildings" => $this->playerXField->getPlayerXFieldEntity()->getBuildings()
+        ];
     }
 
     /**
      * Check if the player owns all streets of the specific color
      * @author Fabian Müller
-     * @return mixed
+     * @return bool
      * @throws SQLException
      */
-    public function checkIfFullStreet(){
+    public function checkIfFullStreet(): bool
+    {
         return filter_var(StreetRepository::checkIfAllStreetsOwned(
             $this->street->getStreetEntity()->getColor(),
             $this->player->getPlayerEntity()->getId()),

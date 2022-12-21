@@ -21,9 +21,9 @@ class StreetController extends BaseController
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $streetService = new StreetService($game, $this->em);
-        $success = $streetService->buyStreet();
+        $response = $streetService->buyStreet();
         $this->em->flush();
-        echo json_encode($success);
+        echo json_encode($response);
     }
 
     /**
