@@ -4,6 +4,7 @@ namespace GameOfThronesMonopoly\Game\Model;
 
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
+use ReflectionException;
 
 class Player
 {
@@ -45,7 +46,7 @@ class Player
      * @return void
      * @author Fabian Müller
      */
-    public function create($em, $sessionId, $playerId, $gameId)
+    public function create($em, $sessionId, $playerId, $gameId): void
     {
         $playerEntity = new \GameOfThronesMonopoly\Game\Entities\player();
         $playerEntity->setSessionId($sessionId);
@@ -77,9 +78,10 @@ class Player
      * Buy the street that the player is currently on
      * @param $em
      * @return bool
+     * @throws ReflectionException
      * @author Fabian Müller
      */
-    public function buyStreet($em)
+    public function buyStreet($em): bool
     {
         $this->em = $em;
         return $this->checkFunds();
@@ -88,17 +90,18 @@ class Player
     /**
      * Check if the player has enough money to buy the street
      * @return bool
+     * @throws ReflectionException
      * @author Fabian Müller
      */
-    public function checkFunds()
+    public function checkFunds(): bool
     {
         $street = StreetFactory::filterOne($this->em, [
             ['playfieldId', 'equal', $this->playerEntity->getPosition()]
         ]);
         if ($street->getStreetEntity()->getStreetCosts() > $this->playerEntity->getMoney()) {
             return false;
-        };
-        $this->payMoney($street->getStreetEntity()->getStreetCosts());
+        }
+        $this->changeBalance(-($street->getStreetEntity()->getStreetCosts()));
         return true;
     }
 
@@ -108,18 +111,32 @@ class Player
      * @return void
      * @author Fabian Müller
      */
-    public function payMoney($amount)
+    public function changeBalance($amount): void
     {
-        $cash = $this->playerEntity->getMoney() - $amount;
+        $cash = $this->playerEntity->getMoney() + $amount;
         $this->playerEntity->setMoney($cash);
         $this->em->persist($this->playerEntity);
     }
 
-    public function sellStreet($id)
+    /**
+     * @param $id
+     * @return void
+     * @throws ReflectionException
+     * @author Fabian Müller
+     */
+    public function sellStreet($id): void
     {
         $street = StreetFactory::filterOne($this->em, [
             ['playfieldId', 'equal', $id]
         ]);
-        $this->payMoney(-($street->getStreetEntity()->getStreetCosts() / 2));
+        $this->changeBalance($street->getStreetEntity()->getStreetCosts() / 2);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGameOver(): bool
+    {
+        return $this->getPlayerEntity()->getMoney() < 0;
     }
 }

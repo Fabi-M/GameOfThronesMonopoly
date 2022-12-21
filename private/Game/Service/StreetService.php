@@ -15,12 +15,13 @@ use GameOfThronesMonopoly\Game\Model\Player;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
+use ReflectionException;
 
 class StreetService
 {
-    private Game $game;
-    private $player;
-    private $street;
+    private ?Game $game;
+    private ?Player $player;
+    private ?Street $street;
     private $playerXField;
     private EntityManager $em;
 
@@ -37,14 +38,19 @@ class StreetService
     /**
      * Check if the street is buyable
      * @return bool
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @author Fabian Müller
      */
-    public function checkIfBuyable()
+    public function checkIfBuyable(): bool
     {
-        $playerXStreet = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
+        $playerXStreet = PlayerXFieldFactory::getByFieldId(
+            $this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition()
+        );
         $street = PlayFieldFactory::getPlayField($this->em, $this->player->getPlayerEntity()->getPosition());
-        if(gettype($street) != gettype(new Street(new \GameOfThronesMonopoly\Game\Entities\street()))) return false;
+        //TODO 21.12.2022 Selina: Bahnhöfe, Energiewerk, Wasserwerk
+        if (!($street instanceof Street)) {
+            return false;
+        }
         return !$playerXStreet;
     }
 
@@ -59,11 +65,18 @@ class StreetService
         $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
         //$this->player->getPlayerEntity()->setPosition(24); // todo nur zum testen, position wird über würfeln gesetzt
 
-        if(!$this->checkIfBuyable()) return false; // street is already owned by another player
-        if(!$this->player->buyStreet($this->em)) return false; // doesn't have enough money
+        if (!$this->checkIfBuyable()) {
+            return false;
+        } // street is already owned by another player
+        if (!$this->player->buyStreet($this->em)) {
+            return false;
+        } // doesn't have enough money
 
         $playerXField = new PlayerXField();
-        $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition(), $this->game->getGameEntity()->getId());
+        $playerXField->create(
+            $this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition(),
+            $this->game->getGameEntity()->getId()
+        );
 
         return true;
     }
@@ -75,11 +88,16 @@ class StreetService
      * @throws Exception
      * @author Fabian Müller
      */
-    public function sellStreet($fieldId){
+    public function sellStreet($fieldId)
+    {
         $this->getAllModels($fieldId);
 
-        if($this->playerXField == null) return false; // doesn't own street
-        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() > 0) return false; // has houses on street, needs to sell them first
+        if ($this->playerXField == null) {
+            return false;
+        } // doesn't own street
+        if ($this->playerXField->getPlayerXFieldEntity()->getBuildings() > 0) {
+            return false;
+        } // has houses on street, needs to sell them first
         // todo: check if player has houses on other streets with the same color -> can't sell street
 
         $this->playerXField->delete($this->em);
@@ -90,20 +108,29 @@ class StreetService
 
     /**
      * Buy a house on the selected street
-     * @author Fabian Müller
      * @param $fieldId
      * @return bool
      * @throws SQLException
+     * @author Fabian Müller
      */
-    public function buyHouse($fieldId){
+    public function buyHouse($fieldId)
+    {
         $this->getAllModels($fieldId);
 
-        if($this->playerXField == null) return false; // street not owned
-        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() >= 5) return false; // already max housed build
-        if(!$this->checkIfFullStreet()) return false; // doesn't own all streets of color
+        if ($this->playerXField == null) {
+            return false;
+        } // street not owned
+        if ($this->playerXField->getPlayerXFieldEntity()->getBuildings() >= 5) {
+            return false;
+        } // already max housed build
+        if (!$this->checkIfFullStreet()) {
+            return false;
+        } // doesn't own all streets of color
 
-        $this->player->payMoney($this->street->getStreetEntity()->getBuildingCosts());
-        $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()+1);
+        $this->player->changeBalance(-($this->street->getStreetEntity()->getBuildingCosts()));
+        $this->playerXField->getPlayerXFieldEntity()->setBuildings(
+            $this->playerXField->getPlayerXFieldEntity()->getBuildings() + 1
+        );
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
         return true;
@@ -116,14 +143,21 @@ class StreetService
      * @throws Exception
      * @author Fabian Müller
      */
-    public function sellHouse($fieldId){
+    public function sellHouse($fieldId)
+    {
         $this->getAllModels($fieldId);
 
-        if($this->playerXField == null) return false; // street not owned
-        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() == 0) return false; // no buildings on street
+        if ($this->playerXField == null) {
+            return false;
+        } // street not owned
+        if ($this->playerXField->getPlayerXFieldEntity()->getBuildings() == 0) {
+            return false;
+        } // no buildings on street
 
-        $this->player->payMoney(-($this->street->getStreetEntity()->getBuildingCosts()/2));
-        $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()-1);
+        $this->player->changeBalance($this->street->getStreetEntity()->getBuildingCosts() / 2);
+        $this->playerXField->getPlayerXFieldEntity()->setBuildings(
+            $this->playerXField->getPlayerXFieldEntity()->getBuildings() - 1
+        );
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
         return true;
@@ -131,15 +165,19 @@ class StreetService
 
     /**
      * Check if the player owns all streets of the specific color
-     * @author Fabian Müller
      * @return mixed
      * @throws SQLException
+     * @author Fabian Müller
      */
-    public function checkIfFullStreet(){
-        return filter_var(StreetRepository::checkIfAllStreetsOwned(
-            $this->street->getStreetEntity()->getColor(),
-            $this->player->getPlayerEntity()->getId()),
-            FILTER_VALIDATE_BOOLEAN);
+    public function checkIfFullStreet()
+    {
+        return filter_var(
+            StreetRepository::checkIfAllStreetsOwned(
+                $this->street->getStreetEntity()->getColor(),
+                $this->player->getPlayerEntity()->getId()
+            ),
+            FILTER_VALIDATE_BOOLEAN
+        );
     }
 
     /**
@@ -149,12 +187,14 @@ class StreetService
      * @throws Exception
      * @author Fabian Müller
      */
-    public function getAllModels($fieldId){
+    public function getAllModels($fieldId)
+    {
         $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
         $this->player->setEm($this->em);
         $this->street = StreetFactory::getByFieldId($this->em, $fieldId);
-        $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->player->getPlayerEntity()->getId(), $fieldId);
-
+        $this->playerXField = PlayerXFieldFactory::getByFieldId(
+            $this->em, $this->player->getPlayerEntity()->getId(), $fieldId
+        );
     }
 
     public function getRentforStreet(mixed $fieldId)

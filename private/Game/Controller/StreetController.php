@@ -10,6 +10,7 @@ use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\StreetService;
+use Throwable;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -106,17 +107,28 @@ class StreetController extends BaseController
     {
         $fieldId = $_POST['playFieldId'];
         $game = GameFactory::getActiveGame($this->em, $this->sessionId);
-        $streetService = new StreetService($game, $this->em);
-        // checken wieviel miete
-        $rent = $streetService->getRentforStreet($fieldId); // 0 oder mehr
-        $player = PlayerFactory::getActivePlayer($this->em, $game);
-        // abziehen
-        $player->payMoney($rent);
-        $isGameOver = $player->isGameOver();
-        $this->em->flush();
+        try {
+            // checken wieviel miete
+            $player = PlayerFactory::getActivePlayer($this->em, $game);
+            $street = StreetFactory::getByFieldId($this->em, $fieldId);
+            $owner = PlayerFactory::getPlayerById(
+                $this->em, $street->getXField()->getPlayerXFieldEntity()->getPlayerId()
+            );
+            $rent = $street->getRent(); // 0 oder mehr
+            // abziehen
+            $player->changeBalance(-($rent));
+            $owner->changeBalance($rent);
+            $isGameOver = $player->isGameOver();
+            $this->em->flush();
+            $totalMoney = $player->getPlayerEntity()->getMoney();
+        } catch (Throwable $e) {
+            $totalMoney = 0;
+            $rent = 0;
+            $isGameOver = true;
+        }
 
         echo json_encode([
-                             'totalMoney' => $player->getPlayerEntity()->getMoney(),
+                             'totalMoney' => $totalMoney,
                              'isGameOver' => $isGameOver,
                              'payedRent' => $rent
                          ]);
