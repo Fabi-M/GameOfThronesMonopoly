@@ -87,6 +87,28 @@ class BaseController
         }
         $this->scriptCollector = $scriptCollector;
         $this->twig->addGlobal('SCRIPTCOLLECTOR', $this->scriptCollector);
+        $this->addScriptCollectorScripts();
+    }
+
+    /**
+     * Add the needed Base Scripts
+     * @return void
+     * @author Christian Teubner
+     */
+    private function addScriptCollectorScripts()
+    {
+        $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
+        $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.bundle.js');
+        $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.min.js');
+        $this->scriptCollector->addBottom('/js/Core/ModalDialog.js');
+        $this->scriptCollector->addBottom('/js/Core/Ajax.js');
+        $this->scriptCollector->addBottom('/js/Core/Events.js');
+        $this->scriptCollector->addBottom('/js/Figure.js');
+        $this->scriptCollector->addBottom('/js/FigureService.js');
+        $this->scriptCollector->addBottom('/js/PlayFieldService.js');
+        $this->scriptCollector->addBottom('/js/Dice.js');
+        $this->scriptCollector->addBottom('/js/PlayField.js');
+        $this->scriptCollector->addBottom('/js/Card.js');
     }
 
     /**
@@ -102,7 +124,19 @@ class BaseController
         }
         $this->styleSheetCollector = $styleSheetCollector;
         $this->twig->addGlobal('STYLESHEETCOLLECTOR', $this->styleSheetCollector);
-        
+
+        $this->addStylesheetCollectorScripts();
+    }
+
+    /**
+     * Add the needed Base Scripts
+     * @return void
+     * @author Christian Teubner
+     */
+    private function addStylesheetCollectorScripts()
+    {
+        $this->styleSheetCollector->addBottom('/node_modules/bootstrap/dist/css/bootstrap.min.css');
+        $this->styleSheetCollector->addBottom('/css/GameStyle.css');
     }
 
 

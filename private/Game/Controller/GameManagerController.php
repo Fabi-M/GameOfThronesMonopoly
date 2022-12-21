@@ -20,7 +20,7 @@ class GameManagerController extends BaseController
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
-     * @author Fabian Müller
+     * @author Fabian Müller & Christian Teubner
      */
     public function EndTurnAction()
     {
