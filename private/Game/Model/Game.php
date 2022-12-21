@@ -41,7 +41,7 @@ class Game
 
     /**
      * End the current turn, set next player as active
-     * @author Fabian Müller
+     * @author Fabian Müller & Christian Teubner
      * @param EntityManager $em
      * @return void
      */
