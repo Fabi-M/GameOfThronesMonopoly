@@ -31,8 +31,15 @@ class CardController extends BaseController
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
 
-        echo $this->twig->render('Game/views/PlayerCardInfoPopUp.html.twig');
+        echo $this->twig->render('Game/views/PlayerCardInfoPopUp.html.twig', 
+        [
+            'imgPath' => self::IMG_PATH,
+            'zug-bild' => 'Train.png'
+        ]);
+
+
     }
+    
 
 
 }

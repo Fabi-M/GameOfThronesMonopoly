@@ -3,7 +3,6 @@
 
  .interaktionsbuttons {
    margin-left: 10px;
-   height: 94%;
  }
 
  .interaktionsbuttons-margin {
@@ -605,4 +604,20 @@ margin-left:10px;
 
 .modal-body .single-card { 
   zoom: 1.25;
+}
+.single-player-card-pop-up .interaktionsbuttons .row { 
+  width: unset; 
+  margin:0px;
+}
+.single-player-card-pop-up .interaktionsbuttons.row { 
+  width: 790px; 
+  margin-top:20px;
+}
+.single-player-card-pop-up .bahnhofbuttons.interaktionsbuttons.row {
+  width: 540px;
+  margin-top: 20px;
+}
+.single-player-card-pop-up .ereignisbuttons.interaktionsbuttons.row {
+  width: 285px;
+  margin-top: 20px;
 }

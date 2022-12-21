@@ -22,13 +22,14 @@ class Renetestcontroller extends BaseController
         );
         $this->styleSheetCollector->addBottom('/css/GameStyle.css');
         echo $this->twig->render(
-            "Game/Views/Game.html.twig",
+            "Game/Views/Single-Card-Bahnhof.html.twig",
             [
                 'imgPath' => self::IMG_PATH,
                 'playFieldJPG' => 'Playfield.jpg',
                 'figureDir' => '/figures/',
                 'figurePNGName' => 'figur',
-                'playerFigures' => 4
+                'playerFigures' => 4,
+                'train' => 'Train.png'
             ]
         );
     }
