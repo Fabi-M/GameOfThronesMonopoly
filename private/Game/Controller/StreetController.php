@@ -66,8 +66,9 @@ class StreetController extends BaseController
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $streetService = new StreetService($game, $this->em);
-        $streetService->buyHouse($fieldId);
+        $response = $streetService->buyHouse($fieldId);
         $this->em->flush();
+        echo json_encode($response);
     }
 
     /**
@@ -83,8 +84,9 @@ class StreetController extends BaseController
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $streetService = new StreetService($game, $this->em);
-        $streetService->sellHouse($fieldId);
+        $response = $streetService->sellHouse($fieldId);
         $this->em->flush();
+        echo json_encode($response);
     }
 
     /**

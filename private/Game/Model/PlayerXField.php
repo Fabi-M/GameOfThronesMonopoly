@@ -6,7 +6,7 @@ use GameOfThronesMonopoly\Game\Entities\player_x_field;
 
 class PlayerXField
 {
-    private player_x_field $playerXFieldEntity;
+    private ?player_x_field $playerXFieldEntity;
 
     /**
      * @param $playerXFieldEntity

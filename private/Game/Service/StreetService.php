@@ -44,7 +44,7 @@ class StreetService
     {
         $playerXStreet = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
         $this->street = PlayFieldFactory::getPlayField($this->em, $this->player->getPlayerEntity()->getPosition());
-        if(gettype($this->street) != gettype(new Street(new \GameOfThronesMonopoly\Game\Entities\street()))) return false;
+        if(!($this->street instanceof Street)) return false; // todo bahnhöfe & werke einbauen
         return !$playerXStreet;
     }
 
@@ -100,10 +100,11 @@ class StreetService
 
     /**
      * Buy a house on the selected street
-     * @author Fabian Müller
      * @param $fieldId
-     * @return bool
+     * @return bool|array
      * @throws SQLException
+     * @throws Exception
+     * @author Fabian Müller
      */
     public function buyHouse($fieldId): bool|array
     {
@@ -113,7 +114,7 @@ class StreetService
         if($this->playerXField->getPlayerXFieldEntity()->getBuildings() >= 5) return false; // already max housed build
         if(!$this->checkIfFullStreet()) return false; // doesn't own all streets of color
 
-        $this->player->payMoney($this->street->getStreetEntity()->getBuildingCosts());
+        $this->player->changeBalance(-($this->street->getStreetEntity()->getBuildingCosts()));
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()+1);
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
@@ -140,7 +141,7 @@ class StreetService
         if($this->playerXField == null) return false; // street not owned
         if($this->playerXField->getPlayerXFieldEntity()->getBuildings() == 0) return false; // no buildings on street
 
-        $this->player->payMoney(-($this->street->getStreetEntity()->getBuildingCosts()/2));
+        $this->player->changeBalance($this->street->getStreetEntity()->getBuildingCosts()/2);
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()-1);
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
@@ -178,7 +179,7 @@ class StreetService
         $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
         $this->player->setEm($this->em);
         $this->street = StreetFactory::getByFieldId($this->em, $fieldId);
-        $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->player->getPlayerEntity()->getId(), $fieldId);
+        $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $fieldId);
 
     }
 }

@@ -7,13 +7,13 @@ use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
 class Street
 {
     private streetEntity $streetEntity;
-    private PlayerXField $xField;
+    private ?PlayerXField $xField;
 
     /**
      * @param streetEntity $streetEntity
-     * @param PlayerXField $playerXField
+     * @param PlayerXField|null $playerXField
      */
-    public function __construct(streetEntity $streetEntity, PlayerXField $playerXField)
+    public function __construct(streetEntity $streetEntity, PlayerXField $playerXField = null)
     {
         $this->streetEntity = $streetEntity;
         $this->xField = $playerXField;
