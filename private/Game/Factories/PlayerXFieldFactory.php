@@ -2,9 +2,11 @@
 
 namespace GameOfThronesMonopoly\Game\Factories;
 
+use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Model\Game;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
+use ReflectionException;
 
 class PlayerXFieldFactory
 {
@@ -12,7 +14,11 @@ class PlayerXFieldFactory
 
     /**
      * @param EntityManager $em
-     * @param array $filter
+     * @param array         $filter
+     * @return PlayerXField|null
+     * @throws ReflectionException
+     * @throws Exception
+     * @author Fabian Müller
      */
     public static function filterOne(EntityManager $em, array $filter): PlayerXField | null
     {
@@ -28,6 +34,14 @@ class PlayerXFieldFactory
         return new PlayerXField($entity);
     }
 
+    /**
+     * @param EntityManager $em
+     * @param               $gameId
+     * @param               $fieldId
+     * @return PlayerXField|null
+     * @throws ReflectionException
+     * @author Fabian Müller
+     */
     public static function getByFieldId(EntityManager $em, $gameId, $fieldId): ?PlayerXField
     {
         return PlayerXFieldFactory::filterOne($em, array(

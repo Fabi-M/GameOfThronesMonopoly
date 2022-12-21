@@ -36,17 +36,52 @@ class PlayerFactory
      * @param EntityManager $em
      * @param Game|null     $game
      * @return Player
-     * @author Selina Stöcklein
      * @throws Exception
+     * @author Selina Stöcklein
      */
     public static function getActivePlayer(EntityManager $em, ?Game $game): Player
+    {
+        return self::getPlayerByInGameId($em, $game->getGameEntity()->getActivePlayerId(), $game);
+    }
+
+    /**
+     * @param EntityManager $em
+     * @param               $inGameId
+     * @param Game|null     $game
+     * @return Player
+     * @throws ReflectionException
+     * @author Selina Stöcklein
+     */
+    public static function getPlayerByInGameId(EntityManager $em, $inGameId, ?Game $game): Player
     {
         $player = self::filterOne(
             $em,
             [
                 //TODO 19.12.2022 Selina: lieber mti gameid abrufen
                 ['sessionId', 'equal', $game->getGameEntity()->getSessionId()],
-                ['ingameId', 'equal', $game->getGameEntity()->getActivePlayerId()]
+                ['ingameId', 'equal', $inGameId]
+            ]
+        );
+        if (empty($player)) {
+            throw new Exception('no player found');
+        }
+        return $player;
+    }
+
+    /**
+     * @param EntityManager $em
+     * @param mixed         $playerId
+     * @return Player
+     * @throws ReflectionException
+     * @throws Exception
+     * @author Selina Stöcklein
+     */
+    public static function getPlayerById(EntityManager $em, mixed $playerId): Player
+    {
+        $player = self::filterOne(
+            $em,
+            [
+                ['id', 'equal', $playerId]
             ]
         );
         if (empty($player)) {

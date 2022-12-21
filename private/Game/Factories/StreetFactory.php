@@ -35,36 +35,13 @@ class StreetFactory
 
     /**
      * @param EntityManager $em
-     * @param int           $playFieldId
-     * @return Street|null
+     * @param array         $filter
+     * @return array|null
      * @throws ReflectionException
-     * @author Selina Stöcklein
+     * @author Fabian Müller
      */
-    public static function getByPlayFieldId(EntityManager $em, int $playFieldId): ?Street
+    public static function filter(EntityManager $em, array $filter): ?array
     {
-        /** @var streetEntity $entity */
-        $entity = $em->getRepository(self::STREET_NAMESPACE)->findOneBy(
-            [
-                'WHERE' => [
-                    ['playFieldId', 'equal', $playFieldId]
-                ]
-            ]
-        );
-
-        if (empty($entity)) {
-            return null;
-        }
-        return new Street($entity);
-    }
-
-    /**
-     * @param array $filter
-     */
-    public
-    static function filter(
-        EntityManager $em,
-        array $filter
-    ): ?array {
         $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
             [
                 'WHERE' => $filter
@@ -78,11 +55,20 @@ class StreetFactory
         return $models;
     }
 
-    public static function getByFieldId($em, $fieldId
-    ) {
-        return self::filterOne($em, [
-                                      ['playfieldID', 'equal', $fieldId]
-                                  ]
+    /**
+     * @param $em
+     * @param $fieldId
+     * @return Street|null
+     * @throws ReflectionException
+     * @author Fabian Müller
+     */
+    public static function getByFieldId($em, $fieldId): ?Street
+    {
+        return self::filterOne(
+            $em,
+            [
+                ['playfieldID', 'equal', $fieldId]
+            ]
         );
     }
 }
