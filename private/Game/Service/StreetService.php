@@ -15,12 +15,13 @@ use GameOfThronesMonopoly\Game\Model\Player;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
+use ReflectionException;
 
 class StreetService
 {
-    private Game $game;
-    private $player;
-    private $street;
+    private ?Game $game;
+    private ?Player $player;
+    private ?Street $street;
     private $playerXField;
     private EntityManager $em;
 
@@ -37,14 +38,23 @@ class StreetService
     /**
      * Check if the street is buyable
      * @return bool
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @author Fabian Müller
      */
-    public function checkIfBuyable()
+    public function checkIfBuyable(): bool
     {
-        $playerXStreet = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
-        $this->street = PlayFieldFactory::getPlayField($this->em, $this->player->getPlayerEntity()->getPosition());
-        if(!($this->street instanceof Street)) return false; // todo bahnhöfe & werke einbauen
+        $playerXStreet = PlayerXFieldFactory::getByFieldId(
+            $this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition()
+        );
+        $street = PlayFieldFactory::getPlayField(
+            $this->em,
+            $this->player->getPlayerEntity()->getPosition(),
+            null
+        );
+        //TODO 21.12.2022 Selina: Bahnhöfe, Energiewerk, Wasserwerk
+        if (!($street instanceof Street)) {
+            return false;
+        }
         return !$playerXStreet;
     }
 
@@ -65,7 +75,12 @@ class StreetService
         if(!$this->player->buyStreet($this->em)) return false; // doesn't have enough money
 
         $playerXField = new PlayerXField();
-        $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition(), $this->game->getGameEntity()->getId());
+        $playerXField->create(
+            $this->em,
+            $this->player->getPlayerEntity()->getId(),
+            $this->player->getPlayerEntity()->getPosition(),
+            $this->game->getGameEntity()->getId()
+        );
 
         return [
             "streetName" => $this->street->getStreetEntity()->getName(),
@@ -167,6 +182,7 @@ class StreetService
      * @author Fabian Müller
      * @return bool
      * @throws SQLException
+     * @author Fabian Müller
      */
     public function checkIfFullStreet(): bool
     {

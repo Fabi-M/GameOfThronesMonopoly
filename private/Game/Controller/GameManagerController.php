@@ -22,7 +22,7 @@ class GameManagerController extends BaseController
      * @throws SyntaxError
      * @author Fabian Müller
      */
-    public function EndTurnAction()
+    public function EndTurnAction(): void
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
@@ -38,7 +38,7 @@ class GameManagerController extends BaseController
      * @throws Exception
      * @author Christian Teubner, Selina Stöcklein
      */
-    public function RollForMoveAction()
+    public function RollForMoveAction(): void
     {
         // get the current game
         $gameService = new GameService();
@@ -67,27 +67,29 @@ class GameManagerController extends BaseController
      * @return void
      * @author Christian Teubner, Selina Stöcklein
      */
-    public function RollForEscapeAction()
+    public function RollForEscapeAction(): void
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $dice = new Dice();
         $rolled = $dice->roll();
-        echo json_encode([
-                             'dice' => $rolled,
-                             'escaped' => $rolled[0] == $rolled[1],
-                             'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
-                         ]);
+        echo json_encode(
+            [
+                'dice' => $rolled,
+                'escaped' => $rolled[0] == $rolled[1],
+                'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
+            ]
+        );
     }
 
     /**
      * Start a new game
      * @url    /StartGame
      * @return void
-     * @throws \Exception
+     * @throws Exception
      * @author Fabian Müller
      */
-    public function StartNewGame()
+    public function StartNewGame(): void
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
@@ -99,10 +101,10 @@ class GameManagerController extends BaseController
      * Show the Homepage
      * @url    /Homepage
      * @return void
-     * @throws \Exception
+     * @throws Exception
      * @author Christian Teubner
      */
-    public function ShowHomepageAction()
+    public function ShowHomepageAction(): void
     {
         echo $this->twig->render(
             "Game/views/StartPage.html.twig",

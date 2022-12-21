@@ -8,6 +8,9 @@ class FigureService {
 
     static #instance = null;
 
+    /**
+     * @author Selina Stöcklein
+     */
     constructor() {
         if (FigureService.instance == null) {
             FigureService.instance = this;
@@ -17,6 +20,9 @@ class FigureService {
         }
     }
 
+    /**
+     * @author Selina Stöcklein
+     */
     static getInstance() {
         if (FigureService.#instance == null) {
             FigureService.#instance = new FigureService();
@@ -28,21 +34,16 @@ class FigureService {
      * @author Selina Stöcklein
      */
     moveFigure(result) {
+        $("#next_player").prop( "disabled", false );
+        $("#wuerfeln").prop( "disabled", true );
         console.log(result)
-        var resultObj = JSON.parse(result);
-        var playerId = resultObj['activePlayerId'];
-        var playFieldId = resultObj['playFieldId'];
+        let resultObj = JSON.parse(result);
+        let playerId = resultObj['activePlayerId'];
+        let playFieldId = resultObj['playFieldId'];
 
         let figure = FigureService.getInstance().getFigure(playerId);
-        console.log(figure)
         figure.move(playFieldId);
-        return;
-        alert("Deine gewürfelte Zahlen: \n"
-            + resultObj['dice'][0] + " und "
-            + resultObj['dice'][1]
-            + " Spieler: " + resultObj['activePlayerId']
-            + " Feld: " + resultObj['playFieldId']
-        );
+        figure.payRent(playFieldId);
 
     }
 

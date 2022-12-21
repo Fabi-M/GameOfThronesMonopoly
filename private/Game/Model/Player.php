@@ -141,4 +141,18 @@ class Player
     {
         return $this->getPlayerEntity()->getMoney() < 0;
     }
+
+    /**
+     * @param Player $owner
+     * @param Street $street
+     * @return int
+     * @author Selina Stöcklein
+     */
+    public function payRentTo(Player $owner, Street $street): int
+    {
+        $rent = $street->getRent(); // 0 oder mehr
+        $this->changeBalance(-($rent));
+        $owner->changeBalance($rent);
+        return $rent;
+    }
 }
