@@ -20,7 +20,7 @@ class GameManagerController extends BaseController
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
-     * @author Fabian Müller & Christian Teubner
+     * @author Fabian Müller
      */
     public function EndTurnAction()
     {
@@ -49,6 +49,7 @@ class GameManagerController extends BaseController
         // get the active player and let it move
         $activePlayer = PlayerFactory::getActivePlayer($this->em, $game);
         $playFieldId = $activePlayer->move($this->em, $rolled);
+        $gameService->checkIfAllowedToEndTurn($rolled);
         // save
         $this->em->flush();
         echo json_encode(

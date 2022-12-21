@@ -56,6 +56,8 @@ class StreetService
      */
     public function buyStreet(): bool|array
     {
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) return false; // player has to roll first
+
         $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
         //$this->player->getPlayerEntity()->setPosition(24); // todo nur zum testen, position wird über würfeln gesetzt
 
@@ -81,6 +83,8 @@ class StreetService
      * @author Fabian Müller
      */
     public function sellStreet($fieldId){
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) return false; // player has to roll first
+
         $this->getAllModels($fieldId);
 
         if($this->playerXField == null) return false; // doesn't own street
@@ -108,6 +112,8 @@ class StreetService
      */
     public function buyHouse($fieldId): bool|array
     {
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) return false; // player has to roll first
+
         $this->getAllModels($fieldId);
 
         if($this->playerXField == null) return false; // street not owned
@@ -136,6 +142,8 @@ class StreetService
      */
     public function sellHouse($fieldId): bool|array
     {
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) return false; // player has to roll first
+
         $this->getAllModels($fieldId);
 
         if($this->playerXField == null) return false; // street not owned
