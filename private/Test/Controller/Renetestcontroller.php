@@ -14,7 +14,8 @@ class Renetestcontroller extends BaseController
                 'playFieldJPG' => 'Playfield.jpg',
                 'figureDir' => '/figures/',
                 'figurePNGName' => 'figur',
-                'playerFigures' => 4
+                'playerFigures' => 4,
+                'train' => 'Train.png'
             ]
         );
     }

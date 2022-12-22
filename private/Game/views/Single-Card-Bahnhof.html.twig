@@ -1,4 +1,4 @@
-
+{% extends 'Core/Views/Base.html.twig' %}
 
 {% block site %}
 <style>
@@ -9,43 +9,43 @@
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
-<div class="container text-center single-card player-card">
+<div class="container text-center single-card single-card-bahnhof">
     <div class="row">
-        <div class="col street-color street-name">
-           {{ card.getStreetEntity.getName }}
-
+        <div class="col street-name">
+            Haus-Platzhalter
+            -haus image-
         </div>
     </div>
     <div class="row row-street-properties">
         <div class="col street-properties">
             <div class="kosten-bereich">
                 <div class="row row-width">
-                    Miete: <span class="uebergabewerte-align-right">{{ card.getStreetEntity.getBuildingRent0 }}</span>
+                    Grundstückswert:
                 </div>
                 <div class="row line-height">
-                    Miete mit 1 Haus: <span class="uebergabewerte-align-right">{{ 'miete1' }}</span>
+                    Miete:
                 </div>
                 <div class="row line-height">
-                    Miete mit 2 Häusern: <span class="uebergabewerte-align-right">{{ 'miete2' }}</span>
+                    Miete mit
                 </div>
                 <div class="row line-height">
-                    Miete mit 3 Häusern: <span class="uebergabewerte-align-right">{{ 'miete3' }}</span>
+                    2 Bahnhöfen:
                 </div>
                 <div class="row line-height">
-                    Miete mit 4 Häusern: <span class="uebergabewerte-align-right">{{ 'miete4' }}</span>
+                    Miete mit
                 </div>
                 <div class="row line-height">
-                    Miete mit 1 Hotel: <span class="uebergabewerte-align-right">{{ 'mietehotel' }}</span>
+                    3 Bahnhöfen:
                 </div>
+                <div class="row line-height">
+                    Miete mit
+                </div>
+                <div class="row line-height">
+                    4 Bahnhöfen:
+                </div>
+                
             </div>
-            <div class="kauf-bereich">
-                <div class="row line-height">
-                    Kosten für 1 Haus: <span class="uebergabewerte-align-right">{{ 'kostenhaus' }}</span>
-                </div>
-                <div class="row line-height">
-                    Kosten für 1 Hotel: <span class="uebergabewerte-align-right">{{ 'kostenhotel' }}</span>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
