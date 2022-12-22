@@ -187,8 +187,8 @@ let round = new Round();
                     Spieler am Zug: 1
                 </div>
                 <!-- Karteplatzhalter -->
-
-                {% include 'Game/views/Player-Single-Card.html.twig' %}
+            {%set selectable='playField'%}
+                {% include 'Game/views/Single-Card.html.twig' %}
 
                 <!-- Karteplatzhalter Ende -->
 

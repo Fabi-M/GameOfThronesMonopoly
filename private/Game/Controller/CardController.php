@@ -22,9 +22,8 @@ class CardController extends BaseController
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        var_dump($_POST);
         $playFieldId = $_POST['playFieldId'];
-        $card = PlayFieldFactory::getPlayField($this->em, $playFieldId);
+        $card = PlayFieldFactory::getPlayField($this->em, $playFieldId, null);
         echo $this->twig->render('Game/views/CardInfoPopUp.html.twig' ,
         [
             'card' => $card,
