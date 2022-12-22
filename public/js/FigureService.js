@@ -31,17 +31,18 @@ class FigureService {
     }
 
     /**
+     * move the figure
      * @author Selina Stöcklein
      */
-    moveFigure(result) {
-        $("#next_player").prop( "disabled", false );
-        $("#wuerfeln").prop( "disabled", true );
-        console.log(result)
+    moveFigure(result, data) {
+        $("#next_player").prop("disabled", false);
+        $(".dice").prop("disabled", true);
         let resultObj = JSON.parse(result);
+        let me = FigureService.getInstance();
+        data['dice'].toastRolledDice(resultObj['dice']); // dice.js
         let playerId = resultObj['activePlayerId'];
         let playFieldId = resultObj['playFieldId'];
-
-        let figure = FigureService.getInstance().getFigure(playerId);
+        let figure = me.getFigure(playerId);
         figure.move(playFieldId);
         figure.payRent(playFieldId);
 
