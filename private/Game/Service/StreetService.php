@@ -15,10 +15,11 @@ use GameOfThronesMonopoly\Game\Model\Player;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
+use ReflectionException;
 
 class StreetService
 {
-    private Game $game;
+    private $game;
     private $player;
     private $street;
     private $playerXField;
@@ -37,14 +38,23 @@ class StreetService
     /**
      * Check if the street is buyable
      * @return bool
-     * @throws \ReflectionException
+     * @throws ReflectionException
      * @author Fabian Müller
      */
-    public function checkIfBuyable()
+    public function checkIfBuyable(): bool
     {
-        $playerXStreet = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition());
-        $this->street = PlayFieldFactory::getPlayField($this->em, $this->player->getPlayerEntity()->getPosition());
-        if(!($this->street instanceof Street)) return false; // todo bahnhöfe & werke einbauen
+        $playerXStreet = PlayerXFieldFactory::getByFieldId(
+            $this->em, $this->game->getGameEntity()->getId(), $this->player->getPlayerEntity()->getPosition()
+        );
+        $street = PlayFieldFactory::getPlayField(
+            $this->em,
+            $this->player->getPlayerEntity()->getPosition(),
+            null
+        );
+        //TODO 21.12.2022 Selina: Bahnhöfe, Energiewerk, Wasserwerk
+        if (!($street instanceof Street)) {
+            throw new Exception("Not a street");
+        }
         return !$playerXStreet;
     }
 
@@ -56,14 +66,22 @@ class StreetService
      */
     public function buyStreet(): bool|array
     {
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
+
         $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
         //$this->player->getPlayerEntity()->setPosition(24); // todo nur zum testen, position wird über würfeln gesetzt
 
-        if(!$this->checkIfBuyable()) return false; // street is already owned by another player
-        if(!$this->player->buyStreet($this->em)) return false; // doesn't have enough money
+        if(!$this->checkIfBuyable()) throw new Exception("Street is already owned"); // street is already owned by another player
+        if(!$this->player->buyStreet($this->em)) throw new Exception("Player doesn't have enough money"); // doesn't have enough money
 
         $playerXField = new PlayerXField();
-        $playerXField->create($this->em, $this->player->getPlayerEntity()->getId(), $this->player->getPlayerEntity()->getPosition(), $this->game->getGameEntity()->getId());
+        $playerXField->create(
+            $this->em,
+            $this->player->getPlayerEntity()->getId(),
+            $this->player->getPlayerEntity()->getPosition(),
+            $this->game->getGameEntity()->getId()
+        );
+        $this->getAllModels($this->player->getPlayerEntity()->getPosition());
 
         return [
             "streetName" => $this->street->getStreetEntity()->getName(),
@@ -81,10 +99,12 @@ class StreetService
      * @author Fabian Müller
      */
     public function sellStreet($fieldId){
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
+
         $this->getAllModels($fieldId);
 
-        if($this->playerXField == null) return false; // doesn't own street
-        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() > 0) return false; // has houses on street, needs to sell them first
+        if($this->playerXField == null) throw new Exception("This street is currently not owned, you can't sell the street"); // doesn't own street
+        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() > 0) throw new Exception("You have to sell the houses before you can sell the street"); // has houses on street, needs to sell them first
         // todo: check if player has houses on other streets with the same color -> can't sell street
 
         $this->playerXField->delete($this->em);
@@ -108,11 +128,13 @@ class StreetService
      */
     public function buyHouse($fieldId): bool|array
     {
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
+
         $this->getAllModels($fieldId);
 
-        if($this->playerXField == null) return false; // street not owned
-        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() >= 5) return false; // already max housed build
-        if(!$this->checkIfFullStreet()) return false; // doesn't own all streets of color
+        if($this->playerXField == null) throw new Exception("This street is currently not owned, you can't buy houses"); // street not owned
+        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() >= 5) throw new Exception("There are already 5 buildings on the street"); // already max housed build
+        if(!$this->checkIfFullStreet()) throw new Exception("Player doesn't have all streets of color"); // doesn't own all streets of color
 
         $this->player->changeBalance(-($this->street->getStreetEntity()->getBuildingCosts()));
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()+1);
@@ -136,10 +158,12 @@ class StreetService
      */
     public function sellHouse($fieldId): bool|array
     {
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
+
         $this->getAllModels($fieldId);
 
-        if($this->playerXField == null) return false; // street not owned
-        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() == 0) return false; // no buildings on street
+        if($this->playerXField == null) throw new Exception("This street is currently not owned, there can't be any houses"); // street not owned
+        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() == 0) throw new Exception("No buildings on this street"); // no buildings on street
 
         $this->player->changeBalance($this->street->getStreetEntity()->getBuildingCosts()/2);
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()-1);
@@ -159,6 +183,7 @@ class StreetService
      * @author Fabian Müller
      * @return bool
      * @throws SQLException
+     * @author Fabian Müller
      */
     public function checkIfFullStreet(): bool
     {
@@ -176,10 +201,11 @@ class StreetService
      * @author Fabian Müller
      */
     public function getAllModels($fieldId){
-        $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
-        $this->player->setEm($this->em);
+        if($this->player == null){
+            $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
+            $this->player->setEm($this->em);
+        }
         $this->street = StreetFactory::getByFieldId($this->em, $fieldId);
         $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $fieldId);
-
     }
 }

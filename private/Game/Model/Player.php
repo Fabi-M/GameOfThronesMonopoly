@@ -46,7 +46,7 @@ class Player
      * @return void
      * @author Fabian Müller
      */
-    public function create($em, $sessionId, $playerId, $gameId): void
+    public function create(EntityManager $em, $sessionId, $playerId, $gameId): void
     {
         $playerEntity = new \GameOfThronesMonopoly\Game\Entities\player();
         $playerEntity->setSessionId($sessionId);
@@ -95,11 +95,9 @@ class Player
      */
     public function checkFunds(): bool
     {
-        var_dump($this->playerEntity->getPosition());
         $street = StreetFactory::filterOne($this->em, [
             ['playfieldId', 'equal', $this->playerEntity->getPosition()]
         ]);
-        var_dump($street);
         if ($street->getStreetEntity()->getStreetCosts() > $this->playerEntity->getMoney()) {
             return false;
         }
@@ -140,5 +138,19 @@ class Player
     public function isGameOver(): bool
     {
         return $this->getPlayerEntity()->getMoney() < 0;
+    }
+
+    /**
+     * @param Player $owner
+     * @param Street $street
+     * @return int
+     * @author Selina Stöcklein
+     */
+    public function payRentTo(Player $owner, Street $street): int
+    {
+        $rent = $street->getRent(); // 0 oder mehr
+        $this->changeBalance(-($rent));
+        $owner->changeBalance($rent);
+        return $rent;
     }
 }

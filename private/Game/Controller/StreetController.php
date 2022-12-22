@@ -8,8 +8,10 @@ use GameOfThronesMonopoly\Core\Exceptions\SQLException;
 use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
+use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\StreetService;
+use ReflectionException;
 use Throwable;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -26,11 +28,19 @@ class StreetController extends BaseController
      */
     public function BuyStreetAction()
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $streetService = new StreetService($game, $this->em);
-        $response = $streetService->buyStreet();
-        $this->em->flush();
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $streetService = new StreetService($game, $this->em);
+            $response = $streetService->buyStreet();
+            $this->em->flush();
+        }catch(Throwable $e){
+           $response = [
+               "success" => false,
+               "error" => $e->getMessage(),
+           ];
+        }
+
         echo json_encode($response);
     }
 
@@ -44,12 +54,20 @@ class StreetController extends BaseController
      */
     public function SellStreetAction($fieldId): void
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $streetService = new StreetService($game, $this->em);
-        $success = $streetService->sellStreet($fieldId);
-        $this->em->flush();
-        echo json_encode($success);
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $streetService = new StreetService($game, $this->em);
+            $response = $streetService->sellStreet($fieldId);
+            $this->em->flush();
+        }catch(Throwable $e){
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
+
+        echo json_encode($response);
     }
 
     /**
@@ -63,11 +81,19 @@ class StreetController extends BaseController
      */
     public function BuyHouseAction($fieldId): void
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $streetService = new StreetService($game, $this->em);
-        $response = $streetService->buyHouse($fieldId);
-        $this->em->flush();
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $streetService = new StreetService($game, $this->em);
+            $response = $streetService->buyHouse($fieldId);
+            $this->em->flush();
+        }catch(Throwable $e){
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
+
         echo json_encode($response);
     }
 
@@ -81,11 +107,19 @@ class StreetController extends BaseController
      */
     public function SellHouseAction($fieldId): void
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $streetService = new StreetService($game, $this->em);
-        $response = $streetService->sellHouse($fieldId);
-        $this->em->flush();
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $streetService = new StreetService($game, $this->em);
+            $response = $streetService->sellHouse($fieldId);
+            $this->em->flush();
+        }catch(Throwable $e){
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
+
         echo json_encode($response);
     }
 
@@ -93,9 +127,6 @@ class StreetController extends BaseController
      * Trade the selected Street to another Player
      * @url    /street/trade
      * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
      * @author Christian Teubner
      */
     public function TradeStreetAction(): void
@@ -105,34 +136,41 @@ class StreetController extends BaseController
         //Here the Game Logic
     }
 
+    /**
+     * @url    /Street/Rent/Pay
+     * @return void
+     * @author Selina Stöcklein
+     */
     public function PayRentAction(): void
     {
         $fieldId = $_POST['playFieldId'];
-        $game = GameFactory::getActiveGame($this->em, $this->sessionId);
         try {
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             // checken wieviel miete
             $player = PlayerFactory::getActivePlayer($this->em, $game);
-            $street = StreetFactory::getByFieldId($this->em, $fieldId);
+            $street = StreetFactory::getByFieldId($this->em, $fieldId, $game->getGameEntity()->getId());
+            if (!($street instanceof Street) || $street->isOwned()) {
+                throw new Exception("No Rent To Pay");
+            }
             $owner = PlayerFactory::getPlayerById(
                 $this->em, $street->getXField()->getPlayerXFieldEntity()->getPlayerId()
             );
-            $rent = $street->getRent(); // 0 oder mehr
-            // abziehen
-            $player->changeBalance(-($rent));
-            $owner->changeBalance($rent);
+            $rent = $player->payRentTo($owner, $street);
             $isGameOver = $player->isGameOver();
-            $this->em->flush();
             $totalMoney = $player->getPlayerEntity()->getMoney();
+            $this->em->flush();
         } catch (Throwable $e) {
             $totalMoney = 0;
             $rent = 0;
-            $isGameOver = true;
+            $isGameOver = false;
         }
 
-        echo json_encode([
-                             'totalMoney' => $totalMoney,
-                             'isGameOver' => $isGameOver,
-                             'payedRent' => $rent
-                         ]);
+        echo json_encode(
+            [
+                'totalMoney' => $totalMoney,
+                'isGameOver' => $isGameOver,
+                'payedRent' => $rent
+            ]
+        );
     }
 }

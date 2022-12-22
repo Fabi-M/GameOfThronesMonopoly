@@ -6,14 +6,14 @@ use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
 
 class Street
 {
-    private streetEntity $streetEntity;
-    private ?PlayerXField $xField;
+    private $streetEntity;
+    private $xField;
 
     /**
-     * @param streetEntity $streetEntity
-     * @param PlayerXField|null $playerXField
+     * @param streetEntity  $streetEntity
+     * @param ?PlayerXField $playerXField
      */
-    public function __construct(streetEntity $streetEntity, PlayerXField $playerXField = null)
+    public function __construct(streetEntity $streetEntity, ?PlayerXField $playerXField)
     {
         $this->streetEntity = $streetEntity;
         $this->xField = $playerXField;
@@ -25,17 +25,30 @@ class Street
     }
 
     /**
-     * @return PlayerXField
+     * @return ?PlayerXField
      */
-    public function getXField(): PlayerXField
+    public function getXField(): ?PlayerXField
     {
         return $this->xField;
     }
 
-    public function getRent()
+    /**
+     * @return mixed
+     * @author Selina Stöcklein
+     */
+    public function getRent(): mixed
     {
         $houses = $this->xField->getPlayerXFieldEntity()->getBuildings();
-        $getRent= 'getBuildingRent'.$houses;
+        $getRent = 'getBuildingRent' . $houses;
         return $this->streetEntity->$getRent();
+    }
+
+    /**
+     * @return bool
+     * @author Selina Stöcklein
+     */
+    public function isOwned(): bool
+    {
+        return is_null($this->xField);
     }
 }

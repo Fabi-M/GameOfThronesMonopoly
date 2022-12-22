@@ -10,7 +10,6 @@ use GameOfThronesMonopoly\Core\DataBase\DataBaseConnection;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-
 /**
  * Class BaseController
  * Parent of all controllers, builds some basic objects and checks the users permission
@@ -19,12 +18,9 @@ class BaseController
 {
     /** @var EntityManager */
     protected $em;
-
     protected StyleSheetCollector $styleSheetCollector;
-
     /** @var PDO */
     protected $pdo;
-
     protected $sessionId;
 
     protected const IMG_PATH = 'http://hosting175021.ae88e.netcup.net/img/';
@@ -33,14 +29,12 @@ class BaseController
      * @var Environment
      */
     protected $twig;
-
     /** @var string[] */
-    private $baseJSFiles = array(
-    );
-
+    private $baseJSFiles = [
+    ];
     /** @var string[] */
-    private $baseCSSFiles = array(
-    );
+    private $baseCSSFiles = [
+    ];
     protected ScriptCollector $scriptCollector;
 
     /**
@@ -50,7 +44,7 @@ class BaseController
     public function __construct()
     {
         header('Access-Control-Allow-Origin: *');
-        if(!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
             $this->sessionId = session_id();
         }
@@ -60,14 +54,16 @@ class BaseController
 
         $this->addTwig();
 
-        register_shutdown_function(array($this, "fatalErrorHandler"));
+        register_shutdown_function([$this, "fatalErrorHandler"]);
     }
 
     private function addTwig()
     {
         $loader = new FilesystemLoader('../private/');
         $this->twig = new Environment($loader, ['cache' => false]);
-        $this->twig->addGlobal('BASEPATH', "http://localhost/GameOfThronesMonopoly"); // add base path to twigs global variables, like 'https://azubis.upjers.com/awesomestoragetool'
+        $this->twig->addGlobal(
+            'BASEPATH', "http://localhost/GameOfThronesMonopoly"
+        ); // add base path to twigs global variables, like 'https://azubis.upjers.com/awesomestoragetool'
 
         $this->addScriptCollector();
         $this->addStyleSheetCollector();
@@ -96,7 +92,9 @@ class BaseController
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.bundle.js');
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.min.js');
+        $this->scriptCollector->addBottom('/node_modules/jquery-toast-plugin/src/jquery.toast.js');
         $this->scriptCollector->addBottom('/js/Core/ModalDialog.js');
+        $this->scriptCollector->addBottom('/js/Core/Toast.js');
         $this->scriptCollector->addBottom('/js/Core/Ajax.js');
         $this->scriptCollector->addBottom('/js/Core/Events.js');
         $this->scriptCollector->addBottom('/js/Figure.js');
@@ -131,8 +129,8 @@ class BaseController
     {
         $this->styleSheetCollector->addBottom('/node_modules/bootstrap/dist/css/bootstrap.min.css');
         $this->styleSheetCollector->addBottom('/css/GameStyle.css');
+        $this->styleSheetCollector->addBottom('/node_modules/jquery-toast-plugin/src/jquery.toast.css');
     }
-
 
     /**
      * Handle fatal errors

@@ -23,10 +23,10 @@ class PlayFieldFactory
      * @throws Exception
      * @author Selina Stöcklein
      */
-    public static function getPlayField(EntityManager $em, int $playFieldId): SpecialField|Street
+    public static function getPlayField(EntityManager $em, int $playFieldId, ?int $gameId): SpecialField|Street
     {
         // search in street
-        $card = StreetFactory::getByFieldId($em, $playFieldId);
+        $card = StreetFactory::getByFieldId($em, $playFieldId, $gameId);
         // search in specialCards
         if (empty($card)) {
             $card = SpecialFieldFactory::getByFieldId($em, $playFieldId);
