@@ -30,6 +30,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             window.BASEPATH = "{{ BASEPATH }}";
+            window.IMGPATH = "{{ imgPath }}";
             {% block javascript %}
             {% endblock %}
             let dice = new Dice();

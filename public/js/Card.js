@@ -100,8 +100,9 @@ class Card {
     /**
      * @author Fabian Müller
      * @param data
+     * @param classInstance
      */
-    displayHouseBuyResult(data) {
+    displayHouseBuyResult(data, classInstance) {
         console.log(data);
         data = JSON.parse(data);
         if(!data["success"]){
@@ -111,14 +112,17 @@ class Card {
         }
         let toast = new Toast("Du hast ein Haus auf der Straße "+data["streetName"]+" gekauft","Haus gekauft");
         toast.show();
+        classInstance['this'].addHouse(data["position"], data["buildings"]);
+
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
     }
 
     /**
      * @author Fabian Müller
      * @param data
+     * @param classInstance
      */
-    displayHouseSellResult(data) {
+    displayHouseSellResult(data, classInstance) {
         console.log(data);
         data = JSON.parse(data);
         if(!data["success"]){
@@ -128,6 +132,8 @@ class Card {
         }
         let toast = new Toast("Du hast ein Haus auf der Straße "+data["streetName"]+" verkauft","Haus verkauft");
         toast.show();
+
+        classInstance['this'].removeHouse(data["position"], data["buildings"]);
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
     }
 
@@ -169,5 +175,40 @@ class Card {
 
     displayMortgagePopup() {
 
+    }
+
+    /**
+     * Display a new house on the street
+     * @author Fabian Müller
+     * @param id
+     * @param count
+     */
+    addHouse(id, count){
+        let path = IMGPATH+"/House.png";
+        if(count === 5){
+            for(let i = 0; i < 4; i++){
+                this.removeHouse(id);
+            }
+            path = IMGPATH+"/Hotel.png";
+        }
+        let element = $("#strassen-bereich-"+id);
+        let className = element.attr("class");
+        let deg = className.substring(className.length-1)*90;
+        element.append( "<img style='position: relative; padding: 0.5px; display: flex; width: 9px; height: 9px; transform: rotate("+deg+"deg)' alt='house' src="+path+">");
+    }
+
+    /**
+     * Remove a house on the street
+     * @author Fabian Müller
+     * @param id
+     * @param count
+     */
+    removeHouse(id, count){
+        $("#strassen-bereich-"+id).children().last().remove();
+        if(count === 4){
+            for(let i = 0; i < 4; i++){
+                this.addHouse(id, count);
+            }
+        }
     }
 }

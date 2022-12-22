@@ -1,7 +1,7 @@
 {% extends 'Core/Views/Base.html.twig' %}
 
 {% block javascript %}
-let gameField= new PlayField();
+let gameField = new PlayField();
 let card = new Card();
 let round = new Round();
 {% endblock %}
@@ -14,185 +14,29 @@ let round = new Round();
     <div class="container-margin">
         <div class="row-besides">
 
-            <!-- Spielfeld -->
-
+            {# Spielfeld #}
             <div class="relative-positioning">
-                <div class="playField card-0" id="card-0">
-                    <div id="spieler-bereich-0">
-                        {% for  id in 1..playerFigures %}
-                            {% include 'Game/views/Figure.html.twig' %}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="playField card-1" id="card-1">
-                    <div class="spieler-bereich-1" id="spieler-bereich-1"></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-1"></div>
-                </div>
-                <div class="playField card-2" id="card-2">
-                    <div class="spieler-bereich-1" id="spieler-bereich-2"></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-2"></div>
-                </div>
-                <div class="playField card-3" id="card-3">
-                    <div class="spieler-bereich-1" id="spieler-bereich-3"></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-3"></div>
-                </div>
-                <div class="playField card-4" id="card-4">
-                    <div class="spieler-bereich-1" id="spieler-bereich-4"></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-4"></div>
-                </div>
-                <div class="playField card-5" id="card-5">
-                    <div class="spieler-bereich-1" id="spieler-bereich-5"></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-5"></div>
-                </div>
-                <div class="playField card-6" id="card-6">
-                    <div class="spieler-bereich-1" id="spieler-bereich-6 "></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-6"></div>
-                </div>
-                <div class="playField card-7" id="card-7">
-                    <div class="spieler-bereich-1" id="spieler-bereich-7"></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-7"></div>
-                </div>
-                <div class="playField card-8" id="card-8">
-                    <div class="spieler-bereich-1" id="spieler-bereich-8"></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-8"></div>
-                </div>
-                <div class="playField card-9" id="card-9">
-                    <div class="spieler-bereich-1" id="spieler-bereich-9"></div>
-                    <div class="strassen-bereich-1" id="strassen-bereich-9"></div>
-                </div>
-                <div class="playField card-10" id="card-10">
-                    <div id="spieler-bereich-10"></div>
-                </div>
-                <div class="playField card-11" id="card-11">
-                    <div class="spieler-bereich-2" id="spieler-bereich-11"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-11"></div>
-                </div>
-                <div class="playField card-12" id="card-12">
-                    <div class="spieler-bereich-2" id="spieler-bereich-12"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-12"></div>
-                </div>
-                <div class="playField card-13" id="card-13">
-                    <div class="spieler-bereich-2" id="spieler-bereich-13"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-13"></div>
-                </div>
-                <div class="playField card-14" id="card-14">
-                    <div class="spieler-bereich-2" id="spieler-bereich-14"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-14"></div>
-                </div>
-                <div class="playField card-15" id="card-15">
-                    <div class="spieler-bereich-2" id="spieler-bereich-15"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-15"></div>
-                </div>
-                <div class="playField card-16" id="card-16">
-                    <div class="spieler-bereich-2" id="spieler-bereich-16"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-16"></div>
-                </div>
-                <div class="playField card-17" id="card-17">
-                    <div class="spieler-bereich-2" id="spieler-bereich-17"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-17"></div>
-                </div>
-                <div class="playField card-18" id="card-18">
-                    <div class="spieler-bereich-2" id="spieler-bereich-18"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-18"></div>
-                </div>
-                <div class="playField card-19" id="card-19">
-                    <div class="spieler-bereich-2" id="spieler-bereich-19"></div>
-                    <div class="strassen-bereich-2" id="strassen-bereich-19"></div>
-                </div>
-                <div class="playField card-20" id="card-20">
-                    <div id="spieler-bereich-20"></div>
-                </div>
-                <div class="playField card-21" id="card-21">
-                    <div class="spieler-bereich-3" id="spieler-bereich-21"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-21"></div>
-                </div>
-                <div class="playField card-22" id="card-22">
-                    <div class="spieler-bereich-3" id="spieler-bereich-22"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-22"></div>
-                </div>
-                <div class="playField card-23" id="card-23">
-                    <div class="spieler-bereich-3" id="spieler-bereich-23"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-23"></div>
-                </div>
-                <div class="playField card-24" id="card-24">
-                    <div class="spieler-bereich-3" id="spieler-bereich-24"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-24"></div>
-                </div>
-                <div class="playField card-25" id="card-25">
-                    <div class="spieler-bereich-3" id="spieler-bereich-25"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-25"></div>
-                </div>
-                <div class="playField card-26" id="card-26">
-                    <div class="spieler-bereich-3" id="spieler-bereich-26"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-26"></div>
-                </div>
-                <div class="playField card-27" id="card-27">
-                    <div class="spieler-bereich-3" id="spieler-bereich-27"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-27"></div>
-                </div>
-                <div class="playField card-28" id="card-28">
-                    <div class="spieler-bereich-3" id="spieler-bereich-28"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-28"></div>
-                </div>
-                <div class="playField card-29" id="card-29">
-                    <div class="spieler-bereich-3" id="spieler-bereich-29"></div>
-                    <div class="strassen-bereich-3" id="strassen-bereich-29"></div>
-                </div>
-                <div class="playField card-30" id="card-30">
-                    <div id="spieler-bereich-30"></div>
-                </div>
-                <div class="playField card-31" id="card-31">
-                    <div class="spieler-bereich-4" id="spieler-bereich-31"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-31"></div>
-                </div>
-                <div class="playField card-32" id="card-32">
-                    <div class="spieler-bereich-4" id="spieler-bereich-32"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-32"></div>
-                </div>
-                <div class="playField card-33" id="card-33">
-                    <div class="spieler-bereich-4" id="spieler-bereich-33"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-33"></div>
-                </div>
-                <div class="playField card-34" id="card-34">
-                    <div class="spieler-bereich-4" id="spieler-bereich-34"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-34"></div>
-                </div>
-                <div class="playField card-35" id="card-35">
-                    <div class="spieler-bereich-4" id="spieler-bereich-35"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-35"></div>
-                </div>
-                <div class="playField card-36" id="card-36">
-                    <div class="spieler-bereich-4" id="spieler-bereich-36"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-36"></div>
-                </div>
-                <div class="playField card-37" id="card-37">
-                    <div class="spieler-bereich-4" id="spieler-bereich-37"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-37"></div>
-                </div>
-                <div class="playField card-38" id="card-38">
-                    <div class="spieler-bereich-4" id="spieler-bereich-38"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-38"></div>
-                </div>
-                <div class="playField card-39" id="card-39">
-                    <div class="spieler-bereich-4" id="spieler-bereich-39"></div>
-                    <div class="strassen-bereich-4" id="strassen-bereich-39"></div>
-                </div>
-                <img class="spielfeld" src="{{ imgPath }}{{ playFieldJPG }}">
+
+                {% for id in 0..39 %}
+                    {% include 'Game/views/PlayField/PlayField.html.twig' %}
+                {% endfor %}
+
+                <img class="spielfeld" src="{{ imgPath }}{{ playFieldJPG }}" alt="Spielfeld">
             </div>
 
-            <!-- Spieler und Straßenanzeige -->
+            {# Spieler und Straßenanzeige #}
 
             <div class="col spieler-strassen-anzeige">
                 <div class="spieleranzeige">
                     Spieler am Zug: 1
                 </div>
-                <!-- Karteplatzhalter -->
-            {%set selectable='playField'%}
+                {# Karteplatzhalter #}
+                {% set selectable='playField' %}
                 {% include 'Game/views/Single-Card.html.twig' %}
 
-                <!-- Karteplatzhalter Ende -->
+                {# Karteplatzhalter Ende #}
 
-                <!-- Menu-Buttons -->
+                {# Menu-Buttons #}
 
             </div>
             <div class="col margin-buttons">
@@ -223,9 +67,9 @@ let round = new Round();
                         value="nächster Spieler">
                 </div>
                 <div class="row next-player-button interaktionsbuttons-margin">
-                    <!-- TODO nur zum testen, soll später in ein extra popup kommen -->
+                    {# TODO nur zum testen, soll später in ein extra popup kommen #}
                     <input class="interaktionsbutton" type="button" id="buyStreet" name="buyStreet"
-                           value="Straße kaufen">
+                        value="Straße kaufen">
                 </div>
             </div>
         </div>
