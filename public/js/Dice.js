@@ -15,12 +15,22 @@ class Dice {
         if (action === 'Move') {
             let figureService = FigureService.getInstance();
             console.log(url)
-            request = new Ajax(url, false, figureService.moveFigure, data);
+            request = new Ajax(url, false, figureService.moveFigure, {'dice': data['this']});
         } else if (action === 'Prison') {
             request = new Ajax(url, false, that.displayPopup, data);
         }
-        console.log(action);
         request?.execute();
+    }
+
+    /**
+     * @author Selina Stöcklein
+     * @param dice
+     */
+    toastRolledDice(dice) {
+        let toast = new Toast();
+        toast.Heading = "Du hast gewürfelt!";
+        toast.Body = "<strong>" + dice[0] + "</strong> und <strong>" + dice[1] + "</strong>"
+        toast.show();
     }
 
     /**
@@ -29,7 +39,7 @@ class Dice {
      */
     displayPopup(result) {
 
-        var resultObj = JSON.parse(result);
+        let resultObj = JSON.parse(result);
 
         alert("Deine gewürfelte Zahlen: \n"
             + resultObj['dice'][0] + " und "

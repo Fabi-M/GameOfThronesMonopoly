@@ -18,7 +18,7 @@ class Card {
     buyCard(event, data) {
         let that = data['this'];
         let url = BASEPATH + '/Street/Buy';
-        let request = new Ajax(url, false, that.displayBuyResult, data);
+        let request = new Ajax(url, false, that.displayStreetBuyResult, data);
         request.execute();
 
     }
@@ -32,7 +32,7 @@ class Card {
         let that = data['this'];
         let id = 1; // todo sobald card popup fertig, id davon holen
         let url = BASEPATH + '/Street/Sell/'+id;
-        let request = new Ajax(url, false, that.displaySellResult, data);
+        let request = new Ajax(url, false, that.displayStreetSellResult, data);
         request.execute();
     }
 
@@ -45,7 +45,7 @@ class Card {
         let that = data['this'];
         let id = 1; // todo sobald card popup fertig, id davon holen
         let url = BASEPATH + '/Street/House/Buy/'+id;
-        let request = new Ajax(url, false, that.displayBuyResult, data);
+        let request = new Ajax(url, false, that.displayHouseBuyResult, data);
         request.execute();
 
     }
@@ -59,15 +59,15 @@ class Card {
         let that = data['this'];
         let id = 1; // todo sobald card popup fertig, id davon holen
         let url = BASEPATH + '/Street/House/Sell/'+id;
-        let request = new Ajax(url, false, that.displaySellResult, data);
+        let request = new Ajax(url, false, that.displayHouseSellResult, data);
         request.execute();
     }
 
     /**
-     * @author Selina Stöcklein
+     * @author Selina Stöcklein , Fabian Müller
      * @param data
      */
-    displayBuyResult(data) {
+    displayStreetBuyResult(data) {
         console.log(data);
         data = JSON.parse(data);
         if(!data["success"]){
@@ -77,7 +77,6 @@ class Card {
         }
         let toast = new Toast("Du hast die Straße "+data["streetName"]+" gekauft","Straße gekauft");
         toast.show();
-        // Spieler anzeigen, ob Straße gekauft wurde oder nicht
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
     }
 
@@ -85,9 +84,50 @@ class Card {
      * @author Fabian Müller
      * @param data
      */
-    displaySellResult(data) {
+    displayStreetSellResult(data) {
         console.log(data);
-        // Spieler anzeigen, ob Straße verkauft wurde oder nicht
+        data = JSON.parse(data);
+        if(!data["success"]){
+            console.log("error");
+            return;
+            // todo: add error handling frontend
+        }
+        let toast = new Toast("Du hast die Straße "+data["streetName"]+" verkauft","Straße verkauft");
+        toast.show();
+        // Money aktualisieren, eventuelle Fehler anzeigen, etc.
+    }
+
+    /**
+     * @author Fabian Müller
+     * @param data
+     */
+    displayHouseBuyResult(data) {
+        console.log(data);
+        data = JSON.parse(data);
+        if(!data["success"]){
+            console.log("error");
+            return;
+            // todo: add error handling frontend
+        }
+        let toast = new Toast("Du hast ein Haus auf der Straße "+data["streetName"]+" gekauft","Haus gekauft");
+        toast.show();
+        // Money aktualisieren, eventuelle Fehler anzeigen, etc.
+    }
+
+    /**
+     * @author Fabian Müller
+     * @param data
+     */
+    displayHouseSellResult(data) {
+        console.log(data);
+        data = JSON.parse(data);
+        if(!data["success"]){
+            console.log("error");
+            return;
+            // todo: add error handling frontend
+        }
+        let toast = new Toast("Du hast ein Haus auf der Straße "+data["streetName"]+" verkauft","Haus verkauft");
+        toast.show();
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
     }
 
