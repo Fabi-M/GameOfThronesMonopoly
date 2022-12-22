@@ -596,3 +596,12 @@ margin-left:10px;
 .single-card .street-name {
   color: black;
 }
+.single-card-bahnhof .street-name { 
+  flex-direction: column;
+}
+.single-card-bahnhof .street-name img { 
+  width: 90px;
+}
+.single-card-bahnhof .line-height { 
+  justify-content: space-between;
+}
