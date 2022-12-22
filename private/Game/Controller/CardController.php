@@ -6,9 +6,6 @@ use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Game\Entities\player;
 use GameOfThronesMonopoly\Game\Factories\PlayFieldFactory;
 use GameOfThronesMonopoly\Game\Service\GameService;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 
 class CardController extends BaseController
 {
@@ -16,37 +13,33 @@ class CardController extends BaseController
      * View a Card as Popup
      * @url    /Card/View
      * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      * @author Christian Teubner
      */
-    public function ViewCardAction(): void
+    public function ViewCardAction()
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-
-        echo $this->twig->render('Game/views/CardInfoPopUp.html.twig');
+        var_dump($_POST);
+        $playFieldId = $_POST['playFieldId'];
+        $card = PlayFieldFactory::getPlayField($this->em, $playFieldId);
+        echo $this->twig->render('Game/views/CardInfoPopUp.html.twig' ,
+        [
+            'card' => $card,
+            
+        ]);
     }
 
-    /**
-     * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    public function ViewPlayerCardAction(): void
+    public function ViewPlayerCardAction()
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
 
         echo $this->twig->render('Game/views/PlayerCardInfoPopUp.html.twig', 
         [
-            'imgPath' => self::IMG_PATH,
-            'zug-bild' => 'Train.png'
         ]);
-
-
     }
     
 

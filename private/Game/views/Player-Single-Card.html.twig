@@ -12,7 +12,7 @@
 <div class="container text-center single-card player-card">
     <div class="row">
         <div class="col street-color street-name">
-           {{ }}
+           {{ card.getStreetEntity.getName }}
 
         </div>
     </div>
@@ -20,30 +20,30 @@
         <div class="col street-properties">
             <div class="kosten-bereich">
                 <div class="row row-width">
-                    Miete:
+                    Miete: <span class="uebergabewerte-align-right">{{ card.getStreetEntity.getBuildingRent0 }}</span>
                 </div>
                 <div class="row line-height">
-                    Miete mit 1 Haus:
+                    Miete mit 1 Haus: <span class="uebergabewerte-align-right">{{ 'miete1' }}</span>
                 </div>
                 <div class="row line-height">
-                    Miete mit 2 Häusern:
+                    Miete mit 2 Häusern: <span class="uebergabewerte-align-right">{{ 'miete2' }}</span>
                 </div>
                 <div class="row line-height">
-                    Miete mit 3 Häusern:
+                    Miete mit 3 Häusern: <span class="uebergabewerte-align-right">{{ 'miete3' }}</span>
                 </div>
                 <div class="row line-height">
-                    Miete mit 4 Häusern:
+                    Miete mit 4 Häusern: <span class="uebergabewerte-align-right">{{ 'miete4' }}</span>
                 </div>
                 <div class="row line-height">
-                    Miete mit 1 Hotel:
+                    Miete mit 1 Hotel: <span class="uebergabewerte-align-right">{{ 'mietehotel' }}</span>
                 </div>
             </div>
             <div class="kauf-bereich">
                 <div class="row line-height">
-                    Kosten für 1 Haus:
+                    Kosten für 1 Haus: <span class="uebergabewerte-align-right">{{ 'kostenhaus' }}</span>
                 </div>
                 <div class="row line-height">
-                    Kosten für 1 Hotel:
+                    Kosten für 1 Hotel: <span class="uebergabewerte-align-right">{{ 'kostenhotel' }}</span>
                 </div>
             </div>
         </div>

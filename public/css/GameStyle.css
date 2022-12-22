@@ -403,18 +403,18 @@
  }
 
  .kauf-bereich {
+  padding-top:10px;
    border-top: 1px solid black;
  }
 
  .kosten-bereich {
-   margin-top: 20px;
-   margin-bottom: 20px;
+   margin-top: 10px;
+   margin-bottom: 10px;
    padding-left: 5px;
  }
 
  .kauf-bereich {
-   padding-top: 20px;
-   padding-left: 5px;
+     padding-left: 5px;
  }
 
  .line-height {
@@ -568,15 +568,7 @@
 .kauf-bereich { 
     border-top:1px solid black;
 }
-.kosten-bereich { 
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding-left:5px;
-}
-.kauf-bereich { 
-    padding-top:20px;
-    padding-left:5px;
-}
+
 .line-height { 
     padding-top:2px;
     padding-bottom:2px;
@@ -624,4 +616,14 @@ margin-left:10px;
 .train-picture {
   width: 70px;
   padding-top: 30px;
+}
+.variables { 
+  width: fit-content;
+  padding-left:0;
+}
+.variables-container { 
+  justify-content: space-between;
+}
+.hotelcosts{ 
+  float: right;
 }
