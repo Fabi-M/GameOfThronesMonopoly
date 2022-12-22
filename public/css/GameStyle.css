@@ -1,6 +1,12 @@
 
  @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 
+ body{
+     background-image: url('https://media.istockphoto.com/id/583726578/photo/wood-desk-plank-to-use-as-background-or-texture.jpg?s=612x612&w=0&k=20&c=nZuqX58HAgvD5UkumW_z0xfjeKu-hWncgQbstb4k35A=');
+     background-size: 100% 100%;
+     color: white;
+ }
+
  .interaktionsbuttons {
    margin-left: 10px;
    height: 94%;

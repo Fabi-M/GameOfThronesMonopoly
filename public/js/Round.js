@@ -24,8 +24,11 @@ class Round {
         let parsedJSON = JSON.parse(data);
         if(!parsedJSON["success"]){
             console.log("error");
+            return;
             // todo: add error handling frontend
         }
+        let toast = new Toast("Spieler "+parsedJSON["ingameId"]+" ist nun am Zug!","Zug beendet");
+        toast.show();
         $('div.spieleranzeige').text('Spieler am Zug: ' + parsedJSON['ingameId']);
         $( "#next_player" ).prop( "disabled", true );
         $( "#wuerfeln" ).prop( "disabled", false );

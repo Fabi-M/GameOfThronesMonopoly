@@ -69,6 +69,14 @@ class Card {
      */
     displayBuyResult(data) {
         console.log(data);
+        data = JSON.parse(data);
+        if(!data["success"]){
+            console.log("error");
+            return;
+            // todo: add error handling frontend
+        }
+        let toast = new Toast("Du hast die Straße "+data["streetName"]+" gekauft","Straße gekauft");
+        toast.show();
         // Spieler anzeigen, ob Straße gekauft wurde oder nicht
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
     }
