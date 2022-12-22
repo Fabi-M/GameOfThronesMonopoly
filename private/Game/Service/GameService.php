@@ -57,7 +57,7 @@ class GameService
      */
     public function checkIfAllowedToEndTurn($rolled){
         if($rolled != array_unique($rolled)) return;
-        $this->game->getGameEntity()->setAllowedToEndTurn(true);
+        $this->game->getGameEntity()->setAllowedToEndTurn(1);
         $this->em->persist($this->game->getGameEntity());
     }
 }
