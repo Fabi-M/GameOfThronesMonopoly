@@ -39,6 +39,7 @@ class CardController extends BaseController
         [
             'card' => $card,
             'cardType' => $type,
+            'imgPath' => self::IMG_PATH,
         ]);
 
     }
