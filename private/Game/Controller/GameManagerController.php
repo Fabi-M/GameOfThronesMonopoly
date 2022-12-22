@@ -17,9 +17,6 @@ class GameManagerController extends BaseController
      * Ends the current turn
      * @url    /EndTurn
      * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
      * @author Fabian Müller
      */
     public function EndTurnAction(): void

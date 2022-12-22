@@ -3,6 +3,7 @@
 namespace GameOfThronesMonopoly\Game\Repositories;
 
 use GameOfThronesMonopoly\Core\DataBase\DataBaseConnection;
+use GameOfThronesMonopoly\Core\Exceptions\SQLException;
 use GameOfThronesMonopoly\Core\Repositories\BaseRepository;
 use PDO;
 
@@ -11,7 +12,7 @@ class StreetRepository extends BaseRepository
     /**
      * Check if the player owns all streets of the given color
      * @author Fabian Müller , Selina Stöcklein
-     * @throws \GameOfThronesMonopoly\Core\Exceptions\SQLException
+     * @throws SQLException
      */
     public static function checkIfAllStreetsOwned($color, $playerId){
         $pdo = self::getPDO();

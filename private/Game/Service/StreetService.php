@@ -19,9 +19,9 @@ use ReflectionException;
 
 class StreetService
 {
-    private ?Game $game;
-    private ?Player $player;
-    private ?Street $street;
+    private $game;
+    private $player;
+    private $street;
     private $playerXField;
     private EntityManager $em;
 
@@ -81,6 +81,7 @@ class StreetService
             $this->player->getPlayerEntity()->getPosition(),
             $this->game->getGameEntity()->getId()
         );
+        $this->getAllModels($this->player->getPlayerEntity()->getPosition());
 
         return [
             "streetName" => $this->street->getStreetEntity()->getName(),
@@ -200,8 +201,10 @@ class StreetService
      * @author Fabian Müller
      */
     public function getAllModels($fieldId){
-        $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
-        $this->player->setEm($this->em);
+        if($this->player == null){
+            $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
+            $this->player->setEm($this->em);
+        }
         $this->street = StreetFactory::getByFieldId($this->em, $fieldId);
         $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $fieldId);
 

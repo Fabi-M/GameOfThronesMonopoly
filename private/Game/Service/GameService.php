@@ -8,7 +8,7 @@ use GameOfThronesMonopoly\Game\Factories\GameFactory;
 
 class GameService
 {
-    private ?\GameOfThronesMonopoly\Game\Model\Game $game;
+    private $game;
     private EntityManager $em;
 
     /**

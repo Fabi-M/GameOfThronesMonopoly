@@ -2,6 +2,7 @@
 
 namespace GameOfThronesMonopoly\Game\Model;
 
+use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Entities\Game as gameEntity;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
@@ -11,7 +12,7 @@ class Game
 
 
     public const MAX_PLAY_FIELDS = 39; // 0-39
-    private ?gameEntity $gameEntity;
+    private $gameEntity;
 
 
     /**
@@ -44,11 +45,12 @@ class Game
      * End the current turn, set next player as active
      * @param EntityManager $em
      * @return array
+     * @throws Exception
      * @author Fabian Müller
      */
-    public function endTurn(EntityManager $em): bool|int
+    public function endTurn(EntityManager $em): array
     {
-        if(!((bool) $this->gameEntity->getAllowedToEndTurn())) return false;
+        if(!((bool) $this->gameEntity->getAllowedToEndTurn())) throw new Exception("Player is not allowed to end turn!");
         $playerId = $this->gameEntity->getActivePlayerId()+1;
         $maxPlayerCount = $this->gameEntity->getMaxActivePlayers();
         if($playerId > $maxPlayerCount){
