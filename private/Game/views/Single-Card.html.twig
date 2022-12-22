@@ -9,41 +9,41 @@
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
-<div class="container text-center single-card">
+<div class="container text-center single-card {{selectable}}">
     <div class="row">
         <div class="col street-color street-name">
-            Testname
-
+           {{ card.getStreetEntity.getName }}<br>
+           Kosten: {{ card.getStreetEntity.getStreetCosts }}
         </div>
     </div>
     <div class="row row-street-properties">
         <div class="col street-properties">
             <div class="kosten-bereich">
-                <div class="row row-width">
-                    Miete:
+                <div class="row line-height variables-container">
+                    Miete: <span class="variables">{{ card.getStreetEntity.getBuildingRent0 }}</span>
                 </div>
-                <div class="row line-height">
-                    Miete mit 1 Haus:
+                <div class="row line-height variables-container">
+                    Miete mit 1 Haus: <span class="variables">{{ card.getStreetEntity.getBuildingRent1 }}</span>
                 </div>
-                <div class="row line-height">
-                    Miete mit 2 Häusern:
+                <div class="row line-height variables-container">
+                    Miete mit 2 Häusern: <span class="variables">{{ card.getStreetEntity.getBuildingRent2 }}</span>
                 </div>
-                <div class="row line-height">
-                    Miete mit 3 Häusern:
+                <div class="row line-height variables-container">
+                    Miete mit 3 Häusern: <span class="variables">{{ card.getStreetEntity.getBuildingRent3 }}</span>
                 </div>
-                <div class="row line-height">
-                    Miete mit 4 Häusern:
+                <div class="row line-height variables-container">
+                    Miete mit 4 Häusern: <span class="variables">{{ card.getStreetEntity.getBuildingRent4 }}</span>
                 </div>
-                <div class="row line-height">
-                    Miete mit 1 Hotel:
+                <div class="row line-height variables-container">
+                    Miete mit 1 Hotel: <span class="variables">{{ card.getStreetEntity.getBuildingRent5 }}</span>
                 </div>
             </div>
             <div class="kauf-bereich">
-                <div class="row line-height">
-                    Kosten für 1 Haus:
+                <div class="row line-height variables-container">
+                    Kosten für 1 Haus: <span class="variables">{{ card.getStreetEntity.getBuildingCosts }}</span>
                 </div>
-                <div class="row line-height">
-                    Kosten für 1 Hotel:
+                <div class="row line-height variables-container">
+                    Kosten für 1 Hotel: <span class="variables"> 4 Häuser <br><span class="hotelcosts">+ {{ card.getStreetEntity.getBuildingCosts }}</span></span>
                 </div>
             </div>
         </div>

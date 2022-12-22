@@ -77,6 +77,11 @@ class Toast {
     }
 
 
+    constructor(body, heading) {
+        this._body = body;
+        this._heading = heading;
+    }
+
     show() {
         $.toast({
             heading: this._heading,

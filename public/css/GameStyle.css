@@ -1,9 +1,14 @@
 
  @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 
+ body{
+     background-image: url('https://media.istockphoto.com/id/583726578/photo/wood-desk-plank-to-use-as-background-or-texture.jpg?s=612x612&w=0&k=20&c=nZuqX58HAgvD5UkumW_z0xfjeKu-hWncgQbstb4k35A=');
+     background-size: 100% 100%;
+     color: white;
+ }
+
  .interaktionsbuttons {
    margin-left: 10px;
-   height: 94%;
  }
 
  .interaktionsbuttons-margin {
@@ -87,7 +92,6 @@
  }
 
  .card-0 {
-   background-color: red;
    width: 13.1%;
    height: 13.1%;
    position: absolute;
@@ -95,14 +99,12 @@
  }
 
  .card-10 {
-   background-color: red;
    width: 13.1%;
    height: 13.1%;
    position: absolute;
  }
 
  .card-20 {
-   background-color: red;
    width: 13.1%;
    height: 13.1%;
    position: absolute;
@@ -110,7 +112,6 @@
  }
 
  .card-30 {
-   background-color: red;
    width: 13.1%;
    height: 13.1%;
    position: absolute;
@@ -142,47 +143,38 @@
  }
 
  .card-9 {
-   background-color: blue;
    top: 13.15%;
  }
 
  .card-8 {
-   background-color: red;
    top: 21.3%;
  }
 
  .card-7 {
-   background-color: blue;
    top: 29.45%;
  }
 
  .card-6 {
-   background-color: red;
    top: 37.6%;
  }
 
  .card-5 {
-   background-color: blue;
    top: 45.75%;
  }
 
  .card-4 {
-   background-color: red;
    top: 53.9%;
  }
 
  .card-3 {
-   background-color: blue;
    top: 62.05%;
  }
 
  .card-2 {
-   background-color: red;
    top: 70.2%;
  }
 
  .card-1 {
-   background-color: blue;
    top: 78.35%;
  }
 
@@ -211,47 +203,38 @@
  }
 
  .card-11 {
-   background-color: blue;
    left: 13.2%;
  }
 
  .card-12 {
-   background-color: red;
    left: 21.4%;
  }
 
  .card-13 {
-   background-color: blue;
    left: 29.6%;
  }
 
  .card-14 {
-   background-color: red;
    left: 37.8%;
  }
 
  .card-15 {
-   background-color: blue;
    left: 46.0%;
  }
 
  .card-16 {
-   background-color: red;
    left: 54.2%;
  }
 
  .card-17 {
-   background-color: blue;
    left: 62.4%;
  }
 
  .card-18 {
-   background-color: red;
    left: 70.6%;
  }
 
  .card-19 {
-   background-color: blue;
    left: 78.8%;
  }
 
@@ -269,47 +252,38 @@
  }
 
  .card-21 {
-   background-color: blue;
    top: 13.15%;
  }
 
  .card-22 {
-   background-color: red;
    top: 21.3%;
  }
 
  .card-23 {
-   background-color: blue;
    top: 29.45%;
  }
 
  .card-24 {
-   background-color: red;
    top: 37.6%;
  }
 
  .card-25 {
-   background-color: blue;
    top: 45.75%;
  }
 
  .card-26 {
-   background-color: red;
    top: 53.9%;
  }
 
  .card-27 {
-   background-color: blue;
    top: 62.05%;
  }
 
  .card-28 {
-   background-color: red;
    top: 70.2%;
  }
 
  .card-29 {
-   background-color: blue;
    top: 78.35%;
  }
 
@@ -327,47 +301,38 @@
  }
 
  .card-39 {
-   background-color: blue;
    left: 13.2%;
  }
 
  .card-38 {
-   background-color: red;
    left: 21.4%;
  }
 
  .card-37 {
-   background-color: blue;
    left: 29.6%;
  }
 
  .card-36 {
-   background-color: red;
    left: 37.8%;
  }
 
  .card-35 {
-   background-color: blue;
    left: 46.0%;
  }
 
  .card-34 {
-   background-color: red;
    left: 54.2%;
  }
 
  .card-33 {
-   background-color: blue;
    left: 62.4%;
  }
 
  .card-32 {
-   background-color: red;
    left: 70.6%;
  }
 
  .card-31 {
-   background-color: blue;
    left: 78.8%;
  }
 
@@ -395,7 +360,6 @@
  }
 
  .street-color {
-   background-color: red;
    height: 50px;
  }
 
@@ -408,18 +372,18 @@
  }
 
  .kauf-bereich {
+  padding-top:10px;
    border-top: 1px solid black;
  }
 
  .kosten-bereich {
-   margin-top: 20px;
-   margin-bottom: 20px;
+   margin-top: 10px;
+   margin-bottom: 10px;
    padding-left: 5px;
  }
 
  .kauf-bereich {
-   padding-top: 20px;
-   padding-left: 5px;
+     padding-left: 5px;
  }
 
  .line-height {
@@ -442,7 +406,6 @@
  }
 
  .strassen-bereich {
-   background-color: green;
    width: 30px;
  }
 
@@ -495,13 +458,11 @@
  .spieler-bereich-1,
  .spieler-bereich-3 {
    width: 75%;
-   background-color: yellow;
  }
 
  .strassen-bereich-1,
  .strassen-bereich-3 {
    width: 25%;
-   background-color: green;
  }
 
  .spieler-bereich-2, .strassen-bereich-2,
@@ -513,13 +474,11 @@
  .spieler-bereich-2,
  .spieler-bereich-4 {
    height: 75%;
-   background-color: yellow;
  }
 
  .strassen-bereich-2,
  .strassen-bereich-4 {
    height: 25%;
-   background-color: green;
  }
 
  #spieler-bereich-0,
@@ -528,7 +487,6 @@
  #spieler-bereich-30 {
    width: 75%;
    height: 75%;
-   background-color: blue;
  }
 
  .card-0,
@@ -560,8 +518,7 @@
     align-items: center;
 
 }
-.street-color { 
-    background-color: red;
+.street-color {
     height:50px;
 }
 .row-street-properties { 
@@ -573,15 +530,7 @@
 .kauf-bereich { 
     border-top:1px solid black;
 }
-.kosten-bereich { 
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding-left:5px;
-}
-.kauf-bereich { 
-    padding-top:20px;
-    padding-left:5px;
-}
+
 .line-height { 
     padding-top:2px;
     padding-bottom:2px;
@@ -609,4 +558,34 @@ margin-left:10px;
 
 .modal-body .single-card { 
   zoom: 1.25;
+}
+.single-player-card-pop-up .interaktionsbuttons .row { 
+  width: unset; 
+  margin:0px;
+}
+.single-player-card-pop-up .interaktionsbuttons.row { 
+  width: 790px; 
+  margin-top:20px;
+}
+.single-player-card-pop-up .bahnhofbuttons.interaktionsbuttons.row {
+  width: 540px;
+  margin-top: 20px;
+}
+.single-player-card-pop-up .ereignisbuttons.interaktionsbuttons.row {
+  width: 285px;
+  margin-top: 20px;
+}
+.train-picture {
+  width: 70px;
+  padding-top: 30px;
+}
+.variables { 
+  width: fit-content;
+  padding-left:0;
+}
+.variables-container { 
+  justify-content: space-between;
+}
+.hotelcosts{ 
+  float: right;
 }
