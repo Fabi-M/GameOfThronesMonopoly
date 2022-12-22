@@ -57,7 +57,7 @@ class Game
             $playerId -= $maxPlayerCount;
         }
         $this->gameEntity->setActivePlayerId($playerId);
-        $this->gameEntity->setAllowedToEndTurn(false);
+        $this->gameEntity->setAllowedToEndTurn(0);
         $em->persist($this->gameEntity);
         $playerEntity = PlayerFactory::getActivePlayer($em, $this)->getPlayerEntity();
         return [
