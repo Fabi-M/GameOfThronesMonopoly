@@ -75,7 +75,7 @@ class Toast {
     set Title(title) {
         this.title = title;
     }
-    
+
 
     show() {
         $.toast({
