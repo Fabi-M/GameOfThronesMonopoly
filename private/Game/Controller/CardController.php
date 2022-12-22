@@ -4,6 +4,8 @@ namespace GameOfThronesMonopoly\Game\Controller;
 
 use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Game\Entities\player;
+use GameOfThronesMonopoly\Game\Model\Street;
+use GameOfThronesMonopoly\Game\Model\SpecialField;
 use GameOfThronesMonopoly\Game\Factories\PlayFieldFactory;
 use GameOfThronesMonopoly\Game\Service\GameService;
 
@@ -24,11 +26,21 @@ class CardController extends BaseController
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $playFieldId = $_POST['playFieldId'];
         $card = PlayFieldFactory::getPlayField($this->em, $playFieldId, null);
+
+
+        $type='Action';
+        if($card instanceof Street) {
+            $type = 'Street';
+        } elseif($card instanceof SpecialField && $card->getEntity()->getAction() == 'trainstation') {
+            $type = 'Trainstation';
+        }
+        
         echo $this->twig->render('Game/views/CardInfoPopUp.html.twig' ,
         [
             'card' => $card,
-            
+            'cardType' => $type,
         ]);
+
     }
 
     public function ViewPlayerCardAction()

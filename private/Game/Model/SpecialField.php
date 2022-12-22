@@ -20,4 +20,8 @@ class SpecialField
     {
         $this->entity = $entity;
     }
+
+    public function getEntity():specialFieldEntity {
+        return $this->entity;
+    }
 }
