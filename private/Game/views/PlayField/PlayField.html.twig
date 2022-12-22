@@ -1,0 +1,10 @@
+<div class="playField card-{{ id }}" id="card-{{ id }}">
+    <div class="spieler-bereich-{{ id }}" id="spieler-bereich-{{ id }}">
+        {% if id == 0 %}
+            {% for  id in 1..playerFigures %}
+                {% include 'Game/views/Figure.html.twig' %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}"></div>
+</div>
