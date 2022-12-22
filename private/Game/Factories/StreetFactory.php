@@ -75,7 +75,7 @@ class StreetFactory
      * @throws ReflectionException
      * @author Fabian Müller
      */
-    public static function getByFieldId(EntityManager $em, int $fieldId, ?int $gameId): ?Street
+    public static function getByFieldId(EntityManager $em, int $fieldId, ?int $gameId = null): ?Street
     {
         return self::filterOne(
             $em,

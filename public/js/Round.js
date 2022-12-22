@@ -21,7 +21,12 @@ class Round {
      * @param data
      */
     displayNextPlayerPopup(data) {
-        $('div.spieleranzeige').text('Spieler am Zug: ' + data);
+        let parsedJSON = JSON.parse(data);
+        if(!parsedJSON["success"]){
+            console.log("error");
+            // todo: add error handling frontend
+        }
+        $('div.spieleranzeige').text('Spieler am Zug: ' + parsedJSON['ingameId']);
         $( "#next_player" ).prop( "disabled", true );
         $( "#wuerfeln" ).prop( "disabled", false );
     }

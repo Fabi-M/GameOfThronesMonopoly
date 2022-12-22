@@ -6,8 +6,8 @@ use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
 
 class Street
 {
-    private streetEntity $streetEntity;
-    private ?PlayerXField $xField;
+    private $streetEntity;
+    private $xField;
 
     /**
      * @param streetEntity  $streetEntity

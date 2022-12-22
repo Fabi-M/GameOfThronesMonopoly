@@ -17,19 +17,23 @@ class GameManagerController extends BaseController
      * Ends the current turn
      * @url    /EndTurn
      * @return void
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     * @throws Exception
-     * @author Fabian Müller & Christian Teubner
+     * @author Fabian Müller
      */
     public function EndTurnAction(): void
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $nextPlayer = $game->endTurn($this->em);
-        $this->em->flush();
-        echo json_encode($nextPlayer);
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $response = $game->endTurn($this->em);
+            $this->em->flush();
+        }catch(\Throwable $e){
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+        }
+
+        echo json_encode($response);
     }
 
     /**
@@ -50,6 +54,7 @@ class GameManagerController extends BaseController
         // get the active player and let it move
         $activePlayer = PlayerFactory::getActivePlayer($this->em, $game);
         $playFieldId = $activePlayer->move($this->em, $rolled);
+        $gameService->checkIfAllowedToEndTurn($rolled);
         // save
         $this->em->flush();
         echo json_encode(
@@ -91,10 +96,22 @@ class GameManagerController extends BaseController
      */
     public function StartNewGame(): void
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $this->em->flush();
-        //TODO 16.12.2022 Selina: Spielstand returnen, damit HTML CSS was anzeigen kann
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $response = [
+                "success" => true,
+                "id" => $this->sessionId,
+            ];
+            $this->em->flush();
+        }catch(\Throwable $e){
+            $response = [
+                "success" => "false",
+                "error" => $e->getMessage()
+            ];
+        }
+
+        echo json_encode($response);
     }
 
     /**
