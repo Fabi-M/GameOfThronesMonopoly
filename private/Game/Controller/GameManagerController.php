@@ -20,15 +20,23 @@ class GameManagerController extends BaseController
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
-     * @author Fabian Müller & Christian Teubner
+     * @author Fabian Müller
      */
     public function EndTurnAction()
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $nextPlayer = $game->endTurn($this->em);
-        $this->em->flush();
-        echo json_encode($nextPlayer);
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $response = $game->endTurn($this->em);
+            $this->em->flush();
+        }catch(\Throwable $e){
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+        }
+
+        echo json_encode($response);
     }
 
     /**
@@ -83,22 +91,34 @@ class GameManagerController extends BaseController
      * Start a new game
      * @url    /StartGame
      * @return void
-     * @throws \Exception
+     * @throws Exception
      * @author Fabian Müller
      */
     public function StartNewGame()
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $this->em->flush();
-        //TODO 16.12.2022 Selina: Spielstand returnen, damit HTML CSS was anzeigen kann
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $response = [
+                "success" => true,
+                "id" => $this->sessionId,
+            ];
+            $this->em->flush();
+        }catch(\Throwable $e){
+            $response = [
+                "success" => "false",
+                "error" => $e->getMessage()
+            ];
+        }
+
+        echo json_encode($response);
     }
 
     /**
      * Show the Homepage
      * @url    /Homepage
      * @return void
-     * @throws \Exception
+     * @throws Exception
      * @author Christian Teubner
      */
     public function ShowHomepageAction()

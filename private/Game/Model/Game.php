@@ -4,6 +4,7 @@ namespace GameOfThronesMonopoly\Game\Model;
 
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Entities\Game as gameEntity;
+use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 
 class Game
 {
@@ -41,9 +42,10 @@ class Game
 
     /**
      * End the current turn, set next player as active
-     * @author Fabian Müller & Christian Teubner
      * @param EntityManager $em
-     * @return void
+     * @return array
+     * @throws \Exception
+     * @author Fabian Müller & Christian Teubner
      */
     public function endTurn(EntityManager $em){
         $playerId = $this->gameEntity->getActivePlayerId()+1;
@@ -53,6 +55,15 @@ class Game
         }
         $this->gameEntity->setActivePlayerId($playerId);
         $em->persist($this->gameEntity);
-        return $playerId;
+        $playerEntity = PlayerFactory::getActivePlayer($em, $this)->getPlayerEntity();
+        return [
+            "money" => $playerEntity->getMoney(),
+            "playerId" => $playerEntity->getId(),
+            "position" => $playerEntity->getPosition(),
+            "gameId" => $playerEntity->getSessionId(),
+            "ingameId" => $playerEntity->getIngameId(),
+            "sessionId" => $playerEntity->getSessionId(),
+            "success" => true
+        ];
     }
 }
