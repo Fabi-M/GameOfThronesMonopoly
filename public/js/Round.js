@@ -21,7 +21,8 @@ class Round {
      * @param data
      */
     displayNextPlayerPopup(data) {
-        console.log(data);
         $('div.spieleranzeige').text('Spieler am Zug: ' + data);
+        $( "#next_player" ).prop( "disabled", true );
+        $( "#wuerfeln" ).prop( "disabled", false );
     }
 }

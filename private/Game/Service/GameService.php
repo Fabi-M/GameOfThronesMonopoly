@@ -2,11 +2,15 @@
 
 namespace GameOfThronesMonopoly\Game\Service;
 
+use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Entities\game;
 use GameOfThronesMonopoly\Game\Factories\GameFactory;
 
 class GameService
 {
+    private ?\GameOfThronesMonopoly\Game\Model\Game $game;
+    private EntityManager $em;
+
     /**
      * Get a game from the db with the sessionId
      * Create new game if there is no game with the sessionId
@@ -17,11 +21,12 @@ class GameService
      */
     public function getGameBySessionId($em, $sessionId): ?\GameOfThronesMonopoly\Game\Model\Game
     {
-        $game = GameFactory::filterOne($em, array(array('sessionId', 'equal', $sessionId)));
-        if(!isset($game)){
-            $game = $this->createGame($em, $sessionId);
+        $this->em = $em;
+        $this->game = GameFactory::filterOne($em, array(array('sessionId', 'equal', $sessionId)));
+        if(!isset($this->game)){
+            $this->game = $this->createGame($em, $sessionId);
         }
-        return $game;
+        return $this->game;
     }
 
     /**
@@ -33,17 +38,26 @@ class GameService
      */
     public function createGame($em, $sessionId): \GameOfThronesMonopoly\Game\Model\Game
     {
-        // in game model auslagern ---
-        $game = new \GameOfThronesMonopoly\Game\Model\Game(new game());
-        $gameEntity = $game->getGameEntity();
-        $gameEntity->setActivePlayerId(1);
-        $gameEntity->setMaxActivePlayers(4); // todo add possiblity to set custom max player
-        $gameEntity->setSessionId($sessionId);
-        $em->persist($gameEntity);
+        $this->em = $em;
+        $game = new \GameOfThronesMonopoly\Game\Model\Game();
+        $game->create($em, $sessionId);
         $em->flush();
-        // ---
+
         $playerService = new PlayerService();
-        $playerService->createAllPlayers($em, $sessionId, $gameEntity->getId(), $gameEntity->getMaxActivePlayers());
+        $playerService->createAllPlayers($em, $sessionId, $game->getGameEntity()->getId(), $game->getGameEntity()->getMaxActivePlayers());
+
         return $game;
+    }
+
+    /**
+     * Check if the player is allowed to end turn
+     * @author Fabian Müller
+     * @param $rolled
+     * @return void
+     */
+    public function checkIfAllowedToEndTurn($rolled){
+        if($rolled != array_unique($rolled)) return;
+        $this->game->getGameEntity()->setAllowedToEndTurn(true);
+        $this->em->persist($this->game->getGameEntity());
     }
 }

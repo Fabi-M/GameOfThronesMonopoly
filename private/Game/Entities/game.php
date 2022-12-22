@@ -15,6 +15,7 @@ class game extends BaseEntity
     protected $sessionId;
     protected $activePlayerId;
     protected $maxActivePlayers;
+    protected $allowedToEndTurn;
 
     /**
      * @return mixed
@@ -87,5 +88,21 @@ class game extends BaseEntity
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAllowedToEndTurn()
+    {
+        return $this->allowedToEndTurn;
+    }
 
+    /**
+     * @param mixed $allowedToEndTurn
+     * @return game
+     */
+    public function setAllowedToEndTurn($allowedToEndTurn)
+    {
+        $this->allowedToEndTurn = $allowedToEndTurn;
+        return $this;
+    }
 }

@@ -22,7 +22,7 @@ class GameManagerController extends BaseController
      * @throws SyntaxError
      * @author Fabian Müller
      */
-    public function EndTurnAction()
+    public function EndTurnAction(): void
     {
         try{
             $gameService = new GameService();
@@ -46,7 +46,7 @@ class GameManagerController extends BaseController
      * @throws Exception
      * @author Christian Teubner, Selina Stöcklein
      */
-    public function RollForMoveAction()
+    public function RollForMoveAction(): void
     {
         // get the current game
         $gameService = new GameService();
@@ -57,6 +57,7 @@ class GameManagerController extends BaseController
         // get the active player and let it move
         $activePlayer = PlayerFactory::getActivePlayer($this->em, $game);
         $playFieldId = $activePlayer->move($this->em, $rolled);
+        $gameService->checkIfAllowedToEndTurn($rolled);
         // save
         $this->em->flush();
         echo json_encode(
@@ -74,17 +75,19 @@ class GameManagerController extends BaseController
      * @return void
      * @author Christian Teubner, Selina Stöcklein
      */
-    public function RollForEscapeAction()
+    public function RollForEscapeAction(): void
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         $dice = new Dice();
         $rolled = $dice->roll();
-        echo json_encode([
-                             'dice' => $rolled,
-                             'escaped' => $rolled[0] == $rolled[1],
-                             'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
-                         ]);
+        echo json_encode(
+            [
+                'dice' => $rolled,
+                'escaped' => $rolled[0] == $rolled[1],
+                'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
+            ]
+        );
     }
 
     /**
@@ -94,7 +97,7 @@ class GameManagerController extends BaseController
      * @throws Exception
      * @author Fabian Müller
      */
-    public function StartNewGame()
+    public function StartNewGame(): void
     {
         try{
             $gameService = new GameService();
@@ -121,7 +124,7 @@ class GameManagerController extends BaseController
      * @throws Exception
      * @author Christian Teubner
      */
-    public function ShowHomepageAction()
+    public function ShowHomepageAction(): void
     {
         echo $this->twig->render(
             "Game/views/StartPage.html.twig",
