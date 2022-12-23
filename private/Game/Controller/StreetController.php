@@ -145,10 +145,14 @@ class StreetController extends BaseController
     {
         $fieldId = $_POST['playFieldId'];
         $msg = '';
+        $totalMoney = 0;
+        $rent = 0;
+        $isGameOver = false;
         try {
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             // checken wieviel miete
             $player = PlayerFactory::getActivePlayer($this->em, $game);
+            $totalMoney = $player->getPlayerEntity()->getMoney();
             $street = StreetFactory::getByFieldId($this->em, $fieldId, $game->getGameEntity()->getId());
             if (!($street instanceof Street) || $street->isUnOwned()) {
                 throw new Exception("No Rent To Pay");
@@ -159,19 +163,15 @@ class StreetController extends BaseController
             //TODO 23.12.2022 Fabian: klasse kümmert sich nur um sich selbst
             $rent = $player->payRentTo($owner, $street, $this->em);
             $isGameOver = $player->isGameOver();
-            $totalMoney = $player->getPlayerEntity()->getMoney();
             $this->em->flush();
         } catch (Throwable $e) {
-            $msg = $e->getTraceAsString();
-            $totalMoney = 0;
-            $rent = 0;
-            $isGameOver = false;
+            $msg = $e->getMessage();
         }
 
         echo json_encode(
             [
                 'info' => $msg,
-                'totalMoney' => $totalMoney,
+                'totalMoney' => $totalMoney - $rent,
                 'isGameOver' => $isGameOver,
                 'payedRent' => $rent
             ]
