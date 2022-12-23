@@ -7,6 +7,19 @@
      color: white;
  }
 
+ .imgContainer{
+     position: relative;
+     text-align: center;
+     color: white;
+ }
+ .centeredText{
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     size: 0.05px;
+ }
+
  .interaktionsbuttons {
    margin-left: 10px;
  }
@@ -595,4 +608,13 @@ margin-left:10px;
 }
 .single-card .street-name {
   color: black;
+}
+.single-card-bahnhof .street-name { 
+  flex-direction: column;
+}
+.single-card-bahnhof .street-name img { 
+  width: 90px;
+}
+.single-card-bahnhof .line-height { 
+  justify-content: space-between;
 }

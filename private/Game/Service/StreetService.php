@@ -140,6 +140,7 @@ class StreetService
 
         return [
             "streetName" => $this->street->getStreetEntity()->getName(),
+            "position" => $this->street->getStreetEntity()->getPlayFieldId(),
             "playerId" => $this->player->getPlayerEntity()->getId(),
             "success" => true,
             "totalMoney" => $this->player->getPlayerEntity()->getMoney(),
@@ -172,7 +173,8 @@ class StreetService
             "playerId" => $this->player->getPlayerEntity()->getId(),
             "success" => true,
             "totalMoney" => $this->player->getPlayerEntity()->getMoney(),
-            "buildings" => $this->playerXField->getPlayerXFieldEntity()->getBuildings()
+            "buildings" => $this->playerXField->getPlayerXFieldEntity()->getBuildings(),
+            "position" => $this->street->getStreetEntity()->getPlayFieldId()
         ];
     }
 
