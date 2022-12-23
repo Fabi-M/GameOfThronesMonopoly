@@ -59,6 +59,7 @@ class Ajax {
                     this.showMessage('Empty response');
                     return;
                 }
+                //TODO 23.12.2022 Selina: multiple success functions!
                 this.success(response);
             })
             .fail(function (foo) {

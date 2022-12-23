@@ -97,6 +97,9 @@ class StreetService
      * @author Fabian Müller
      */
     public function sellStreet($fieldId){
+
+        //TODO 23.12.2022 Selina: create base method for double code
+        //TODO 23.12.2022 Selina: create string classes
         if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
 
         $this->getAllModels($fieldId);
@@ -206,5 +209,6 @@ class StreetService
         }
         $this->street = StreetFactory::getByFieldId($this->em, $fieldId);
         $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $fieldId);
+        //TODO 23.12.2022 Selina: use playerxfield from street + rename method
     }
 }

@@ -47,7 +47,7 @@ class Street
      * @return bool
      * @author Selina Stöcklein
      */
-    public function isOwned(): bool
+    public function isUnOwned(): bool
     {
         return is_null($this->xField);
     }

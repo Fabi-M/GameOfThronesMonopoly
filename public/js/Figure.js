@@ -28,6 +28,10 @@ class Figure {
         request.execute();
     }
 
+    /**
+     * @author Selina Stöcklein
+     * @param result
+     */
     toastRent(result) {
         let resultObj = JSON.parse(result);
         console.log(resultObj);
@@ -43,6 +47,11 @@ class Figure {
         }
     }
 
+    /**
+     * @author Selina Stöcklein
+     * @param result
+     * @param data
+     */
     showResult(result, data) {
         //TODO 21.12.2022 Selina: anzeigen ob rent gezahlt wurde, money aktualisieren, gamoover anzeigen
         console.log(result);

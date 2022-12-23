@@ -150,12 +150,13 @@ class StreetController extends BaseController
             // checken wieviel miete
             $player = PlayerFactory::getActivePlayer($this->em, $game);
             $street = StreetFactory::getByFieldId($this->em, $fieldId, $game->getGameEntity()->getId());
-            if (!($street instanceof Street) || $street->isOwned()) {
+            if (!($street instanceof Street) || $street->isUnOwned()) {
                 throw new Exception("No Rent To Pay");
             }
             $owner = PlayerFactory::getPlayerById(
                 $this->em, $street->getXField()->getPlayerXFieldEntity()->getPlayerId()
             );
+            //TODO 23.12.2022 Fabian: klasse kümmert sich nur um sich selbst
             $rent = $player->payRentTo($owner, $street, $this->em);
             $isGameOver = $player->isGameOver();
             $totalMoney = $player->getPlayerEntity()->getMoney();
