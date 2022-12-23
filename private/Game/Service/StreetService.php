@@ -8,10 +8,7 @@ use GameOfThronesMonopoly\Core\Exceptions\SQLException;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerXFieldFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayFieldFactory;
-use GameOfThronesMonopoly\Game\Factories\SpecialFieldFactory;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
-use GameOfThronesMonopoly\Game\Model\Game;
-use GameOfThronesMonopoly\Game\Model\Player;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
@@ -39,6 +36,7 @@ class StreetService
      * Check if the street is buyable
      * @return bool
      * @throws ReflectionException
+     * @throws Exception
      * @author Fabian Müller
      */
     public function checkIfBuyable(): bool
@@ -60,8 +58,8 @@ class StreetService
 
     /**
      * Buy the street that the player is currently standing on
-     * @return bool
-     * @throws Exception
+     * @return bool|array
+     * @throws ReflectionException
      * @author Fabian Müller
      */
     public function buyStreet(): bool|array
@@ -108,7 +106,7 @@ class StreetService
         // todo: check if player has houses on other streets with the same color -> can't sell street
 
         $this->playerXField->delete($this->em);
-        $this->player->sellStreet($fieldId);
+        $this->player->sellStreet($fieldId, $this->em);
 
         return [
             "streetName" => $this->street->getStreetEntity()->getName(),
@@ -126,7 +124,7 @@ class StreetService
      * @throws Exception
      * @author Fabian Müller
      */
-    public function buyHouse($fieldId): bool|array
+    public function buyHouse($fieldId, EntityManager $em): bool|array
     {
         if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
 
@@ -136,7 +134,7 @@ class StreetService
         if($this->playerXField->getPlayerXFieldEntity()->getBuildings() >= 5) throw new Exception("There are already 5 buildings on the street"); // already max housed build
         if(!$this->checkIfFullStreet()) throw new Exception("Player doesn't have all streets of color"); // doesn't own all streets of color
 
-        $this->player->changeBalance(-($this->street->getStreetEntity()->getBuildingCosts()));
+        $this->player->changeBalance(-($this->street->getStreetEntity()->getBuildingCosts()), $em);
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()+1);
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
@@ -156,7 +154,7 @@ class StreetService
      * @throws Exception
      * @author Fabian Müller
      */
-    public function sellHouse($fieldId): bool|array
+    public function sellHouse($fieldId, EntityManager $em): bool|array
     {
         if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
 
@@ -165,7 +163,7 @@ class StreetService
         if($this->playerXField == null) throw new Exception("This street is currently not owned, there can't be any houses"); // street not owned
         if($this->playerXField->getPlayerXFieldEntity()->getBuildings() == 0) throw new Exception("No buildings on this street"); // no buildings on street
 
-        $this->player->changeBalance($this->street->getStreetEntity()->getBuildingCosts()/2);
+        $this->player->changeBalance($this->street->getStreetEntity()->getBuildingCosts()/2, $em);
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()-1);
         $this->em->persist($this->playerXField->getPlayerXFieldEntity());
 
@@ -203,7 +201,6 @@ class StreetService
     public function getAllModels($fieldId){
         if($this->player == null){
             $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
-            $this->player->setEm($this->em);
         }
         $this->street = StreetFactory::getByFieldId($this->em, $fieldId);
         $this->playerXField = PlayerXFieldFactory::getByFieldId($this->em, $this->game->getGameEntity()->getId(), $fieldId);

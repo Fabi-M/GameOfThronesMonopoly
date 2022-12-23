@@ -8,6 +8,7 @@ class Dice {
      * @author Selina Stöcklein & Christian Teubner
      */
     throwDices(event, data) {
+
         let that = data['this'];
         let action = $('.dice').attr('data-action');
         let url = BASEPATH + '/Roll/' + action;

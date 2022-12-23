@@ -28,17 +28,17 @@ class StreetController extends BaseController
      */
     public function BuyStreetAction()
     {
-        try{
+        try {
             $gameService = new GameService();
             $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
             $streetService = new StreetService($game, $this->em);
             $response = $streetService->buyStreet();
             $this->em->flush();
-        }catch(Throwable $e){
-           $response = [
-               "success" => false,
-               "error" => $e->getMessage(),
-           ];
+        } catch (Throwable $e) {
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage(),
+            ];
         }
 
         echo json_encode($response);
@@ -54,13 +54,13 @@ class StreetController extends BaseController
      */
     public function SellStreetAction($fieldId): void
     {
-        try{
+        try {
             $gameService = new GameService();
             $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
             $streetService = new StreetService($game, $this->em);
             $response = $streetService->sellStreet($fieldId);
             $this->em->flush();
-        }catch(Throwable $e){
+        } catch (Throwable $e) {
             $response = [
                 "success" => false,
                 "error" => $e->getMessage(),
@@ -81,13 +81,13 @@ class StreetController extends BaseController
      */
     public function BuyHouseAction($fieldId): void
     {
-        try{
+        try {
             $gameService = new GameService();
             $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
             $streetService = new StreetService($game, $this->em);
-            $response = $streetService->buyHouse($fieldId);
+            $response = $streetService->buyHouse($fieldId, $this->em);
             $this->em->flush();
-        }catch(Throwable $e){
+        } catch (Throwable $e) {
             $response = [
                 "success" => false,
                 "error" => $e->getMessage(),
@@ -107,13 +107,13 @@ class StreetController extends BaseController
      */
     public function SellHouseAction($fieldId): void
     {
-        try{
+        try {
             $gameService = new GameService();
             $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
             $streetService = new StreetService($game, $this->em);
-            $response = $streetService->sellHouse($fieldId);
+            $response = $streetService->sellHouse($fieldId, $this->em);
             $this->em->flush();
-        }catch(Throwable $e){
+        } catch (Throwable $e) {
             $response = [
                 "success" => false,
                 "error" => $e->getMessage(),
@@ -144,6 +144,7 @@ class StreetController extends BaseController
     public function PayRentAction(): void
     {
         $fieldId = $_POST['playFieldId'];
+        $msg = '';
         try {
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             // checken wieviel miete
@@ -155,11 +156,12 @@ class StreetController extends BaseController
             $owner = PlayerFactory::getPlayerById(
                 $this->em, $street->getXField()->getPlayerXFieldEntity()->getPlayerId()
             );
-            $rent = $player->payRentTo($owner, $street);
+            $rent = $player->payRentTo($owner, $street, $this->em);
             $isGameOver = $player->isGameOver();
             $totalMoney = $player->getPlayerEntity()->getMoney();
             $this->em->flush();
         } catch (Throwable $e) {
+            $msg = $e->getTraceAsString();
             $totalMoney = 0;
             $rent = 0;
             $isGameOver = false;
@@ -167,6 +169,7 @@ class StreetController extends BaseController
 
         echo json_encode(
             [
+                'info' => $msg,
                 'totalMoney' => $totalMoney,
                 'isGameOver' => $isGameOver,
                 'payedRent' => $rent

@@ -9,17 +9,6 @@ use ReflectionException;
 class Player
 {
     private $playerEntity;
-    private $em;
-
-    /**
-     * @param mixed $em
-     * @return Player
-     */
-    public function setEm($em)
-    {
-        $this->em = $em;
-        return $this;
-    }
 
     /**
      * @return \GameOfThronesMonopoly\Game\Entities\player
@@ -76,60 +65,62 @@ class Player
 
     /**
      * Buy the street that the player is currently on
-     * @param $em
+     * @param EntityManager $em
      * @return bool
      * @throws ReflectionException
      * @author Fabian Müller
      */
-    public function buyStreet($em): bool
+    public function buyStreet(EntityManager $em): bool
     {
-        $this->em = $em;
-        return $this->checkFunds();
+        return $this->checkFunds($em);
     }
 
     /**
      * Check if the player has enough money to buy the street
+     * @param EntityManager $em
      * @return bool
      * @throws ReflectionException
      * @author Fabian Müller
      */
-    public function checkFunds(): bool
+    public function checkFunds(EntityManager $em): bool
     {
-        $street = StreetFactory::filterOne($this->em, [
+        $street = StreetFactory::filterOne($em, [
             ['playfieldId', 'equal', $this->playerEntity->getPosition()]
         ]);
         if ($street->getStreetEntity()->getStreetCosts() > $this->playerEntity->getMoney()) {
             return false;
         }
-        $this->changeBalance(-($street->getStreetEntity()->getStreetCosts()));
+        $this->changeBalance(-($street->getStreetEntity()->getStreetCosts()),$em);
         return true;
     }
 
     /**
      * Pay money
-     * @param $amount
+     * @param               $amount
+     * @param EntityManager $em
      * @return void
      * @author Fabian Müller
      */
-    public function changeBalance($amount): void
+    public function changeBalance($amount, EntityManager $em): void
     {
         $cash = $this->playerEntity->getMoney() + $amount;
         $this->playerEntity->setMoney($cash);
-        $this->em->persist($this->playerEntity);
+        $em->persist($this->playerEntity);
     }
 
     /**
-     * @param $id
+     * @param               $id
+     * @param EntityManager $em
      * @return void
      * @throws ReflectionException
      * @author Fabian Müller
      */
-    public function sellStreet($id): void
+    public function sellStreet($id, EntityManager $em): void
     {
-        $street = StreetFactory::filterOne($this->em, [
+        $street = StreetFactory::filterOne($em, [
             ['playfieldId', 'equal', $id]
         ]);
-        $this->changeBalance($street->getStreetEntity()->getStreetCosts() / 2);
+        $this->changeBalance($street->getStreetEntity()->getStreetCosts() / 2, $em);
     }
 
     /**
@@ -141,16 +132,17 @@ class Player
     }
 
     /**
-     * @param Player $owner
-     * @param Street $street
+     * @param Player        $owner
+     * @param Street        $street
+     * @param EntityManager $em
      * @return int
      * @author Selina Stöcklein
      */
-    public function payRentTo(Player $owner, Street $street): int
+    public function payRentTo(Player $owner, Street $street, EntityManager $em): int
     {
         $rent = $street->getRent(); // 0 oder mehr
-        $this->changeBalance(-($rent));
-        $owner->changeBalance($rent);
+        $this->changeBalance(-($rent), $em);
+        $owner->changeBalance($rent, $em);
         return $rent;
     }
 }
