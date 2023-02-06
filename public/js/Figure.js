@@ -53,7 +53,6 @@ class Figure {
      * @param data
      */
     showResult(result, data) {
-        //TODO 21.12.2022 Selina: anzeigen ob rent gezahlt wurde, money aktualisieren, gamoover anzeigen
         console.log(result);
         console.log(data);
         data['this'].toastRent(result);

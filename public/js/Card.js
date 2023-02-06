@@ -141,10 +141,7 @@ class Card {
      * @author Selina Stöcklein
      */
     viewCard(event, data) {
-        //TODO 15.12.2022 Selina: playfield_id von der angeklickten karte bekommen
         let that = data['this'];
-        //TODO 15.12.2022 Selina: Jedes Spielfeld soll eine "data-playfield_id=..." haben,
-        // die dann für requests verwendet werden kann
         let playfieldId = $('.dice').attr('data-playfieldId');
         let url = BASEPATH + '/Card/View'; // post playfield_id
         let request = new Ajax(url, {'playfield_id' : playfieldId}, that.displayCardPopup, data);
