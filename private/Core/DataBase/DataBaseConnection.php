@@ -7,7 +7,6 @@ use PDO;
 
 /**
  * Class DataBaseConnection
- * Singleton that holds the database connection to our azubi db
  */
 class DataBaseConnection
 {
