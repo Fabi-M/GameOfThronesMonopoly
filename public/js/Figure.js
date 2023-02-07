@@ -10,8 +10,55 @@ class Figure {
      * @param targetPlayFieldId
      */
     move(targetPlayFieldId) {
-        let element = $(this.#$element).detach();
-        $('#spieler-bereich-' + targetPlayFieldId).append(element);
+        //let element = $(this.#$element).detach();
+        // $('#spieler-bereich-' + targetPlayFieldId).append(element);
+        let oldPlayFieldId = $(this.#$element).parent().parent().attr('data-id');
+        oldPlayFieldId++;
+        // x++
+        // if x>limit x=0
+        // if x==target break;
+        let id = $(this.#$element).attr('id');
+        for (oldPlayFieldId; oldPlayFieldId !== targetPlayFieldId; oldPlayFieldId++) {
+            if (oldPlayFieldId > 39) {
+                oldPlayFieldId = 0;
+            }
+            //move
+            this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId, this.moveAnimate)
+            console.log(oldPlayFieldId)
+        }
+    }
+
+    moveAnimate(id, oldPlayFieldId, targetPlayFieldId, lambda) {
+        let element = $('#' + id);
+        let newParent = $('#spieler-bereich-' + oldPlayFieldId);
+        let oldOffset = element.offset();
+        element.appendTo(newParent);
+        let newOffset = element.offset();
+        let temp = element.clone().appendTo('body');
+        element.hide();
+        temp.css({
+            'position': 'absolute',
+            'left': oldOffset.left,
+            'top': oldOffset.top,
+            'z-index': 1000
+        });
+
+        temp.animate({'top': newOffset.top, 'left': newOffset.left}, 500, function () {
+            element.show();
+            temp.remove();
+            oldPlayFieldId++;
+            if (oldPlayFieldId > 39) {
+                oldPlayFieldId = 0;
+            }
+            //recursive
+            if (oldPlayFieldId!== targetPlayFieldId){
+                //move
+                lambda(id, oldPlayFieldId, targetPlayFieldId, lambda);
+            }
+
+        });
+        //await new Promise(r => setTimeout(r, 500));
+        console.log('next');
     }
 
     /**
@@ -53,8 +100,6 @@ class Figure {
      * @param data
      */
     showResult(result, data) {
-        console.log(result);
-        console.log(data);
         data['this'].toastRent(result);
     }
 }
