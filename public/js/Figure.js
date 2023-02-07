@@ -10,8 +10,46 @@ class Figure {
      * @param targetPlayFieldId
      */
     move(targetPlayFieldId) {
-        let element = $(this.#$element).detach();
-        $('#spieler-bereich-' + targetPlayFieldId).append(element);
+        let oldPlayFieldId = $(this.#$element).parent().parent().attr('data-id');
+        let id = $(this.#$element).attr('id');
+
+        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId, this.moveAnimate)
+    }
+
+    /**
+     * move player recursively from playfield to playfield
+     * @param id
+     * @param oldPlayFieldId
+     * @param targetPlayFieldId
+     * @param recursiveCallback
+     */
+    moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback) {
+        let element = $('#' + id);
+        let newParent = $('#spieler-bereich-' + oldPlayFieldId);
+        let oldOffset = element.offset();
+        element.appendTo(newParent);
+        let newOffset = element.offset();
+        let temp = element.clone().appendTo('body');
+        element.hide();
+        temp.css({
+            'position': 'absolute',
+            'left': oldOffset.left,
+            'top': oldOffset.top,
+            'z-index': 1000
+        });
+
+        temp.animate({'top': newOffset.top, 'left': newOffset.left}, 500, function () {
+            element.show();
+            temp.remove();
+            oldPlayFieldId++;
+            //recursive
+            if (oldPlayFieldId > 39) {
+                oldPlayFieldId = 0;
+            }
+            if (oldPlayFieldId !== targetPlayFieldId) {
+                recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback);
+            }
+        });
     }
 
     /**
@@ -53,8 +91,6 @@ class Figure {
      * @param data
      */
     showResult(result, data) {
-        console.log(result);
-        console.log(data);
         data['this'].toastRent(result);
     }
 }
