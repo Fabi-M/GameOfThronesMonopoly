@@ -2,12 +2,10 @@ class Card {
     constructor() {
         let events = new Events();
         //TODO 15.12.2022 Selina: placeholder austauschen
-        events.addEvent('click', $('#buyStreet'), this.buyCard, {'this':this});
-        events.addEvent('click', $('#verkaufen'), this.sellCard, {'this':this});
-        events.addEvent('click', $('#haus_kaufen'), this.buyHouse, {'this':this});
-        events.addEvent('click', $('#haus_verkaufen'), this.sellHouse, {'this':this});
-        events.addEvent('click', $('#VIEWCARDPLACEHOLDER'), this.viewCard,{'this':this}); //Placeholder must be changed later
-        events.addEvent('click', $('#MORTGAGECARDPLACEHOLDER'), this.mortgageCard,{'this':this}); //Placeholder must be changed later
+        events.addDynamicEvent('click', '#buyStreet', this.buyCard, {'this':this});
+        events.addDynamicEvent('click', '#verkaufen', this.sellCard, {'this':this});
+        events.addDynamicEvent('click', '#haus_kaufen', this.buyHouse, {'this':this});
+        events.addDynamicEvent('click', '#haus_verkaufen', this.sellHouse, {'this':this});
     }
 
     /**
@@ -30,7 +28,7 @@ class Card {
      */
     sellCard(event, data) {
         let that = data['this'];
-        let id = 1; // todo sobald card popup fertig, id davon holen
+        let id = $(event["target"]).attr("data-value");
         let url = BASEPATH + '/Street/Sell/'+id;
         let request = new Ajax(url, false, that.displayStreetSellResult, data);
         request.execute();
@@ -42,8 +40,11 @@ class Card {
      * @param data
      */
     buyHouse(event, data) {
+        console.log("HALLO");
+        console.log(data);
+        console.log($(event["target"]).attr("data-value"));
         let that = data['this'];
-        let id = 1; // todo sobald card popup fertig, id davon holen
+        let id = $(event["target"]).attr("data-value");
         let url = BASEPATH + '/Street/House/Buy/'+id;
         let request = new Ajax(url, false, that.displayHouseBuyResult, data);
         request.execute();
@@ -57,7 +58,7 @@ class Card {
      */
     sellHouse(event, data) {
         let that = data['this'];
-        let id = 1; // todo sobald card popup fertig, id davon holen
+        let id = $(event["target"]).attr("data-value");
         let url = BASEPATH + '/Street/House/Sell/'+id;
         let request = new Ajax(url, false, that.displayHouseSellResult, data);
         request.execute();
@@ -112,6 +113,7 @@ class Card {
         }
         let toast = new Toast("Du hast ein Haus auf der Straße "+data["streetName"]+" gekauft","Haus gekauft");
         toast.show();
+        console.log(classInstance);
         classInstance['this'].addHouse(data["position"], data["buildings"]);
 
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.

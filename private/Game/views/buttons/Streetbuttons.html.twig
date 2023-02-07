@@ -1,28 +1,24 @@
  <div class="row interaktionsbuttons single-player-card-pop-up">
-    <div class="row">
-        <input class="interaktionsbutton" type="button" id="verkaufen" name="verkaufen"
-            value="Straße verkaufen">
-    </div>
+     <div class="row">
+         <input class="interaktionsbutton" type="button" id="buyStreet" name="verkaufen"
+                data-value="{{ card.getStreetEntity.playfieldId }}" value="Straße kaufen">
+     </div>
+
     <div class="row">
         <input class="interaktionsbutton" type="button" id="haus_kaufen" name="haus_kaufen"
-            value="Haus kaufen">
-    </div>
-    <div class="row">
-        <input class="interaktionsbutton" type="button" id="hotel_kaufen" name="hotel_kaufen"
-            value="Hotel kaufen">
+               data-value="{{ card.getStreetEntity.playfieldId }}" value="Haus kaufen">
     </div>
     <div class="row">
         <input class="interaktionsbutton" type="button" id="hypothek_aufnehmen" name="hypothek_aufnehmen"
-            value="Hypothek aufnehmen">
+               data-value="{{ card.getStreetEntity.playfieldId }}" value="Hypothek aufnehmen">
     </div>
+     <div class="row">
+         <input class="interaktionsbutton" type="button" id="verkaufen" name="verkaufen"
+                data-value="{{ card.getStreetEntity.playfieldId }}" value="Straße verkaufen">
+     </div>
     <div class="row">
         <input class="interaktionsbutton" type="button" id="haus_verkaufen" name="haus_verkaufen"
-            value="Haus verkaufen">
-    </div>
-    
-    <div class="row">
-        <input class="interaktionsbutton" type="button" id="hotel_verkaufen" name="hotel_verkaufen"
-            value="Hotel verkaufen">
+               data-value="{{ card.getStreetEntity.playfieldId }}" value="Haus verkaufen">
     </div>
     
 </div>

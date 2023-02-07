@@ -1,0 +1,15 @@
+- Mon Doku da keine Server
+- Tickets vom letzten sprint
+- Startseite
+- Miete im Frontend anzeigen
+- beim neuladen Spielstand vom Server holen
+- GEmeinschafts und Ereignisskarten
+- Figur-ziehen-Animation
+- Bahnhof und Werke Logik
+- Server wieder aufbauen
+- Website in Betrieb nehmen
+- Hauskauf backend hardcoded id anpassen
+- Geplant: Errorhandling
+- Würfelanimation
+- Geldanzeige Frontend
+- Gekaufte Karten anzeigen Frontend
