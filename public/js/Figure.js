@@ -10,25 +10,20 @@ class Figure {
      * @param targetPlayFieldId
      */
     move(targetPlayFieldId) {
-        //let element = $(this.#$element).detach();
-        // $('#spieler-bereich-' + targetPlayFieldId).append(element);
         let oldPlayFieldId = $(this.#$element).parent().parent().attr('data-id');
-        oldPlayFieldId++;
-        // x++
-        // if x>limit x=0
-        // if x==target break;
         let id = $(this.#$element).attr('id');
-        for (oldPlayFieldId; oldPlayFieldId !== targetPlayFieldId; oldPlayFieldId++) {
-            if (oldPlayFieldId > 39) {
-                oldPlayFieldId = 0;
-            }
-            //move
-            this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId, this.moveAnimate)
-            console.log(oldPlayFieldId)
-        }
+
+        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId, this.moveAnimate)
     }
 
-    moveAnimate(id, oldPlayFieldId, targetPlayFieldId, lambda) {
+    /**
+     * move player recursively from playfield to playfield
+     * @param id
+     * @param oldPlayFieldId
+     * @param targetPlayFieldId
+     * @param recursiveCallback
+     */
+    moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback) {
         let element = $('#' + id);
         let newParent = $('#spieler-bereich-' + oldPlayFieldId);
         let oldOffset = element.offset();
@@ -47,18 +42,14 @@ class Figure {
             element.show();
             temp.remove();
             oldPlayFieldId++;
+            //recursive
             if (oldPlayFieldId > 39) {
                 oldPlayFieldId = 0;
             }
-            //recursive
-            if (oldPlayFieldId!== targetPlayFieldId){
-                //move
-                lambda(id, oldPlayFieldId, targetPlayFieldId, lambda);
+            if (oldPlayFieldId !== targetPlayFieldId) {
+                recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback);
             }
-
         });
-        //await new Promise(r => setTimeout(r, 500));
-        console.log('next');
     }
 
     /**
