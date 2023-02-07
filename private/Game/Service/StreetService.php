@@ -129,13 +129,20 @@ class StreetService
      */
     public function buyHouse($fieldId, EntityManager $em): bool|array
     {
-        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) { // player has to roll first
+            throw new Exception("Player has to roll first!");
+        }
+        $this->getAllModels((int)$fieldId);
 
-        $this->getAllModels($fieldId);
-
-        if($this->playerXField == null) throw new Exception("This street is currently not owned, you can't buy houses"); // street not owned
-        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() >= 5) throw new Exception("There are already 5 buildings on the street"); // already max housed build
-        if(!$this->checkIfFullStreet()) throw new Exception("Player doesn't have all streets of color"); // doesn't own all streets of color
+        if($this->playerXField == null) { // street not owned
+            throw new Exception("This street is currently not owned, you can't buy houses");
+        }
+        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() >= 5) { // already max housed build
+            throw new Exception("There are already 5 buildings on the street");
+        }
+        if(!$this->checkIfFullStreet()) {  // doesn't own all streets of color
+            throw new Exception("Player doesn't have all streets of color");
+        }
 
         $this->player->changeBalance(-($this->street->getStreetEntity()->getBuildingCosts()), $em);
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()+1);
@@ -160,12 +167,18 @@ class StreetService
      */
     public function sellHouse($fieldId, EntityManager $em): bool|array
     {
-        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
+        if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) { // player has to roll first
+            throw new Exception("Player has to roll first!");
+        }
 
         $this->getAllModels($fieldId);
 
-        if($this->playerXField == null) throw new Exception("This street is currently not owned, there can't be any houses"); // street not owned
-        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() == 0) throw new Exception("No buildings on this street"); // no buildings on street
+        if($this->playerXField == null) {  // street not owned
+            throw new Exception("This street is currently not owned, there can't be any houses");
+        }
+        if($this->playerXField->getPlayerXFieldEntity()->getBuildings() == 0) {// no buildings on street
+            throw new Exception("No buildings on this street");
+        }
 
         $this->player->changeBalance($this->street->getStreetEntity()->getBuildingCosts()/2, $em);
         $this->playerXField->getPlayerXFieldEntity()->setBuildings($this->playerXField->getPlayerXFieldEntity()->getBuildings()-1);
