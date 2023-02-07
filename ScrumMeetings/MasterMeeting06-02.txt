@@ -11,3 +11,5 @@
 - Hauskauf backend hardcoded id anpassen
 - Geplant: Errorhandling
 - Würfelanimation
+- Geldanzeige Frontend
+- Gekaufte Karten anzeigen Frontend
