@@ -182,6 +182,5 @@ class BaseController
         $gameService = new GameService();
         $gameService->createGame($this->em, $this->sessionId);
         $this->em->flush();
-        $_SESSION["game"] = true;
     }
 }
