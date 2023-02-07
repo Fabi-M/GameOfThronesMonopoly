@@ -36,8 +36,10 @@ class FigureService {
      */
     moveFigure(result, data) {
         $("#next_player").prop("disabled", false);
-        $(".dice").prop("disabled", true);
         let resultObj = JSON.parse(result);
+        if (resultObj['dice'][0] !== resultObj['dice'][1]) {
+            $(".dice").prop("disabled", true);
+        }
         let me = FigureService.getInstance();
         data['dice'].toastRolledDice(resultObj['dice']); // dice.js
         let playerId = resultObj['activePlayerId'];
