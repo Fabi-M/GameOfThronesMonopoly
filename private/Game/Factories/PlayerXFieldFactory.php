@@ -6,6 +6,7 @@ use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Model\Game;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
+use GameOfThronesMonopoly\Game\Model\Street;
 use ReflectionException;
 
 class PlayerXFieldFactory
@@ -49,5 +50,24 @@ class PlayerXFieldFactory
                 array('fieldId', 'equal', $fieldId)
             )
         );
+    }
+
+    /**
+     * @param EntityManager $em
+     * @param array         $filter
+     * @return array|null
+     * @throws ReflectionException
+     * @throws Exception
+     * @author Fabian Müller
+     */
+    public static function filter(EntityManager $em, array $where, array $in = null): ?array
+    {
+        $entities = $em->getRepository(self::GAME_NAMESPACE)->findBy(
+            [
+                'WHERE' => $where,
+                "IN" => $in
+            ]
+        );
+        return $entities;
     }
 }

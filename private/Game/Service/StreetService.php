@@ -67,7 +67,6 @@ class StreetService
         if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
 
         $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
-        //$this->player->getPlayerEntity()->setPosition(24); // todo nur zum testen, position wird über würfeln gesetzt
 
         if(!$this->checkIfBuyable()) throw new Exception("Street is already owned"); // street is already owned by another player
         if(!$this->player->buyStreet($this->em)) throw new Exception("Player doesn't have enough money"); // doesn't have enough money
