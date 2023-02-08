@@ -36,7 +36,7 @@ class Street
      * @return mixed
      * @author Selina Stöcklein
      */
-    public function getRent(): mixed
+    public function getRent($em = null, $playerID = null): mixed
     {
         $houses = $this->xField->getPlayerXFieldEntity()->getBuildings();
         $getRent = 'getBuildingRent' . $houses;
