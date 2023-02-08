@@ -242,8 +242,4 @@ class street extends BaseEntity
     {
         $this->playFieldId = $playFieldId;
     }
-
-
-
-
 }

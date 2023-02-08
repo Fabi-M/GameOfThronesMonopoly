@@ -1,10 +1,13 @@
 <div class="playField card-{{ id }}" id="card-{{ id }}" data-id="{{ id }}">
+     {# map[id]['owner'] #}
     <div class="spieler-bereich-{{ id }}" id="spieler-bereich-{{ id }}">
-        {% if id == 0 %}
-            {% for  id in 1..playerFigures %}
+        {% if map[id]['player'] is defined %}
+        {% set id = map[id]['player'] %}
                 {% include 'Game/views/Figure.html.twig' %}
-            {% endfor %}
+
         {% endif %}
     </div>
-    <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}"></div>
+    <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}">
+        {{ map[id]['buildings'] }}
+    </div>
 </div>

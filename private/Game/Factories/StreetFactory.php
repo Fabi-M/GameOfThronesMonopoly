@@ -5,6 +5,7 @@ namespace GameOfThronesMonopoly\Game\Factories;
 use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
+use GameOfThronesMonopoly\Game\Model\PlayerXField;
 use GameOfThronesMonopoly\Game\Model\Street;
 use ReflectionException;
 
@@ -65,6 +66,37 @@ class StreetFactory
             $models [] = new Street($entity, $xField);
         }
         return $models;
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public static function getAllByPlayerId(EntityManager $em, int $playerId)
+    {
+        /** @var PlayerXField[] $playerXfields */
+        $playerXfields = PlayerXFieldFactory::getByPlayerId($em, $playerId);
+        $ready = [];
+        $fieldIds = array_map(
+            fn(PlayerXField $playerXField) => $playerXField->getPlayerXFieldEntity()->getFieldId(),
+            $playerXfields
+        );
+
+        /** @var streetEntity[] $entities */
+        $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
+            [
+                'IN' => [
+                    'playfieldId' => $fieldIds
+                ]
+            ]
+        );
+
+        if (!empty($entities)) {
+            foreach ($entities as $entity) {
+                $ready[] = new Street($entity, $playerXfields[$entity->getPlayFieldId()]);
+            }
+        }
+
+        return $ready;
     }
 
     /**
