@@ -635,7 +635,7 @@ div{
   flex-direction: column;
   width:233px;
 }
-body {
+/*body  {
   margin: auto;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow: auto;
@@ -643,7 +643,7 @@ body {
   animation: gradient 15s ease infinite;
   background-size: 400% 400%;
   background-attachment: fixed;
-}
+}*/
 
 @keyframes gradient {
   0% {
@@ -711,8 +711,8 @@ select.decorated option:checked {
   display: flex;
   align-content: center;
   justify-content: center;
-  height: 27vh;
-  align-items: flex-end;
+  height: 250px;
+  align-items: center;
 }
 .monopoly-logo { 
   width: 50%;
