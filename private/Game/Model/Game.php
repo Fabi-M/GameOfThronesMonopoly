@@ -58,6 +58,7 @@ class Game
         }
         $this->gameEntity->setActivePlayerId($playerId);
         $this->gameEntity->setAllowedToEndTurn(0);
+        $this->gameEntity->setRolledDice(0);
         $em->persist($this->gameEntity);
         $playerEntity = PlayerFactory::getActivePlayer($em, $this)->getPlayerEntity();
         return [

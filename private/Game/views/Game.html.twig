@@ -29,7 +29,7 @@ let round = new Round();
 
             <div class="col spieler-strassen-anzeige">
                 <div class="spieleranzeige">
-                    Spieler am Zug: 1
+                    Spieler am Zug: {{ saveGame['activePlayerId'] }}
                 </div>
                 {# Karteplatzhalter #}
                 {% set selectable='playField' %}
@@ -44,8 +44,12 @@ let round = new Round();
             <div class="col margin-buttons">
                 <div class="row interaktionsbuttons">
                     <div class="row">
+                        {% set disabled = '' %}
+                        {% if saveGame['rolledDice'] == 1 %}
+                        {% set disabled = 'disabled' %}
+                        {% endif %}
                         <input class="interaktionsbutton diceButton" type="button" id="wuerfeln" data-action="Move"
-                            name="wuerfeln" value="Würfeln">
+                            name="wuerfeln" value="Würfeln" {{ disabled }}>
                     </div>
                     <div class="row">
                         <input class="interaktionsbutton" type="button" id="handelsmenue_oeffnen"
@@ -53,8 +57,12 @@ let round = new Round();
                     </div>
                 </div>
                 <div class="row next-player-button interaktionsbuttons-margin">
-                    <input disabled class="interaktionsbutton" type="button" id="next_player" name="next_player"
-                        value="nächster Spieler">
+                    {% set disabled = '' %}
+                    {% if saveGame['rolledDice'] == 0 %}
+                        {% set disabled = 'disabled' %}
+                    {% endif %}
+                    <input class="interaktionsbutton" type="button" id="next_player" name="next_player"
+                        value="nächster Spieler" {{ disabled }}>
                 </div>
 
             </div>

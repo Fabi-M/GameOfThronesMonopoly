@@ -1,8 +1,8 @@
 <div class="playField card-{{ id }}" id="card-{{ id }}" data-id="{{ id }}">
 
     <div class="spieler-bereich-{{ id }}" id="spieler-bereich-{{ id }}">
-        {% if map[id]['player'] is defined %}
-            {% for figureId in map[id]['player'] %}
+        {% if saveGame['playfield'][id]['player'] is defined %}
+            {% for figureId in saveGame['playfield'][id]['player'] %}
                 {% include 'Game/views/Figure.html.twig' %}
             {% endfor %}
 
@@ -10,11 +10,11 @@
     </div>
     <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}">
 
-        {% if map[id]['buildings'] == 5 %}
+        {% if saveGame['playfield'][id]['buildings'] == 5 %}
             <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house'
                 src='{{ imgPath }}/Hotel.png'>
-        {% elseif map[id]['buildings']>0 %}
-            {% for i in 1..map[id]['buildings'] %}
+        {% elseif saveGame['playfield'][id]['buildings']>0 %}
+            {% for i in 1..saveGame['playfield'][id]['buildings'] %}
                 {# <img style='position: relative; padding: 0.5px; display: flex; width: 9px; height: 9px; transform: rotate("+deg+"deg)' alt='house' src="+path+"> #}
                 <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house'
                     src='{{ imgPath }}/House.png'>
@@ -23,8 +23,8 @@
     </div>
 
     {% set pennantClass = '' %}
-    {% if map[id]['owner'] is defined %}
-        {% set pennantClass = 'pennant-owner-'~map[id]['owner'] %}
+    {% if saveGame['playfield'][id]['owner'] is defined %}
+        {% set pennantClass = 'pennant-owner-'~saveGame['playfield'][id]['owner'] %}
     {% endif %}
     <div id="pennant-{{ id }}" class="pennant-{{ id }} {{ pennantClass }}"></div>
 </div>
