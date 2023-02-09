@@ -109,11 +109,11 @@ class StreetFactory
             if (!empty($entities)) {
                 foreach ($entities as $entity) {
                     if ($entity->getColor() == "trainstation") {
-                        $models [] = new Trainstation($entity, $playerXfields[$entity->getPlayFieldId()]);
+                        $ready[] = new Trainstation($entity, $playerXfields[$entity->getPlayFieldId()]);
                     } elseif ($entity->getColor() == "factory") {
-                        $models [] = new Factory($entity, $playerXfields[$entity->getPlayFieldId()]);
+                        $ready[] = new Factory($entity, $playerXfields[$entity->getPlayFieldId()]);
                     } else {
-                        $models [] = new Street($entity, $playerXfields[$entity->getPlayFieldId()]);
+                        $ready[] = new Street($entity, $playerXfields[$entity->getPlayFieldId()]);
                     }
                 }
             }
