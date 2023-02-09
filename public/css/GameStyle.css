@@ -98,6 +98,7 @@ body {
 
 .relative-positioning {
   position: relative;
+  margin: 10px;
 }
 
 .absolute-grid {
@@ -564,6 +565,61 @@ div[class*="strassen-bereich-"] {
   height: 25% !important;
 }
 
+div[class*="pennant-"] {
+  border: #25292e 1px solid;
+  border-radius: 15px;
+}
+
+.pennant-1, .pennant-3, .pennant-5,
+.pennant-6, .pennant-8, .pennant-9 {
+  background-color: cyan;
+  top: -1px;
+  width: 30px;
+  height: 100%;
+  position: relative;
+  left: -15px;
+  z-index: -1 !important;
+}
+
+.pennant-21, .pennant-23,
+.pennant-24, .pennant-25,
+.pennant-26, .pennant-27,
+.pennant-28, .pennant-29 {
+  background-color: forestgreen;
+  top: -1px;
+  width: 30px;
+  height: 100%;
+  position: relative;
+  right: -15px;
+  z-index: -1 !important;
+}
+
+.pennant-11, .pennant-12,
+.pennant-13, .pennant-14,
+.pennant-15, .pennant-16,
+.pennant-18, .pennant-19 {
+  background-color: magenta;
+  left: -1px;
+  height: 30px;
+  width: 100%;
+  position: relative;
+  top: -15px;
+  z-index: -1 !important;
+}
+
+
+.pennant-31, .pennant-32,
+.pennant-34, .pennant-35,
+.pennant-37, .pennant-39 {
+  background-color: cadetblue;
+  left: -1px;
+  height: 30px;
+  width: 100%;
+  position: relative;
+  bottom: -15px;
+  z-index: -1 !important;
+}
+
 .card-0,
 .card-10,
 .card-20,
@@ -630,7 +686,7 @@ img {
 }
 
 .container-margin {
-  margin: 10px;
+  margin: 35px;
 }
 
 .container.container-align {
