@@ -465,7 +465,6 @@ body {
 
 
 div[class*="spieler-bereich-"] {
-  background-color: cyan;
   position: absolute;
   z-index: 100 !important;
 }
@@ -517,7 +516,6 @@ div[class*="spieler-bereich-"] {
 
 
 div[class*="strassen-bereich-"] {
-  background-color: magenta;
   position: absolute;
   z-index: 999;
 }

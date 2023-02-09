@@ -1,6 +1,5 @@
 <div class="playField card-{{ id }}" id="card-{{ id }}" data-id="{{ id }}">
-     {# map[id]['owner'] #}
-    {{ id }}
+
     <div class="spieler-bereich-{{ id }}" id="spieler-bereich-{{ id }}">
         {% if map[id]['player'] is defined %}
         {% set figureId = map[id]['player'] %}
@@ -9,7 +8,7 @@
         {% endif %}
     </div>
     <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}">
-        {{ id }}
+
         {% if map[id]['buildings'] == 5 %}
             <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house' src='{{ imgPath }}/Hotel.png'>
         {% elseif map[id]['buildings']>0 %}
