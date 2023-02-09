@@ -2,8 +2,9 @@
 
     <div class="spieler-bereich-{{ id }}" id="spieler-bereich-{{ id }}">
         {% if map[id]['player'] is defined %}
-            {% set figureId = map[id]['player'] %}
-            {% include 'Game/views/Figure.html.twig' %}
+            {% for figureId in map[id]['player'] %}
+                {% include 'Game/views/Figure.html.twig' %}
+            {% endfor %}
 
         {% endif %}
     </div>

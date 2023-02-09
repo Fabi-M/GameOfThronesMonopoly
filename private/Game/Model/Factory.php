@@ -6,23 +6,28 @@ use GameOfThronesMonopoly\Game\Factories\PlayerXFieldFactory;
 
 class Factory extends Street
 {
-    private $ids = [12,28];
+    private $ids = [12, 28];
 
     public function getRent($em = null, $playerId = null): mixed
     {
-        if(!isset($_SESSION["dice"])) throw new \Exception("Last dice result not set");
+        if (!isset($_SESSION["dice"])) {
+            throw new \Exception("Last dice result not set");
+        }
 
-        $amount = PlayerXFieldFactory::filter($em,
+        $amount = PlayerXFieldFactory::filter(
+            $em,
             [
-                ['playerId', 'equal', $playerId],
-            ],
-            [
-                "fieldId"  => $this->ids
+                'WHERE' => [
+                    ['playerId', 'equal', $playerId],
+                ],
+                "IN" => [
+                    "fieldId" => $this->ids
+                ]
             ]
         );
-        if(count($amount) == 2){
-            return 10*$_SESSION["dice"];
+        if (count($amount) == 2) {
+            return 10 * $_SESSION["dice"];
         }
-        return 4*$_SESSION["dice"];
+        return 4 * $_SESSION["dice"];
     }
 }

@@ -21,7 +21,7 @@ class GameManagerController extends BaseController
         // evnetuell mti get und post aufrufbar (allein um fortzufahren oder nach startscreen)
         try {
             // get game
-            $this->sessionId = 'bo5jhi5tmfn596mkg84abj1qbp';
+           // $this->sessionId = 'bo5jhi5tmfn596mkg84abj1qbp';
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             if ($game === null) {
                 throw new Exception(
@@ -48,7 +48,7 @@ class GameManagerController extends BaseController
             foreach ($players as $player) {
                 $ingamePlayerId = $player->getPlayerEntity()->getIngameId();
                 $alltimePlayerId = $player->getPlayerEntity()->getId();
-                $map[$player->getPlayerEntity()->getPosition()]['player'] = $ingamePlayerId;
+                $map[$player->getPlayerEntity()->getPosition()]['player'][] = $ingamePlayerId;
                 /** @var Street[] $streets */
                 $streets = StreetFactory::getAllByPlayerId($this->em, $alltimePlayerId);
 

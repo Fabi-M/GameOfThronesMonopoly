@@ -68,7 +68,9 @@ class PlayerXFieldFactory
         return PlayerXFieldFactory::filter(
             $em,
             [
-                ['playerId', 'equal', $playerId]
+                "WHERE" => [
+                    ['playerId', 'equal', $playerId]
+                ]
             ]
         );
     }
@@ -77,16 +79,14 @@ class PlayerXFieldFactory
      * @param EntityManager $em
      * @param array         $filter
      * @return array | PlayerXField[]
-     * @author Selina Stöcklein
      * @throws ReflectionException
+     * @author Selina Stöcklein
      */
-    private static function filter(EntityManager $em, array $filter): array
+    public static function filter(EntityManager $em, array $filter): array
     {
         /** @var player_x_field[] $entities */
         $entities = $em->getRepository(self::GAME_NAMESPACE)->findBy(
-            [
-                'WHERE' => $filter
-            ]
+            $filter
         );
 
         $ready = [];
