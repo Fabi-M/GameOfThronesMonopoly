@@ -22,6 +22,7 @@ let round = new Round();
                 {% endfor %}
 
                 <img class="spielfeld" src="{{ imgPath }}{{ playFieldJPG }}" alt="Spielfeld">
+                {% include 'Game/views/Dice.html.twig' %}
             </div>
 
             {# Spieler und Straßenanzeige #}
@@ -43,7 +44,7 @@ let round = new Round();
             <div class="col margin-buttons">
                 <div class="row interaktionsbuttons">
                     <div class="row">
-                        <input class="interaktionsbutton dice" type="button" id="wuerfeln" data-action="Move"
+                        <input class="interaktionsbutton diceButton" type="button" id="wuerfeln" data-action="Move"
                             name="wuerfeln" value="Würfeln">
                     </div>
                     <div class="row">
@@ -55,8 +56,8 @@ let round = new Round();
                     <input disabled class="interaktionsbutton" type="button" id="next_player" name="next_player"
                         value="nächster Spieler">
                 </div>
+
             </div>
-            {% include 'Game/views/Dice.html.twig' %}
         </div>
 
     </div>

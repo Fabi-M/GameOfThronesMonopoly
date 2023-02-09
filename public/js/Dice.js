@@ -1,14 +1,13 @@
 class Dice {
     constructor() {
         let events = new Events();
-        events.addEvent('click', $('.dice'), this.throwDices, {"this": this});
+        events.addEvent('click', $('.diceButton'), this.throwDices, {"this": this});
     }
 
     /**
      * @author Selina Stöcklein & Christian Teubner
      */
     throwDices(event, data) {
-
         let that = data['this'];
         let action = $('.dice').attr('data-action');
         let url = BASEPATH + '/Roll/' + action;
@@ -32,6 +31,7 @@ class Dice {
         toast.Heading = "Du hast gewürfelt!";
         toast.Body = "<strong>" + dice[0] + "</strong> und <strong>" + dice[1] + "</strong>"
         toast.show();
+        this.showRollDice(dice);
     }
 
     /**
@@ -49,34 +49,50 @@ class Dice {
         );
     }
 
-    test(){
-        var elDiceOne       = document.getElementById('dice1');
-        var elDiceTwo       = document.getElementById('dice2');
-        var elComeOut       = document.getElementById('roll');
+    /**
+     * Add default class to dices and call function to show result
+     * @author Fabian Müller
+     * @source https://lenadesign.org/2020/06/18/roll-the-dice/
+     * @param result array with 2 ints (dice results)
+     */
+    showRollDice(result) {
+        let d1       = document.getElementById('dice1');
+        let d2       = document.getElementById('dice2');
 
-        elComeOut.onclick   = function () {rollDice();};
+        d1.classList.add("show-default");
+        d2.classList.add("show-default");
 
-        function rollDice() {
+        let that = this;
+        setTimeout(function () {
+            that.showDiceResults(result);
+        }, 500);
+    }
 
-            var diceOne   = Math.floor((Math.random() * 6) + 1);
-            var diceTwo   = Math.floor((Math.random() * 6) + 1);
+    /**
+     * Shows the result of the dice throw
+     * @author Fabian Müller
+     * @source https://lenadesign.org/2020/06/18/roll-the-dice/
+     * @param result array with 2 ints (dice results)
+     */
+    showDiceResults(result){
+        let d1       = document.getElementById('dice1');
+        let d2       = document.getElementById('dice2');
 
-            console.log(diceOne + ' ' + diceTwo);
-
-            for (var i = 1; i <= 6; i++) {
-                elDiceOne.classList.remove('show-' + i);
-                if (diceOne === i) {
-                    elDiceOne.classList.add('show-' + i);
-                }
+        for (let i = 1; i <= 6; i++) {
+            d1.classList.remove('show-' + i);
+            if (result[0] === i) {
+                d1.classList.add('show-' + i);
             }
-
-            for (var k = 1; k <= 6; k++) {
-                elDiceTwo.classList.remove('show-' + k);
-                if (diceTwo === k) {
-                    elDiceTwo.classList.add('show-' + k);
-                }
-            }
-            setTimeout(rollDice(), 1000);
         }
+
+        for (let k = 1; k <= 6; k++) {
+            d2.classList.remove('show-' + k);
+            if (result[1] === k) {
+                d2.classList.add('show-' + k);
+            }
+        }
+
+        d1.classList.remove("show-default");
+        d2.classList.remove("show-default");
     }
 }

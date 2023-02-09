@@ -8,7 +8,7 @@ class Testcontroller extends BaseController
 {
     public function SelinaTestAction()
     {
-        //$this->styleSheetCollector->addBottom('/css/Dice.css');
+        $this->styleSheetCollector->addBottom('/css/Dice.css');
 
         echo $this->twig->render(
             "Game/Views/Game.html.twig",
