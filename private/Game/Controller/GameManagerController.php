@@ -62,6 +62,8 @@ class GameManagerController extends BaseController
             // get gameinfos of current activePlayer
             // display everything!
 
+            $this->styleSheetCollector->addBottom('/css/Dice.css');
+
             echo $this->twig->render(
                 "Game/Views/Game.html.twig",
                 [
