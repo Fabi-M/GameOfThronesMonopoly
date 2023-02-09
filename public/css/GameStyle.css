@@ -791,7 +791,8 @@ div{
   flex-direction: column;
   width:233px;
 }
-body  {
+
+body.start-menu-background  {
   margin: auto;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow: auto;
