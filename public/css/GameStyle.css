@@ -742,3 +742,6 @@ select.decorated option:checked {
   margin-left: -120px;
   margin-right: -120px;
 }
+.werke-karte { 
+  justify-content: center !important;
+}
