@@ -1,0 +1,40 @@
+{% extends 'Core/Views/Base.html.twig' %}
+
+{% block site %}
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+
+
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+<div class="container text-center menu-z-index start-page-wrapper">
+    <div class="row">
+        <div class="col logo-column">
+            <img class="monopoly-logo" src="{{imgPath}}" alt="Monopoly">
+        </div>
+    </div>
+     <div class="row player-counter-container">
+        <div class="col player-count-flex">
+            <form action="/Game/Views/Game.html.twig" class="form-class">
+            <input class="interaktionsbutton laden-button" type="button" id="spiel_laden"
+                            name="spiel_laden" value="Spiel laden">
+                            <img class="trenner-logo" src="{{imgPathTrennlinie}}" alt="Monopoly">
+            <label for="player-count" >Spieleranzahl festlegen</label>
+            <select class="decorated" name="player-count" id="player-count">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            </select>
+            <input class="interaktionsbutton" type="button" id="spiel_starten"
+                            name="spiel_starten" value="Neues Spiel starten">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
+
+{% endblock %}
