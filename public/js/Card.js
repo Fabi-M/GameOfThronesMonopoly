@@ -144,7 +144,7 @@ class Card {
      */
     viewCard(event, data) {
         let that = data['this'];
-        let playfieldId = $('.dice').attr('data-playfieldId');
+        let playfieldId = $('.diceButton').attr('data-playfieldId');
         let url = BASEPATH + '/Card/View'; // post playfield_id
         let request = new Ajax(url, {'playfield_id' : playfieldId}, that.displayCardPopup, data);
         request.execute();
