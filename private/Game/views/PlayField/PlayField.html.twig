@@ -1,13 +1,22 @@
 <div class="playField card-{{ id }}" id="card-{{ id }}" data-id="{{ id }}">
      {# map[id]['owner'] #}
+    {{ id }}
     <div class="spieler-bereich-{{ id }}" id="spieler-bereich-{{ id }}">
         {% if map[id]['player'] is defined %}
-        {% set id = map[id]['player'] %}
+        {% set figureId = map[id]['player'] %}
                 {% include 'Game/views/Figure.html.twig' %}
 
         {% endif %}
     </div>
     <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}">
-        {{ map[id]['buildings'] }}
+        {{ id }}
+        {% if map[id]['buildings'] == 5 %}
+            <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house' src='{{ imgPath }}/Hotel.png'>
+        {% elseif map[id]['buildings']>0 %}
+        {% for i in 1..map[id]['buildings'] %}
+        {# <img style='position: relative; padding: 0.5px; display: flex; width: 9px; height: 9px; transform: rotate("+deg+"deg)' alt='house' src="+path+"> #}
+            <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house' src='{{ imgPath }}/House.png'>
+        {% endfor %}
+        {% endif %}
     </div>
 </div>
