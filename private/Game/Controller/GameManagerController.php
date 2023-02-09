@@ -21,7 +21,7 @@ class GameManagerController extends BaseController
         // evnetuell mti get und post aufrufbar (allein um fortzufahren oder nach startscreen)
         try {
             // get game
-           // $this->sessionId = 'bo5jhi5tmfn596mkg84abj1qbp';
+            // $this->sessionId = 'bo5jhi5tmfn596mkg84abj1qbp';
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             if ($game === null) {
                 throw new Exception(
@@ -32,8 +32,7 @@ class GameManagerController extends BaseController
             $players = PlayerFactory::getPlayersOfGame($this->em, $game);
             $activePlayer = $players[$game->getGameEntity()->getActivePlayerId()];
 
-
-            /** @var Street[] $streets*/
+            /** @var Street[] $streets */
             $activePlayerStreets = StreetFactory::getAllByPlayerId(
                 $this->em, $activePlayer->getPlayerEntity()->getId()
             );
@@ -44,23 +43,25 @@ class GameManagerController extends BaseController
             }
 
             $map = [];
-
             foreach ($players as $player) {
                 $ingamePlayerId = $player->getPlayerEntity()->getIngameId();
                 $alltimePlayerId = $player->getPlayerEntity()->getId();
                 $map[$player->getPlayerEntity()->getPosition()]['player'][] = $ingamePlayerId;
                 /** @var Street[] $streets */
                 $streets = StreetFactory::getAllByPlayerId($this->em, $alltimePlayerId);
-
                 foreach ($streets as $street) {
                     $map[$street->getStreetEntity()->getPlayFieldId()]['owner'] = $ingamePlayerId;
                     $map[$street->getStreetEntity()->getPlayFieldId()]['buildings'] = $street->getXField()
                         ->getPlayerXFieldEntity()
                         ->getBuildings();
                 }
+
+                echo "<br>";
             }
             // get gameinfos of current activePlayer
             // display everything!
+
+            $this->styleSheetCollector->addBottom('/css/Dice.css');
 
             echo $this->twig->render(
                 "Game/Views/Game.html.twig",
