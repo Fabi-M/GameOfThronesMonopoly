@@ -32,12 +32,13 @@ class GameManagerController extends BaseController
             $players = PlayerFactory::getPlayersOfGame($this->em, $game);
             $activePlayer = $players[$game->getGameEntity()->getActivePlayerId()];
 
-            /** @var Street[] $streets */
+
+            /** @var Street[] $streets*/
             $activePlayerStreets = StreetFactory::getAllByPlayerId(
                 $this->em, $activePlayer->getPlayerEntity()->getId()
             );
 
-            $playersOrderedInGame=[];
+            $playersOrderedInGame = [];
             foreach ($players as $test) {
                 $playersOrderedInGame[$test->getPlayerEntity()->getId()] = $test;
             }
@@ -45,13 +46,14 @@ class GameManagerController extends BaseController
             $map = [];
 
             foreach ($players as $player) {
-                $map[$player->getPlayerEntity()->getPosition()]['player'] = $player->getPlayerEntity()->getIngameId();
+                $ingamePlayerId = $player->getPlayerEntity()->getIngameId();
+                $alltimePlayerId = $player->getPlayerEntity()->getId();
+                $map[$player->getPlayerEntity()->getPosition()]['player'] = $ingamePlayerId;
                 /** @var Street[] $streets */
-                $streets = StreetFactory::getAllByPlayerId($this->em, $activePlayer->getPlayerEntity()->getId());
+                $streets = StreetFactory::getAllByPlayerId($this->em, $alltimePlayerId);
+
                 foreach ($streets as $street) {
-                    $alltimePlayerId=$street->getXField()->getPlayerXFieldEntity()->getPlayerId();
-                    $ingamePlayerId =
-                    $map[$street->getStreetEntity()->getPlayFieldId()]['owner'] = $playersOrderedInGame[$alltimePlayerId]->getPlayerEntity()->getIngameId();
+                    $map[$street->getStreetEntity()->getPlayFieldId()]['owner'] = $ingamePlayerId;
                     $map[$street->getStreetEntity()->getPlayFieldId()]['buildings'] = $street->getXField()
                         ->getPlayerXFieldEntity()
                         ->getBuildings();

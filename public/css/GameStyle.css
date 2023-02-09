@@ -565,15 +565,33 @@ div[class*="strassen-bereich-"] {
   height: 25% !important;
 }
 
-div[class*="pennant-"] {
-  border: #25292e 1px solid;
+
+div[class*="pennant-owner-"] {
+  border-style: solid;
+  border-width: 1px;
   border-radius: 15px;
+  border-color: #25292e;
+}
+
+.pennant-owner-1{
+  background-color: darkred;
+}
+
+.pennant-owner-2{
+  background-color: darkblue;
+}
+
+.pennant-owner-3{
+  background-color: forestgreen;
+}
+
+.pennant-owner-4{
+  background-color: yellow;
 }
 
 .pennant-1, .pennant-3, .pennant-5,
 .pennant-6, .pennant-8, .pennant-9 {
-  background-color: cyan;
-  top: -1px;
+  top: 1px;
   width: 30px;
   height: 100%;
   position: relative;
@@ -585,8 +603,7 @@ div[class*="pennant-"] {
 .pennant-24, .pennant-25,
 .pennant-26, .pennant-27,
 .pennant-28, .pennant-29 {
-  background-color: forestgreen;
-  top: -1px;
+  top: 1px;
   width: 30px;
   height: 100%;
   position: relative;
@@ -598,7 +615,6 @@ div[class*="pennant-"] {
 .pennant-13, .pennant-14,
 .pennant-15, .pennant-16,
 .pennant-18, .pennant-19 {
-  background-color: magenta;
   left: -1px;
   height: 30px;
   width: 100%;
@@ -611,7 +627,6 @@ div[class*="pennant-"] {
 .pennant-31, .pennant-32,
 .pennant-34, .pennant-35,
 .pennant-37, .pennant-39 {
-  background-color: cadetblue;
   left: -1px;
   height: 30px;
   width: 100%;

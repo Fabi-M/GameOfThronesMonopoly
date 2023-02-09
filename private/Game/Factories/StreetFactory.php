@@ -75,24 +75,27 @@ class StreetFactory
     {
         /** @var PlayerXField[] $playerXfields */
         $playerXfields = PlayerXFieldFactory::getByPlayerId($em, $playerId);
+
         $ready = [];
-        $fieldIds = array_map(
-            fn(PlayerXField $playerXField) => $playerXField->getPlayerXFieldEntity()->getFieldId(),
-            $playerXfields
-        );
+        if (!empty($playerXfields)) {
+            $fieldIds = array_map(
+                fn(PlayerXField $playerXField) => $playerXField->getPlayerXFieldEntity()->getFieldId(),
+                $playerXfields
+            );
 
-        /** @var streetEntity[] $entities */
-        $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
-            [
-                'IN' => [
-                    'playfieldId' => $fieldIds
+            /** @var streetEntity[] $entities */
+            $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
+                [
+                    'IN' => [
+                        'playfieldId' => $fieldIds
+                    ]
                 ]
-            ]
-        );
+            );
 
-        if (!empty($entities)) {
-            foreach ($entities as $entity) {
-                $ready[] = new Street($entity, $playerXfields[$entity->getPlayFieldId()]);
+            if (!empty($entities)) {
+                foreach ($entities as $entity) {
+                    $ready[] = new Street($entity, $playerXfields[$entity->getPlayFieldId()]);
+                }
             }
         }
 
