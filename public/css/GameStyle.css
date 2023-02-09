@@ -791,7 +791,7 @@ div{
   flex-direction: column;
   width:233px;
 }
-/*body  {
+body  {
   margin: auto;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow: auto;
@@ -799,7 +799,7 @@ div{
   animation: gradient 15s ease infinite;
   background-size: 400% 400%;
   background-attachment: fixed;
-}*/
+}
 
 @keyframes gradient {
   0% {
