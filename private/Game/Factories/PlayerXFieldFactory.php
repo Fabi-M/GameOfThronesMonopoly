@@ -7,6 +7,7 @@ use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Entities\player_x_field;
 use GameOfThronesMonopoly\Game\Model\Game;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
+use GameOfThronesMonopoly\Game\Model\Street;
 use ReflectionException;
 
 class PlayerXFieldFactory

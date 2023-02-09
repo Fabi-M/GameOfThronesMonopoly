@@ -1,0 +1,29 @@
+
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+
+
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+<div class="container text-center single-card {{selectable}}" data-id="{{ id }}">
+    <div class="row">
+        <div class="col street-color street-name">
+           {{ card.getStreetEntity.getName }}<br>
+           Kosten: {{ card.getStreetEntity.getStreetCosts }}
+        </div>
+    </div>
+    <div class="row row-street-properties">
+        <div class="col street-properties werke-karte">
+            <div class="kosten-bereich">
+                <div class="row line-height variables-container">
+                   Wenn man Besitzer<br>der Karte "{{ card.getStreetEntity.getName }}" ist, so ist die<br>Miete 4-mal so hoch<br> wie die Augen<br> auf den 2 Würfeln sind.<br><br>
+                   Wenn man Besitzer beider<br>Versorgungswerke ist, so ist<br>die Miete 10-mal so hoch, wie<br>Augen auf den 2 Würfeln sind.<br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

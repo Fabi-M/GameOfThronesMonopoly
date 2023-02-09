@@ -7,6 +7,10 @@
 {% include 'Game/views/Single-Card-Bahnhof.html.twig' %}
 {% include 'Game/views/buttons/Bahnhofbuttons.html.twig' %}
 
+{% elseif cardType == 'Factory' %}
+{% include 'Game/views/Single-Card-Werke.html.twig' %}
+{% include 'Game/views/buttons/Bahnhofbuttons.html.twig' %}
+
 {% else %}
 {% include 'Game/views/Single-Card-Ereignis.html.twig' %}
 {% include 'Game/views/buttons/Ereignisbuttons.html.twig' %}

@@ -5,6 +5,7 @@ namespace GameOfThronesMonopoly\Core\Controller;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Core\Twig\ScriptCollector;
 use GameOfThronesMonopoly\Core\Twig\StyleSheetCollector;
+use GameOfThronesMonopoly\Game\Service\GameService;
 use PDO;
 use GameOfThronesMonopoly\Core\DataBase\DataBaseConnection;
 use Twig\Environment;
@@ -44,17 +45,21 @@ class BaseController
     public function __construct()
     {
         header('Access-Control-Allow-Origin: *');
-        if (!isset($_SESSION)) {
-            session_start();
-            $this->sessionId = session_id();
-        }
+
         $pdo = DataBaseConnection::getInstance()->getConnection();
         $this->em = new EntityManager($pdo);
         $this->pdo = $pdo;
 
+        if (!isset($_SESSION)) {
+            session_start();
+            $this->sessionId = session_id();
+            $this->CheckForActiveGame();
+        }
+
         $this->addTwig();
 
         register_shutdown_function([$this, "fatalErrorHandler"]);
+
     }
 
     private function addTwig()
@@ -63,7 +68,7 @@ class BaseController
         $this->twig = new Environment($loader, ['cache' => false]);
         $this->twig->addGlobal(
             'BASEPATH', "http://localhost/GameOfThronesMonopoly"
-        ); // add base path to twigs global variables, like 'https://azubis.upjers.com/awesomestoragetool'
+        );
 
         $this->addScriptCollector();
         $this->addStyleSheetCollector();
@@ -168,5 +173,14 @@ class BaseController
         $msg = "Error: [$errorNumber] $errorString --- Error on line $errorLine in $errorFile " . 'Trace: ' . $trace;
 
         error_log("Errorhandler " . $msg);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function CheckForActiveGame(){
+        $gameService = new GameService();
+        $gameService->createGame($this->em, $this->sessionId);
+        $this->em->flush();
     }
 }
