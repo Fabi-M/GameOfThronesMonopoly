@@ -78,6 +78,8 @@ class Card {
         }
         let toast = new Toast("Du hast die Straße "+data["streetName"]+" gekauft","Straße gekauft");
         toast.show();
+        // add pennant
+        $('#pennant-'+data["playFieldId"]).addClass('pennant-owner-'+data["inGamePlayerId"]);
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
     }
 
@@ -95,6 +97,8 @@ class Card {
         }
         let toast = new Toast("Du hast die Straße "+data["streetName"]+" verkauft","Straße verkauft");
         toast.show();
+        // remove pennant
+        $('#pennant-'+data["playFieldId"]).removeClass('pennant-owner-'+data["inGamePlayerId"]);
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
     }
 

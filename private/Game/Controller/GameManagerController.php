@@ -10,9 +10,6 @@ use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Model\Dice;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Service\GameService;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 
 class GameManagerController extends BaseController
 {
