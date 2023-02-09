@@ -5,6 +5,7 @@ namespace GameOfThronesMonopoly\Game\Factories;
 use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
+use GameOfThronesMonopoly\Game\Model\Factory;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Model\Trainstation;
 use ReflectionException;
@@ -40,6 +41,8 @@ class StreetFactory
 
         if($entity->getColor() == "trainstation"){
             return new Trainstation($entity, $xField);
+        }else if($entity->getColor() == "factory"){
+            return new Factory($entity, $xField);
         }else{
             return new Street($entity, $xField);
         }
@@ -69,6 +72,8 @@ class StreetFactory
             }
             if($entity->getColor() == "trainstation"){
                 $models [] = new Trainstation($entity, $xField);
+            }else if($entity->getColor() == "factory"){
+                $models [] = new Factory($entity, $xField);
             }else{
                 $models [] = new Street($entity, $xField);
             }
