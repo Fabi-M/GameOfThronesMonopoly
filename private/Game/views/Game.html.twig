@@ -29,11 +29,21 @@ let round = new Round();
 
             <div class="col spieler-strassen-anzeige">
                 <div class="spieleranzeige">
-                    Spieler am Zug: {{ saveGame['activePlayerId'] }}
+                    <b>Spieler am Zug:</b> {{ saveGame['activePlayerId'] }}
                 </div>
+                <div class="GeldInfo">
+                    <b>Kontostand:</b> <span id="currentMoney">{{ saveGame['activePlayerMoney'] }}</span>
+                </div>
+                <br>
                 {# Karteplatzhalter #}
                 {% set selectable='playField' %}
                 {% set id = 1 %}
+                <b>Straßen im Besitz:</b>
+                <div id="ownedStreets">
+                    {{ saveGame['activePlayerStreets']  | raw }}
+                </div>
+                {# //TODO 09.02.2023 Selina: money anpassen wenn straße gekauft / verkauft
+                #}
                 {% include 'Game/views/Single-Card.html.twig' %}
 
                 {# Karteplatzhalter Ende #}
@@ -46,7 +56,7 @@ let round = new Round();
                     <div class="row">
                         {% set disabled = '' %}
                         {% if saveGame['rolledDice'] == 1 %}
-                        {% set disabled = 'disabled' %}
+                            {% set disabled = 'disabled' %}
                         {% endif %}
                         <input class="interaktionsbutton diceButton" type="button" id="wuerfeln" data-action="Move"
                             name="wuerfeln" value="Würfeln" {{ disabled }}>

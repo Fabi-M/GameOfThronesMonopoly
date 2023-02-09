@@ -15,12 +15,20 @@ use GameOfThronesMonopoly\Game\Model\Street;
  */
 class SaveGameService
 {
+    /**
+     * @param Game           $game
+     * @param array|Player[] $players
+     * @param EntityManager  $em
+     * @return array
+     * @throws \ReflectionException
+     */
     public function getPlayfieldInitConfig(Game $game, array $players, EntityManager $em)
     {
         $saveGame = [];
         $activePlayer = $players[$game->getGameEntity()->getActivePlayerId()];
         $saveGame['activePlayerId'] = $activePlayer->getPlayerEntity()->getIngameId();
         $saveGame['rolledDice'] = $game->getGameEntity()->getRolledDice();
+        $saveGame['activePlayerMoney'] = $activePlayer->getPlayerEntity()->getMoney();
 
         foreach ($players as $player) {
             /** @var int $inGamePlayerId 1,2,3,4 */
@@ -41,6 +49,10 @@ class SaveGameService
         $activePlayerStreets = StreetFactory::getAllByPlayerId(
             $em, $activePlayer->getPlayerEntity()->getId()
         );
+        $saveGame['activePlayerStreets'] = implode('<br>---------------<br>',
+            array_map(function (Street $street) {
+                return $street->getSimpleInfo();
+            }, $activePlayerStreets));
         return $saveGame;
     }
 }
