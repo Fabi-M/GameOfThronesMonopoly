@@ -1,15 +1,15 @@
 # GameOfThronesMonopoly
-Berufsschul Projekt
+## Berufsschul Projekt
 
-Benötigt:
+### Benötigt
 https://getcomposer.org/download/
 https://www.sourcetreeapp.com/
 
+### Server
+#### Bilder
+Bilder für das Projekt sind erreichbar unter: hosting175021.ae88e.netcup.net <br>
+Mit dem Pfad: http://hosting175021.ae88e.netcup.net/img/ <br>
+Gespeichert werden die Bilder unter: /hosting175021.ae88e.netcup.net/httpdocs/img/menu
 
-
-
-```
-GRANT ALL PRIVILEGES ON *.* TO mysql@'172.31.9.170' IDENTIFIED BY 'root' 
-```
-
-
+#### Datenbank
+Server: 195.90.209.105

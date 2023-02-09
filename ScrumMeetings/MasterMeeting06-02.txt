@@ -4,7 +4,7 @@
 - Miete im Frontend anzeigen
 - beim neuladen Spielstand vom Server holen
 - GEmeinschafts und Ereignisskarten
-- Figur-ziehen-Animation
+DONE - Figur-ziehen-Animation
 - Bahnhof und Werke Logik
 - Server wieder aufbauen
 - Website in Betrieb nehmen

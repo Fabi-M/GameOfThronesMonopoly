@@ -1,10 +1,30 @@
 <div class="playField card-{{ id }}" id="card-{{ id }}" data-id="{{ id }}">
+
     <div class="spieler-bereich-{{ id }}" id="spieler-bereich-{{ id }}">
-        {% if id == 0 %}
-            {% for  id in 1..playerFigures %}
+        {% if map[id]['player'] is defined %}
+            {% for figureId in map[id]['player'] %}
                 {% include 'Game/views/Figure.html.twig' %}
+            {% endfor %}
+
+        {% endif %}
+    </div>
+    <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}">
+
+        {% if map[id]['buildings'] == 5 %}
+            <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house'
+                src='{{ imgPath }}/Hotel.png'>
+        {% elseif map[id]['buildings']>0 %}
+            {% for i in 1..map[id]['buildings'] %}
+                {# <img style='position: relative; padding: 0.5px; display: flex; width: 9px; height: 9px; transform: rotate("+deg+"deg)' alt='house' src="+path+"> #}
+                <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house'
+                    src='{{ imgPath }}/House.png'>
             {% endfor %}
         {% endif %}
     </div>
-    <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}"></div>
+
+    {% set pennantClass = '' %}
+    {% if map[id]['owner'] is defined %}
+        {% set pennantClass = 'pennant-owner-'~map[id]['owner'] %}
+    {% endif %}
+    <div id="pennant-{{ id }}" class="pennant-{{ id }} {{ pennantClass }}"></div>
 </div>

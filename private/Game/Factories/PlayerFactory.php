@@ -50,6 +50,7 @@ class PlayerFactory
      * @param Game|null     $game
      * @return Player
      * @throws ReflectionException
+     * @throws Exception
      * @author Selina Stöcklein
      */
     public static function getPlayerByInGameId(EntityManager $em, $inGameId, ?Game $game): Player
@@ -88,5 +89,50 @@ class PlayerFactory
             throw new Exception('no player found');
         }
         return $player;
+    }
+
+    /**
+     * @param EntityManager $em
+     * @param Game          $game
+     * @return array|Player[]
+     * @throws ReflectionException
+     * @author Selina Stöcklein
+     */
+    public static function getPlayersOfGame(EntityManager $em, Game $game)
+    {
+        /** @var \GameOfThronesMonopoly\Game\Entities\player[] $players */
+        return self::filter(
+            $em,
+            [
+                //TODO 19.12.2022 Selina: lieber mti gameid abrufen
+                ['sessionId', 'equal', $game->getGameEntity()->getSessionId()]
+            ]
+        );
+    }
+
+    /**
+     * @param EntityManager $em
+     * @param array         $filter
+     * @return array|Player[]
+     * @throws ReflectionException
+     * @author Selina Stöcklein
+     */
+    private static function filter(EntityManager $em, array $filter): array
+    {
+        /** @var \GameOfThronesMonopoly\Game\Entities\player[] $entity */
+        $entities = $em->getRepository(self::GAME_NAMESPACE)->findBy(
+            [
+                'WHERE' => $filter
+            ]
+        );
+
+        $ready = [];
+        if (!empty($entities)) {
+            /** @var \GameOfThronesMonopoly\Game\Entities\player $entity */
+            foreach ($entities as $entity) {
+                $ready[$entity->getIngameId()] = new Player($entity);
+            }
+        }
+        return $ready;
     }
 }
