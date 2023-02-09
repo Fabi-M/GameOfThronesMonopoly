@@ -5,6 +5,7 @@ namespace GameOfThronesMonopoly\Game\Factories;
 use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
+use GameOfThronesMonopoly\Game\Model\PlayerXField;
 use GameOfThronesMonopoly\Game\Model\Factory;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Model\Trainstation;
@@ -39,11 +40,11 @@ class StreetFactory
             $xField = PlayerXFieldFactory::getByFieldId($em, $gameId, $entity->getPlayFieldId());
         }
 
-        if($entity->getColor() == "trainstation"){
+        if ($entity->getColor() == "trainstation") {
             return new Trainstation($entity, $xField);
-        }else if($entity->getColor() == "factory"){
+        } elseif ($entity->getColor() == "factory") {
             return new Factory($entity, $xField);
-        }else{
+        } else {
             return new Street($entity, $xField);
         }
     }
@@ -70,15 +71,55 @@ class StreetFactory
             if (!empty($gameId)) {
                 $xField = PlayerXFieldFactory::getByFieldId($em, $gameId, $entity->getPlayFieldId());
             }
-            if($entity->getColor() == "trainstation"){
+            if ($entity->getColor() == "trainstation") {
                 $models [] = new Trainstation($entity, $xField);
-            }else if($entity->getColor() == "factory"){
+            } elseif ($entity->getColor() == "factory") {
                 $models [] = new Factory($entity, $xField);
-            }else{
+            } else {
                 $models [] = new Street($entity, $xField);
             }
         }
         return $models;
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public static function getAllByPlayerId(EntityManager $em, int $playerId)
+    {
+        /** @var PlayerXField[] $playerXfields */
+        $playerXfields = PlayerXFieldFactory::getByPlayerId($em, $playerId);
+
+        $ready = [];
+        if (!empty($playerXfields)) {
+            $fieldIds = array_map(
+                fn(PlayerXField $playerXField) => $playerXField->getPlayerXFieldEntity()->getFieldId(),
+                $playerXfields
+            );
+
+            /** @var streetEntity[] $entities */
+            $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
+                [
+                    'IN' => [
+                        'playfieldId' => $fieldIds
+                    ]
+                ]
+            );
+
+            if (!empty($entities)) {
+                foreach ($entities as $entity) {
+                    if ($entity->getColor() == "trainstation") {
+                        $models [] = new Trainstation($entity, $playerXfields[$entity->getPlayFieldId()]);
+                    } elseif ($entity->getColor() == "factory") {
+                        $models [] = new Factory($entity, $playerXfields[$entity->getPlayFieldId()]);
+                    } else {
+                        $models [] = new Street($entity, $playerXfields[$entity->getPlayFieldId()]);
+                    }
+                }
+            }
+        }
+
+        return $ready;
     }
 
     /**

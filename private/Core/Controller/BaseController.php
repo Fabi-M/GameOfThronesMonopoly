@@ -5,6 +5,7 @@ namespace GameOfThronesMonopoly\Core\Controller;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Core\Twig\ScriptCollector;
 use GameOfThronesMonopoly\Core\Twig\StyleSheetCollector;
+use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use PDO;
 use GameOfThronesMonopoly\Core\DataBase\DataBaseConnection;
@@ -59,7 +60,6 @@ class BaseController
         $this->addTwig();
 
         register_shutdown_function([$this, "fatalErrorHandler"]);
-
     }
 
     private function addTwig()
@@ -158,10 +158,10 @@ class BaseController
 
     /**
      * Add error response to backend response and print the backend response, then die
-     * @param int $errorNumber
+     * @param int    $errorNumber
      * @param string $errorString
      * @param string $errorFile
-     * @param int $errorLine
+     * @param int    $errorLine
      * @return void
      */
     public function errorHandler(int $errorNumber, string $errorString, string $errorFile, int $errorLine)
@@ -178,9 +178,13 @@ class BaseController
     /**
      * @throws \Exception
      */
-    public function CheckForActiveGame(){
-        $gameService = new GameService();
-        $gameService->createGame($this->em, $this->sessionId);
-        $this->em->flush();
+    public function CheckForActiveGame()
+    {
+        $game = GameFactory::getActiveGame($this->em, $this->sessionId);
+        if (is_null($game)) {
+            $gameService = new GameService();
+            $gameService->createGame($this->em, $this->sessionId);
+            $this->em->flush();
+        }
     }
 }

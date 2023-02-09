@@ -6,18 +6,22 @@ use GameOfThronesMonopoly\Game\Factories\PlayerXFieldFactory;
 
 class Trainstation extends Street
 {
-    private $ids = [5,15,25,35];
+    private $ids = [5, 15, 25, 35];
 
     public function getRent($em = null, $playerId = null): mixed
     {
-        $amount = PlayerXFieldFactory::filter($em,
+        $amount = PlayerXFieldFactory::filter(
+            $em,
             [
-                ['playerId', 'equal', $playerId],
-            ],
-            [
-                "fieldId"  => $this->ids
+                'WHERE' => [
+                    ['playerId', 'equal', $playerId],
+                ],
+                "IN" => [
+                    "fieldId" => $this->ids
+                ]
             ]
+
         );
-        return 25*pow(2, count($amount)-1);
+        return 25 * pow(2, count($amount) - 1);
     }
 }

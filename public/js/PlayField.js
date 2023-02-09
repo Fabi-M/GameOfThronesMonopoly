@@ -14,9 +14,9 @@ class PlayField {
     requestCardInfo(event, data) {
         // ajax
         let url = BASEPATH + "/Card/View";
-console.log(event)
+        console.log(event)
         let playFieldId = $(event.currentTarget).attr('data-id');
-console.log(playFieldId)
+        console.log(playFieldId)
         let request = new Ajax(url, {'playFieldId': playFieldId}, data['this'].showCardPopUp, data);
         request.execute();
     }

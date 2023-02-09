@@ -46,7 +46,7 @@ class Figure {
             if (oldPlayFieldId > 39) {
                 oldPlayFieldId = 0;
             }
-            if (oldPlayFieldId !== targetPlayFieldId) {
+            if (oldPlayFieldId <= targetPlayFieldId) {
                 recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback);
             }
         });
