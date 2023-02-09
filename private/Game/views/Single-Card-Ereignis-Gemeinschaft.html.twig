@@ -1,0 +1,25 @@
+
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+
+
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+<div class="container text-center single-card {{selectable}}" data-id="{{ id }}">
+    <div class="row">
+        <div class="col street-color street-name">
+           {{ card.getStreetEntity.getName }}<br>
+        </div>
+    </div>
+    <div class="row row-street-properties">
+        <div class="col street-properties werke-karte">
+            <div class="kosten-bereich">
+                {{ card.getStreetEntity.getDescription }}
+            </div>
+        </div>
+    </div>
+</div>
+
