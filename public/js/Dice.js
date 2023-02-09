@@ -9,7 +9,7 @@ class Dice {
      */
     throwDices(event, data) {
         let that = data['this'];
-        let action = $('.dice').attr('data-action');
+        let action = $('.diceButton').attr('data-action');
         let url = BASEPATH + '/Roll/' + action;
         let request = null;
         if (action === 'Move') {
