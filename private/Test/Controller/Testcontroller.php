@@ -8,16 +8,11 @@ class Testcontroller extends BaseController
 {
     public function SelinaTestAction()
     {
-        $this->styleSheetCollector->addBottom('/css/Dice.css');
-
         echo $this->twig->render(
-            "Game/Views/Game.html.twig",
+            "Game/views/Start-Page.html.twig",
             [
-                'imgPath' => self::IMG_PATH,
-                'playFieldJPG' => 'Playfield.jpg',
-                'figureDir' => '/figures/',
-                'figurePNGName' => 'figur',
-                'playerFigures' => 4
+                'imgPath'=>self::IMG_PATH.'menu/monopoly-title.jpg',
+                'imgPathTrennlinie'=>self::IMG_PATH.'menu/trennlinie.png'
             ]
         );
     }

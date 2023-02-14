@@ -94,6 +94,7 @@ class BaseController
      */
     private function addScriptCollectorScripts()
     {
+        // TODO christian you suck
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.bundle.js');
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.min.js');

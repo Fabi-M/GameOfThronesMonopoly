@@ -19,12 +19,12 @@ class GameService
      * @param $sessionId
      * @return \GameOfThronesMonopoly\Game\Model\Game|null
      */
-    public function getGameBySessionId($em, $sessionId): ?\GameOfThronesMonopoly\Game\Model\Game
+    public function getGameBySessionId($em, $sessionId, $playerCount): ?\GameOfThronesMonopoly\Game\Model\Game
     {
         $this->em = $em;
         $this->game = GameFactory::filterOne($em, array(array('sessionId', 'equal', $sessionId)));
         if(!isset($this->game)){
-            $this->game = $this->createGame($em, $sessionId);
+            $this->game = $this->createGame($em, $sessionId, $playerCount);
         }
         return $this->game;
     }

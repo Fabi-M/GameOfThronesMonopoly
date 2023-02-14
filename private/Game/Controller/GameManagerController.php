@@ -186,13 +186,16 @@ class GameManagerController extends BaseController
      * @url    /Homepage
      * @return void
      * @throws Exception
-     * @author Christian Teubner
+     * @author Fabian Müller
      */
     public function ShowHomepageAction(): void
     {
+        $this->scriptCollector->addBottom('/js/StartPage.js');
         echo $this->twig->render(
-            "Game/views/StartPage.html.twig",
+            "Game/views/Start-Page.html.twig",
             [
+                'imgPath'=>self::IMG_PATH.'menu/monopoly-title.jpg',
+                'imgPathTrennlinie'=>self::IMG_PATH.'menu/trennlinie.png'
             ]
         );
     }
