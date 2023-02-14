@@ -58,8 +58,7 @@ class PlayerFactory
         $player = self::filterOne(
             $em,
             [
-                //TODO 19.12.2022 Selina: lieber mti gameid abrufen
-                ['sessionId', 'equal', $game->getGameEntity()->getSessionId()],
+                ['gameId', 'equal', $game->getGameEntity()->getId()],
                 ['ingameId', 'equal', $inGameId]
             ]
         );
@@ -104,8 +103,7 @@ class PlayerFactory
         return self::filter(
             $em,
             [
-                //TODO 19.12.2022 Selina: lieber mti gameid abrufen
-                ['sessionId', 'equal', $game->getGameEntity()->getSessionId()]
+                ['gameId', 'equal', $game->getGameEntity()->getId()]
             ]
         );
     }

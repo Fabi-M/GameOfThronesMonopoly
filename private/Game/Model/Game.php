@@ -49,18 +49,19 @@ class Game
      */
     public function endTurn(EntityManager $em): array
     {
-        if (!((bool) $this->gameEntity->getAllowedToEndTurn())) {
+        $gameEntity = $this->gameEntity;
+        if (!((bool) $gameEntity->getAllowedToEndTurn())) {
             throw new Exception("Player is not allowed to end turn!");
         }
-        $playerId = $this->gameEntity->getActivePlayerId() + 1;
-        $maxPlayerCount = $this->gameEntity->getMaxActivePlayers();
+        $playerId = $gameEntity->getActivePlayerId() + 1;
+        $maxPlayerCount = $gameEntity->getMaxActivePlayers();
         if ($playerId > $maxPlayerCount) {
             $playerId -= $maxPlayerCount;
         }
-        $this->gameEntity->setActivePlayerId($playerId);
-        $this->gameEntity->setAllowedToEndTurn(0);
-        $this->gameEntity->setRolledDice(0);
-        $em->persist($this->gameEntity);
+        $gameEntity->setActivePlayerId($playerId);
+        $gameEntity->setAllowedToEndTurn(0);
+        $gameEntity->setRolledDice(0);
+        $em->persist($gameEntity);
         $playerEntity = PlayerFactory::getActivePlayer($em, $this)->getPlayerEntity();
         $streets = StreetFactory::getAllByPlayerId($em, $playerEntity->getId());
         $streetNames = array_map(function (Street $street) {
@@ -70,9 +71,9 @@ class Game
             "money" => $playerEntity->getMoney(),
             "playerId" => $playerEntity->getId(),
             "position" => $playerEntity->getPosition(),
-            "gameId" => $playerEntity->getSessionId(),
+            "gameId" => $playerEntity->getGameId(),
             "ingameId" => $playerEntity->getIngameId(),
-            "sessionId" => $playerEntity->getSessionId(),
+            "sessionId" => $gameEntity->getSessionId(),
             'streets' => implode('<br>---------------<br>', $streetNames),
             "success" => true
         ];

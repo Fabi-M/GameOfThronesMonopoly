@@ -11,15 +11,14 @@ class PlayerService
      * Create all players for the new game
      * @author Fabian Müller
      * @param $em
-     * @param $sessionId
      * @param $gameId
      * @param $maxPlayerCount
      * @return void
      */
-    public function createAllPlayers($em, $sessionId, $gameId, $maxPlayerCount){
+    public function createAllPlayers($em, $gameId, $maxPlayerCount){
         for($i = 1; $i<=$maxPlayerCount; $i++){
             $player = new \GameOfThronesMonopoly\Game\Model\Player();
-            $player->create($em, $sessionId, $i, $gameId);
+            $player->create($em, $i, $gameId);
         }
     }
 }

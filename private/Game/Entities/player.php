@@ -16,7 +16,6 @@ class player extends BaseEntity
     protected $ingameId;
     protected $money;
     protected $position;
-    protected $sessionId;
 
     /**
      * @return mixed
@@ -107,24 +106,5 @@ class player extends BaseEntity
         $this->position = $position;
         return $this;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getSessionId()
-    {
-        return $this->sessionId;
-    }
-
-    /**
-     * @param mixed $sessionId
-     * @return player
-     */
-    public function setSessionId($sessionId)
-    {
-        $this->sessionId = $sessionId;
-        return $this;
-    }
-
 
 }

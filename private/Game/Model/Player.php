@@ -29,16 +29,14 @@ class Player
     /**
      * Create a new player with the given data
      * @param EntityManager $em
-     * @param               $sessionId
      * @param               $playerId
      * @param               $gameId
      * @return void
      * @author Fabian Müller
      */
-    public function create(EntityManager $em, $sessionId, $playerId, $gameId): void
+    public function create(EntityManager $em, $playerId, $gameId): void
     {
         $playerEntity = new \GameOfThronesMonopoly\Game\Entities\player();
-        $playerEntity->setSessionId($sessionId);
         $playerEntity->setGameId($gameId);
         $playerEntity->setIngameId($playerId);
         $playerEntity->setPosition(0);
