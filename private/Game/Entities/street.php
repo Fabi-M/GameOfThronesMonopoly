@@ -35,12 +35,10 @@ class street extends BaseEntity
 
     /**
      * @param mixed $id
-     * @return street
      */
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
@@ -53,12 +51,10 @@ class street extends BaseEntity
 
     /**
      * @param mixed $name
-     * @return street
      */
     public function setName($name)
     {
         $this->name = $name;
-        return $this;
     }
 
     /**
@@ -71,12 +67,10 @@ class street extends BaseEntity
 
     /**
      * @param mixed $streetCosts
-     * @return street
      */
     public function setStreetCosts($streetCosts)
     {
         $this->streetCosts = $streetCosts;
-        return $this;
     }
 
     /**
@@ -89,12 +83,10 @@ class street extends BaseEntity
 
     /**
      * @param mixed $color
-     * @return street
      */
     public function setColor($color)
     {
         $this->color = $color;
-        return $this;
     }
 
     /**
@@ -107,12 +99,10 @@ class street extends BaseEntity
 
     /**
      * @param mixed $buildingCosts
-     * @return street
      */
     public function setBuildingCosts($buildingCosts)
     {
         $this->buildingCosts = $buildingCosts;
-        return $this;
     }
 
     /**

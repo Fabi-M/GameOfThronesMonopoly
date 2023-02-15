@@ -9,6 +9,7 @@ use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Model\Dice;
 use GameOfThronesMonopoly\Game\Model\Street;
+use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\SaveGameService;
 

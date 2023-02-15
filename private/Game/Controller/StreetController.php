@@ -158,7 +158,7 @@ class StreetController extends BaseController
                 throw new Exception("No Rent To Pay");
             }
             $owner = PlayerFactory::getPlayerById(
-                $this->em, $street->getXField()->getPlayerXFieldEntity()->getPlayerId()
+                $this->em, $street->getXField()->getPlayerXStreetEntity()->getPlayerId()
             );
             //TODO 23.12.2022 Fabian: klasse kümmert sich nur um sich selbst
             $rent = $player->payRentTo($owner, $street, $this->em);

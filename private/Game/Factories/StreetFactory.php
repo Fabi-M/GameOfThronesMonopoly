@@ -4,9 +4,9 @@ namespace GameOfThronesMonopoly\Game\Factories;
 
 use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
-use GameOfThronesMonopoly\Game\Entities\player_x_field;
+use GameOfThronesMonopoly\Game\Entities\player_x_street;
 use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
-use GameOfThronesMonopoly\Game\Model\PlayerXField;
+use GameOfThronesMonopoly\Game\Model\PlayerXStreet;
 use GameOfThronesMonopoly\Game\Model\Factory;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Model\Trainstation;
@@ -38,7 +38,7 @@ class StreetFactory
         }
         $xField = null;
         if (!empty($gameId)) {
-            $xField = PlayerXFieldFactory::getByFieldId($em, $gameId, $entity->getPlayFieldId());
+            $xField = PlayerXStreetFactory::getByFieldId($em, $gameId, $entity->getPlayFieldId());
         }
 
         return self::getModel($entity, $xField);
@@ -65,7 +65,7 @@ class StreetFactory
         foreach ($entities as $entity) {
             $xField = null;
             if (!empty($gameId)) {
-                $xField = PlayerXFieldFactory::getByFieldId($em, $gameId, $entity->getPlayFieldId());
+                $xField = PlayerXStreetFactory::getByFieldId($em, $gameId, $entity->getPlayFieldId());
             }
             $models[] = self::getModel($entity, $xField);
         }
@@ -78,23 +78,23 @@ class StreetFactory
     public static function getAllByPlayerId(EntityManager $em, int $playerId)
     {
         $readyModels = [];
-        $playerXfields = PlayerXFieldFactory::getByPlayerId($em, $playerId);
+        $playerXfields = PlayerXStreetFactory::getByPlayerId($em, $playerId);
         if (!empty($playerXfields)) {
-            $fieldIds = array_map(
-                fn(PlayerXField $playerXField) => $playerXField->getPlayerXFieldEntity()->getFieldId(),
+            $streetIds = array_map(
+                fn(PlayerXStreet $playerXField) => $playerXField->getPlayerXStreetEntity()->getStreetId(),
                 $playerXfields
             );
 
             /** @var streetEntity[] $entities */
             $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
                 [
-                    'IN' => ['playfieldId' => $fieldIds]
+                    'IN' => ['id' => $streetIds]
                 ]
             );
 
             if (!empty($entities)) {
                 foreach ($entities as $entity) {
-                    $readyModels[] = self::getModel($entity, $playerXfields[$entity->getPlayFieldId()]);
+                    $readyModels[] = self::getModel($entity, $playerXfields[$entity->getId()]);
                 }
             }
         }
@@ -123,12 +123,12 @@ class StreetFactory
 
     /**
      * Get a Model based on the given Entity
-     * @param streetEntity      $entity
-     * @param PlayerXField|null $xField
+     * @param streetEntity       $entity
+     * @param PlayerXStreet|null $xField
      * @return Factory|Street|Trainstation
      * @author Selina Stöcklein
      */
-    private static function getModel(streetEntity $entity, ?PlayerXField $xField): Trainstation|Street|Factory
+    private static function getModel(streetEntity $entity, ?PlayerXStreet $xField): Trainstation|Street|Factory
     {
         if ($entity->getColor() == "trainstation") {
             $model = new Trainstation($entity, $xField);

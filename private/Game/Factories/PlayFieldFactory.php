@@ -18,9 +18,9 @@ class PlayFieldFactory
     /**
      * @param EntityManager $em
      * @param int           $playFieldId
+     * @param int|null      $gameId
      * @return SpecialField|Street
      * @throws ReflectionException
-     * @throws Exception
      * @author Selina Stöcklein
      */
     public static function getPlayField(EntityManager $em, int $playFieldId, ?int $gameId): SpecialField|Street

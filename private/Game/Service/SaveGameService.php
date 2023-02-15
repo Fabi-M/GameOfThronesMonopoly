@@ -40,7 +40,7 @@ class SaveGameService
             foreach ($streets as $street) {
                 $saveGame['playfield'][$street->getStreetEntity()->getPlayFieldId()]['owner'] = $inGamePlayerId;
                 $saveGame['playfield'][$street->getStreetEntity()->getPlayFieldId()]['buildings'] = $street->getXField()
-                    ->getPlayerXFieldEntity()
+                    ->getPlayerXStreetEntity()
                     ->getBuildings();
             }
         }

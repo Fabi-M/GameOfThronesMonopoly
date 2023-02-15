@@ -27,12 +27,10 @@ class player extends BaseEntity
 
     /**
      * @param mixed $id
-     * @return player
      */
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
@@ -45,12 +43,10 @@ class player extends BaseEntity
 
     /**
      * @param mixed $gameId
-     * @return player
      */
     public function setGameId($gameId)
     {
         $this->gameId = $gameId;
-        return $this;
     }
 
     /**
@@ -63,12 +59,10 @@ class player extends BaseEntity
 
     /**
      * @param mixed $ingameId
-     * @return player
      */
     public function setIngameId($ingameId)
     {
         $this->ingameId = $ingameId;
-        return $this;
     }
 
     /**
@@ -81,12 +75,10 @@ class player extends BaseEntity
 
     /**
      * @param mixed $money
-     * @return player
      */
     public function setMoney($money)
     {
         $this->money = $money;
-        return $this;
     }
 
     /**
@@ -99,12 +91,9 @@ class player extends BaseEntity
 
     /**
      * @param mixed $position
-     * @return player
      */
     public function setPosition($position)
     {
         $this->position = $position;
-        return $this;
     }
-
 }

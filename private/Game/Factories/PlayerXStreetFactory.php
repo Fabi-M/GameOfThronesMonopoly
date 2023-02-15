@@ -4,27 +4,27 @@ namespace GameOfThronesMonopoly\Game\Factories;
 
 use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
-use GameOfThronesMonopoly\Game\Entities\player_x_field;
-use GameOfThronesMonopoly\Game\Model\Game;
-use GameOfThronesMonopoly\Game\Model\PlayerXField;
-use GameOfThronesMonopoly\Game\Model\Street;
+use GameOfThronesMonopoly\Core\Exceptions\SQLException;
+use GameOfThronesMonopoly\Game\Entities\player_x_street;
+use GameOfThronesMonopoly\Game\Model\PlayerXStreet;
+use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
 use ReflectionException;
 
-class PlayerXFieldFactory
+class PlayerXStreetFactory
 {
-    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:player_x_field';
+    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:player_x_street';
 
     /**
      * @param EntityManager $em
      * @param array         $filter
-     * @return PlayerXField|null
+     * @return PlayerXStreet|null
      * @throws ReflectionException
      * @throws Exception
      * @author Fabian Müller
      */
-    public static function filterOne(EntityManager $em, array $filter): PlayerXField|null
+    public static function filterOne(EntityManager $em, array $filter): PlayerXStreet|null
     {
-        /** @var player_x_field $entity */
+        /** @var player_x_street $entity */
         $entity = $em->getRepository(self::GAME_NAMESPACE)->findOneBy(
             [
                 'WHERE' => $filter
@@ -34,24 +34,27 @@ class PlayerXFieldFactory
         if (empty($entity)) {
             return null;
         }
-        return new PlayerXField($entity);
+        return new PlayerXStreet($entity);
     }
 
     /**
      * @param EntityManager $em
      * @param               $gameId
      * @param               $fieldId
-     * @return PlayerXField|null
+     * @return PlayerXStreet|null
      * @throws ReflectionException
+     * @throws SQLException
      * @author Fabian Müller
      */
-    public static function getByFieldId(EntityManager $em, $gameId, $fieldId): ?PlayerXField
+    public static function getByFieldId(EntityManager $em, $gameId, $fieldId): ?PlayerXStreet
     {
-        return PlayerXFieldFactory::filterOne(
+
+        $streetId = StreetRepository::getStreetIdFromPlayField($fieldId);
+        return PlayerXStreetFactory::filterOne(
             $em,
             [
                 ['gameId', 'equal', $gameId],
-                ['fieldId', 'equal', $fieldId]
+                ['streetId', 'equal', $streetId]
             ]
         );
     }
@@ -59,13 +62,13 @@ class PlayerXFieldFactory
     /**
      * @param EntityManager $em
      * @param int           $playerId
-     * @return array | PlayerXField[]
+     * @return array | PlayerXStreet[]
      * @throws ReflectionException
      * @author Selina Stöcklein
      */
     public static function getByPlayerId(EntityManager $em, int $playerId): array
     {
-        return PlayerXFieldFactory::filter(
+        return PlayerXStreetFactory::filter(
             $em,
             [
                 "WHERE" => [
@@ -78,13 +81,13 @@ class PlayerXFieldFactory
     /**
      * @param EntityManager $em
      * @param array         $filter
-     * @return array | PlayerXField[]
+     * @return array | PlayerXStreet[]
      * @throws ReflectionException
      * @author Selina Stöcklein
      */
     public static function filter(EntityManager $em, array $filter): array
     {
-        /** @var player_x_field[] $entities */
+        /** @var player_x_street[] $entities */
         $entities = $em->getRepository(self::GAME_NAMESPACE)->findBy(
             $filter
         );
@@ -92,7 +95,7 @@ class PlayerXFieldFactory
         $ready = [];
         if (!empty($entities)) {
             foreach ($entities as $entity) {
-                $ready[$entity->getFieldId()] = new PlayerXField($entity);
+                $ready[$entity->getStreetId()] = new PlayerXStreet($entity);
             }
         }
         return $ready;

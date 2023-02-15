@@ -2,7 +2,7 @@
 
 namespace GameOfThronesMonopoly\Game\Model;
 
-use GameOfThronesMonopoly\Game\Factories\PlayerXFieldFactory;
+use GameOfThronesMonopoly\Game\Factories\PlayerXStreetFactory;
 
 class Trainstation extends Street
 {
@@ -10,7 +10,7 @@ class Trainstation extends Street
 
     public function getRent($em = null, $playerId = null): mixed
     {
-        $amount = PlayerXFieldFactory::filter(
+        $amount = PlayerXStreetFactory::filter(
             $em,
             [
                 'WHERE' => [

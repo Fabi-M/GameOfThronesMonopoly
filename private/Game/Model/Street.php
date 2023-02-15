@@ -10,10 +10,10 @@ class Street
     private $xField;
 
     /**
-     * @param streetEntity  $streetEntity
-     * @param ?PlayerXField $playerXField
+     * @param streetEntity   $streetEntity
+     * @param ?PlayerXStreet $playerXField
      */
-    public function __construct(streetEntity $streetEntity, ?PlayerXField $playerXField)
+    public function __construct(streetEntity $streetEntity, ?PlayerXStreet $playerXField)
     {
         $this->streetEntity = $streetEntity;
         $this->xField = $playerXField;
@@ -25,9 +25,9 @@ class Street
     }
 
     /**
-     * @return ?PlayerXField
+     * @return ?PlayerXStreet
      */
-    public function getXField(): ?PlayerXField
+    public function getXField(): ?PlayerXStreet
     {
         return $this->xField;
     }
@@ -38,7 +38,7 @@ class Street
      */
     public function getRent(): mixed
     {
-        $houses = $this->xField->getPlayerXFieldEntity()->getBuildings();
+        $houses = $this->xField->getPlayerXStreetEntity()->getBuildings();
         $getRent = 'getBuildingRent' . $houses;
         return $this->streetEntity->$getRent();
     }

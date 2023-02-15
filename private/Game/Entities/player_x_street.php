@@ -9,31 +9,29 @@ use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
  * @primaryKey id
  * @Repository
  */
-class player_x_field extends BaseEntity
+class player_x_street extends BaseEntity
 {
     protected $id;
     protected $playerId;
     protected $buildings;
     protected $mortgage;
-    protected $fieldId;
+    protected $streetId;
     protected $gameId;
 
     /**
      * @return mixed
      */
-    public function getFieldId()
+    public function getStreetId()
     {
-        return $this->fieldId;
+        return $this->streetId;
     }
 
     /**
-     * @param mixed $fieldId
-     * @return player_x_field
+     * @param mixed $streetId
      */
-    public function setFieldId($fieldId)
+    public function setStreetId($streetId): void
     {
-        $this->fieldId = $fieldId;
-        return $this;
+        $this->streetId = $streetId;
     }
 
     /**
@@ -46,12 +44,10 @@ class player_x_field extends BaseEntity
 
     /**
      * @param mixed $id
-     * @return player_x_field
      */
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
@@ -64,12 +60,10 @@ class player_x_field extends BaseEntity
 
     /**
      * @param mixed $playerId
-     * @return player_x_field
      */
     public function setPlayerId($playerId)
     {
         $this->playerId = $playerId;
-        return $this;
     }
 
     /**
@@ -82,12 +76,10 @@ class player_x_field extends BaseEntity
 
     /**
      * @param mixed $buildings
-     * @return player_x_field
      */
     public function setBuildings($buildings)
     {
         $this->buildings = $buildings;
-        return $this;
     }
 
     /**
@@ -100,12 +92,10 @@ class player_x_field extends BaseEntity
 
     /**
      * @param mixed $mortgage
-     * @return player_x_field
      */
     public function setMortgage($mortgage)
     {
         $this->mortgage = $mortgage;
-        return $this;
     }
 
     /**
@@ -118,13 +108,9 @@ class player_x_field extends BaseEntity
 
     /**
      * @param mixed $gameId
-     * @return player_x_field
      */
     public function setGameId($gameId)
     {
         $this->gameId = $gameId;
-        return $this;
     }
-
-
 }

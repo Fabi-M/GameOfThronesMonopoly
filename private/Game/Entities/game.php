@@ -16,7 +16,6 @@ class game extends BaseEntity
     protected $activePlayerId;
     protected $maxActivePlayers;
     protected $allowedToEndTurn;
-
     protected $rolledDice;
 
     /**
@@ -34,7 +33,6 @@ class game extends BaseEntity
     {
         $this->rolledDice = $rolledDice;
     }
-    
 
     /**
      * @return mixed
@@ -50,7 +48,6 @@ class game extends BaseEntity
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
@@ -63,12 +60,10 @@ class game extends BaseEntity
 
     /**
      * @param mixed $sessionId
-     * @return
      */
     public function setSessionId($sessionId)
     {
         $this->sessionId = $sessionId;
-        return $this;
     }
 
     /**
@@ -81,12 +76,10 @@ class game extends BaseEntity
 
     /**
      * @param mixed $activePlayerId
-     * @return
      */
     public function setActivePlayerId($activePlayerId)
     {
         $this->activePlayerId = $activePlayerId;
-        return $this;
     }
 
     /**
@@ -99,12 +92,10 @@ class game extends BaseEntity
 
     /**
      * @param mixed $maxActivePlayers
-     * @return
      */
     public function setMaxActivePlayers($maxActivePlayers)
     {
         $this->maxActivePlayers = $maxActivePlayers;
-        return $this;
     }
 
     /**
@@ -117,11 +108,9 @@ class game extends BaseEntity
 
     /**
      * @param mixed $allowedToEndTurn
-     * @return game
      */
     public function setAllowedToEndTurn($allowedToEndTurn)
     {
         $this->allowedToEndTurn = $allowedToEndTurn;
-        return $this;
     }
 }

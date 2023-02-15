@@ -2,7 +2,7 @@
 
 namespace GameOfThronesMonopoly\Game\Model;
 
-use GameOfThronesMonopoly\Game\Factories\PlayerXFieldFactory;
+use GameOfThronesMonopoly\Game\Factories\PlayerXStreetFactory;
 
 class Factory extends Street
 {
@@ -14,7 +14,7 @@ class Factory extends Street
             throw new \Exception("Last dice result not set");
         }
 
-        $amount = PlayerXFieldFactory::filter(
+        $amount = PlayerXStreetFactory::filter(
             $em,
             [
                 'WHERE' => [
