@@ -1,3 +1,6 @@
+
+/*CSS by Rene*/
+
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 
 body {
@@ -785,7 +788,6 @@ div{
   align-content: center;
   height: 50vh; 
 }
-
 .form-class { 
   display: flex;
   flex-direction: column;
@@ -969,6 +971,11 @@ select.decorated option:checked {
 background: radial-gradient(circle, rgba(72,11,19,1) 0%, rgba(140,10,37,1) 100%);
   color: black;
 }
+.flip-card.flip-card-new-position .flip-card-front {
+  background: rgb(72,11,19);
+background: radial-gradient(circle, rgb(22, 11, 72) 0%, rgb(45, 10, 140) 100%);
+  color: black;
+}
 
 .flip-card-back {
   background-color: #fff;
@@ -979,4 +986,13 @@ background: radial-gradient(circle, rgba(72,11,19,1) 0%, rgba(140,10,37,1) 100%)
   z-index:888;
   background: rgb(72,11,19);
 background: radial-gradient(circle, rgba(72,11,19,1) 0%, rgba(140,10,37,1) 100%);
+}
+.flip-card.flip-card-new-position.flip-card-stay { 
+  z-index:888;
+  background: radial-gradient(circle, rgb(22, 11, 72) 0%, rgb(45, 10, 140) 100%);
+  color: black;
+}
+.hypothek.playField { 
+  background-color: red; 
+  opacity: 0.7;
 }
