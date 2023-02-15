@@ -67,6 +67,7 @@ class StreetService
         if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
 
         $this->player = PlayerFactory::getActivePlayer($this->em, $this->game);
+        $playFieldId = $this->player->getPlayerEntity()->getPosition();
 
         if(!$this->checkIfBuyable()) throw new Exception("Street is already owned"); // street is already owned by another player
         if(!$this->player->buyStreet($this->em)) throw new Exception("Player doesn't have enough money"); // doesn't have enough money
@@ -75,14 +76,16 @@ class StreetService
         $playerXField->create(
             $this->em,
             $this->player->getPlayerEntity()->getId(),
-            $this->player->getPlayerEntity()->getPosition(),
+            $playFieldId,
             $this->game->getGameEntity()->getId()
         );
-        $this->getAllModels($this->player->getPlayerEntity()->getPosition());
+        $this->getAllModels($playFieldId);
 
         return [
             "streetName" => $this->street->getStreetEntity()->getName(),
             "playerId" => $this->player->getPlayerEntity()->getId(),
+            "inGamePlayerId" => $this->player->getPlayerEntity()->getIngameId(),
+            "playFieldId"=>$playFieldId,
             "success" => true,
             "totalMoney" => $this->player->getPlayerEntity()->getMoney()
             ]; // todo add response classes
@@ -113,6 +116,8 @@ class StreetService
         return [
             "streetName" => $this->street->getStreetEntity()->getName(),
             "playerId" => $this->player->getPlayerEntity()->getId(),
+            "inGamePlayerId" => $this->player->getPlayerEntity()->getIngameId(),
+            "playFieldId"=>$fieldId,
             "success" => true,
             "totalMoney" => $this->player->getPlayerEntity()->getMoney()
         ];

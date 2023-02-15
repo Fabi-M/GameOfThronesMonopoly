@@ -140,7 +140,7 @@ class Player
      */
     public function payRentTo(Player $owner, Street $street, EntityManager $em): int
     {
-        $rent = $street->getRent($em, $owner->getPlayerEntity()->getId()); // 0 oder mehr
+        $rent = $street->getRent(); // 0 oder mehr
         $this->changeBalance(-($rent), $em);
         $owner->changeBalance($rent, $em);
         return $rent;

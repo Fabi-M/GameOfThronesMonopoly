@@ -36,7 +36,7 @@ class Street
      * @return mixed
      * @author Selina Stöcklein
      */
-    public function getRent($em = null, $playerID = null): mixed
+    public function getRent(): mixed
     {
         $houses = $this->xField->getPlayerXFieldEntity()->getBuildings();
         $getRent = 'getBuildingRent' . $houses;
@@ -50,5 +50,15 @@ class Street
     public function isUnOwned(): bool
     {
         return is_null($this->xField);
+    }
+
+    /**
+     * auxiliary function for displaying some basic information
+     * @return string
+     */
+    public function getSimpleInfo():string{
+        return "Name: " . $this->getStreetEntity()->getName() .
+        '<br>Miete: ' . $this->getRent() .
+        '<br>Farbe: ' . ucfirst($this->getStreetEntity()->getColor());
     }
 }

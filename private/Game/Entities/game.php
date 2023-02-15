@@ -17,6 +17,25 @@ class game extends BaseEntity
     protected $maxActivePlayers;
     protected $allowedToEndTurn;
 
+    protected $rolledDice;
+
+    /**
+     * @return mixed
+     */
+    public function getRolledDice()
+    {
+        return $this->rolledDice;
+    }
+
+    /**
+     * @param mixed $rolledDice
+     */
+    public function setRolledDice($rolledDice): void
+    {
+        $this->rolledDice = $rolledDice;
+    }
+    
+
     /**
      * @return mixed
      */

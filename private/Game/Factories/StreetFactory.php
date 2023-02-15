@@ -4,6 +4,7 @@ namespace GameOfThronesMonopoly\Game\Factories;
 
 use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
+use GameOfThronesMonopoly\Game\Entities\player_x_field;
 use GameOfThronesMonopoly\Game\Entities\street as streetEntity;
 use GameOfThronesMonopoly\Game\Model\PlayerXField;
 use GameOfThronesMonopoly\Game\Model\Factory;
@@ -40,13 +41,7 @@ class StreetFactory
             $xField = PlayerXFieldFactory::getByFieldId($em, $gameId, $entity->getPlayFieldId());
         }
 
-        if ($entity->getColor() == "trainstation") {
-            return new Trainstation($entity, $xField);
-        } elseif ($entity->getColor() == "factory") {
-            return new Factory($entity, $xField);
-        } else {
-            return new Street($entity, $xField);
-        }
+        return self::getModel($entity, $xField);
     }
 
     /**
@@ -59,6 +54,7 @@ class StreetFactory
      */
     public static function filter(EntityManager $em, array $filter): ?array
     {
+        /** @var streetEntity $entities */
         $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
             [
                 'WHERE' => $filter
@@ -71,13 +67,7 @@ class StreetFactory
             if (!empty($gameId)) {
                 $xField = PlayerXFieldFactory::getByFieldId($em, $gameId, $entity->getPlayFieldId());
             }
-            if ($entity->getColor() == "trainstation") {
-                $models [] = new Trainstation($entity, $xField);
-            } elseif ($entity->getColor() == "factory") {
-                $models [] = new Factory($entity, $xField);
-            } else {
-                $models [] = new Street($entity, $xField);
-            }
+            $models[] = self::getModel($entity, $xField);
         }
         return $models;
     }
@@ -87,10 +77,8 @@ class StreetFactory
      */
     public static function getAllByPlayerId(EntityManager $em, int $playerId)
     {
-        /** @var PlayerXField[] $playerXfields */
+        $readyModels = [];
         $playerXfields = PlayerXFieldFactory::getByPlayerId($em, $playerId);
-
-        $ready = [];
         if (!empty($playerXfields)) {
             $fieldIds = array_map(
                 fn(PlayerXField $playerXField) => $playerXField->getPlayerXFieldEntity()->getFieldId(),
@@ -100,26 +88,18 @@ class StreetFactory
             /** @var streetEntity[] $entities */
             $entities = $em->getRepository(self::STREET_NAMESPACE)->findBy(
                 [
-                    'IN' => [
-                        'playfieldId' => $fieldIds
-                    ]
+                    'IN' => ['playfieldId' => $fieldIds]
                 ]
             );
 
             if (!empty($entities)) {
                 foreach ($entities as $entity) {
-                    if ($entity->getColor() == "trainstation") {
-                        $models [] = new Trainstation($entity, $playerXfields[$entity->getPlayFieldId()]);
-                    } elseif ($entity->getColor() == "factory") {
-                        $models [] = new Factory($entity, $playerXfields[$entity->getPlayFieldId()]);
-                    } else {
-                        $models [] = new Street($entity, $playerXfields[$entity->getPlayFieldId()]);
-                    }
+                    $readyModels[] = self::getModel($entity, $playerXfields[$entity->getPlayFieldId()]);
                 }
             }
         }
 
-        return $ready;
+        return $readyModels;
     }
 
     /**
@@ -139,5 +119,24 @@ class StreetFactory
             ],
             $gameId
         );
+    }
+
+    /**
+     * Get a Model based on the given Entity
+     * @param streetEntity      $entity
+     * @param PlayerXField|null $xField
+     * @return Factory|Street|Trainstation
+     * @author Selina Stöcklein
+     */
+    private static function getModel(streetEntity $entity, ?PlayerXField $xField): Trainstation|Street|Factory
+    {
+        if ($entity->getColor() == "trainstation") {
+            $model = new Trainstation($entity, $xField);
+        } elseif ($entity->getColor() == "factory") {
+            $model = new Factory($entity, $xField);
+        } else {
+            $model = new Street($entity, $xField);
+        }
+        return $model;
     }
 }

@@ -38,13 +38,17 @@ class FigureService {
         $("#next_player").prop("disabled", false);
         let resultObj = JSON.parse(result);
         if (resultObj['dice'][0] !== resultObj['dice'][1]) {
-            $(".dice").prop("disabled", true);
+            $(".diceButton").prop("disabled", true);
         }
+        console.log(resultObj);
         let me = FigureService.getInstance();
         data['dice'].toastRolledDice(resultObj['dice']); // dice.js
         let playerId = resultObj['activePlayerId'];
         let playFieldId = resultObj['playFieldId'];
+        console.log(playerId)
         let figure = me.getFigure(playerId);
+        console.log(playFieldId)
+        console.log(figure)
         figure.move(playFieldId);
         figure.payRent(playFieldId);
 
@@ -63,11 +67,8 @@ class FigureService {
      */
     setFigures() {
         // alle figures unter ihrer id als instanz von figure mit $() enthalten in einer liste speichern
-        let $allFigures = $('.playerFigure');
-        let playerId = 1;
-        $.each($allFigures, key => {
-            this.#playerFigures[playerId] = new Figure($allFigures[key]);
-            playerId++
-        });
+        for (let inGameId = 1; inGameId <= 4; inGameId++) {
+            this.#playerFigures[inGameId] = new Figure($('#figure' + inGameId));
+        }
     }
 }

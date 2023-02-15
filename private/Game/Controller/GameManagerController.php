@@ -10,18 +10,14 @@ use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Model\Dice;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Service\GameService;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
+use GameOfThronesMonopoly\Game\Service\SaveGameService;
 
 class GameManagerController extends BaseController
 {
     public function InitAction(): void
     {
-        // evnetuell mti get und post aufrufbar (allein um fortzufahren oder nach startscreen)
         try {
             // get game
-           // $this->sessionId = 'bo5jhi5tmfn596mkg84abj1qbp';
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             if ($game === null) {
                 header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
@@ -29,38 +25,12 @@ class GameManagerController extends BaseController
             }
             // get players
             $players = PlayerFactory::getPlayersOfGame($this->em, $game);
-            $activePlayer = $players[$game->getGameEntity()->getActivePlayerId()];
+            $service = new SaveGameService();
+            $saveGameConfig = $service->getPlayfieldInitConfig($game, $players, $this->em);
 
-
-            /** @var Street[] $streets*/
-            $activePlayerStreets = StreetFactory::getAllByPlayerId(
-                $this->em, $activePlayer->getPlayerEntity()->getId()
-            );
-
-            $playersOrderedInGame = [];
-            foreach ($players as $test) {
-                $playersOrderedInGame[$test->getPlayerEntity()->getId()] = $test;
-            }
-
-            $map = [];
-
-            foreach ($players as $player) {
-                $ingamePlayerId = $player->getPlayerEntity()->getIngameId();
-                $alltimePlayerId = $player->getPlayerEntity()->getId();
-                $map[$player->getPlayerEntity()->getPosition()]['player'][] = $ingamePlayerId;
-                /** @var Street[] $streets */
-                $streets = StreetFactory::getAllByPlayerId($this->em, $alltimePlayerId);
-
-                foreach ($streets as $street) {
-                    $map[$street->getStreetEntity()->getPlayFieldId()]['owner'] = $ingamePlayerId;
-                    $map[$street->getStreetEntity()->getPlayFieldId()]['buildings'] = $street->getXField()
-                        ->getPlayerXFieldEntity()
-                        ->getBuildings();
-                }
-            }
-            // get gameinfos of current activePlayer
-            // display everything!
-
+            // add dice
+            $this->styleSheetCollector->addBottom('/css/Dice.css');
+            // display playfield and savegame
             echo $this->twig->render(
                 "Game/Views/Game.html.twig",
                 [
@@ -69,12 +39,13 @@ class GameManagerController extends BaseController
                     'figureDir' => '/figures/',
                     'figurePNGName' => 'figur',
                     'playerFigures' => 4,
-                    'map' => $map
+                    'saveGame' => $saveGameConfig
                 ]
             );
         } catch (\Throwable $e) {
             // render error page mit link zu startpage
             echo $e->getMessage();
+            //TODO 09.02.2023 Selina: render error page
         }
     }
 
@@ -86,6 +57,7 @@ class GameManagerController extends BaseController
      */
     public function EndTurnAction(): void
     {
+        //TODO 09.02.2023 Selina: Daten des nächsten Spielers zurück geben
         try {
             $gameService = new GameService();
             $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
@@ -120,7 +92,12 @@ class GameManagerController extends BaseController
         // get the active player and let it move
         $activePlayer = PlayerFactory::getActivePlayer($this->em, $game);
         $playFieldId = $activePlayer->move($this->em, $rolled);
-        $gameService->checkIfAllowedToEndTurn($rolled);
+        if ($rolled[0] !== $rolled[1]) { // not for pasch
+            // save that player rolled for movement
+            $gameService->checkIfAllowedToEndTurn($rolled);
+            $game->getGameEntity()->setRolledDice(1);
+            $this->em->persist($game->getGameEntity());
+        }
         // save
         $this->em->flush();
         echo json_encode(

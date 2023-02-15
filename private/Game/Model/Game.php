@@ -6,14 +6,13 @@ use Exception;
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Entities\Game as gameEntity;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
+use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 
 class Game
 {
-
-
     public const MAX_PLAY_FIELDS = 39; // 0-39
-    private $gameEntity;
 
+    private $gameEntity;
 
     /**
      * @param gameEntity|null $gameEntity $gameEntity
@@ -50,16 +49,23 @@ class Game
      */
     public function endTurn(EntityManager $em): array
     {
-        if(!((bool) $this->gameEntity->getAllowedToEndTurn())) throw new Exception("Player is not allowed to end turn!");
-        $playerId = $this->gameEntity->getActivePlayerId()+1;
+        if (!((bool) $this->gameEntity->getAllowedToEndTurn())) {
+            throw new Exception("Player is not allowed to end turn!");
+        }
+        $playerId = $this->gameEntity->getActivePlayerId() + 1;
         $maxPlayerCount = $this->gameEntity->getMaxActivePlayers();
-        if($playerId > $maxPlayerCount){
+        if ($playerId > $maxPlayerCount) {
             $playerId -= $maxPlayerCount;
         }
         $this->gameEntity->setActivePlayerId($playerId);
         $this->gameEntity->setAllowedToEndTurn(0);
+        $this->gameEntity->setRolledDice(0);
         $em->persist($this->gameEntity);
         $playerEntity = PlayerFactory::getActivePlayer($em, $this)->getPlayerEntity();
+        $streets = StreetFactory::getAllByPlayerId($em, $playerEntity->getId());
+        $streetNames = array_map(function (Street $street) {
+            return $street->getSimpleInfo();
+        }, $streets);
         return [
             "money" => $playerEntity->getMoney(),
             "playerId" => $playerEntity->getId(),
@@ -67,6 +73,7 @@ class Game
             "gameId" => $playerEntity->getSessionId(),
             "ingameId" => $playerEntity->getIngameId(),
             "sessionId" => $playerEntity->getSessionId(),
+            'streets' => implode('<br>---------------<br>', $streetNames),
             "success" => true
         ];
     }
@@ -78,7 +85,8 @@ class Game
      * @param $sessionId
      * @return void
      */
-    public function create(EntityManager $em, $sessionId, $playerCount){
+    public function create(EntityManager $em, $sessionId, $playerCount)
+    {
         $this->gameEntity = new gameEntity();
         $this->gameEntity->setActivePlayerId(1);
         $this->gameEntity->setMaxActivePlayers($playerCount);
