@@ -78,10 +78,10 @@ class Game
      * @param $sessionId
      * @return void
      */
-    public function create(EntityManager $em, $sessionId){
+    public function create(EntityManager $em, $sessionId, $playerCount){
         $this->gameEntity = new gameEntity();
         $this->gameEntity->setActivePlayerId(1);
-        $this->gameEntity->setMaxActivePlayers(4); // todo add possiblity to set custom max player
+        $this->gameEntity->setMaxActivePlayers($playerCount);
         $this->gameEntity->setSessionId($sessionId);
         $this->gameEntity->setAllowedToEndTurn(0);
         $em->persist($this->gameEntity);

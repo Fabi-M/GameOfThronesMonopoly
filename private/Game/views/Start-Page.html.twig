@@ -1,5 +1,10 @@
 {% extends 'Core/Views/Base.html.twig' %}
 
+{% block javascript %}
+
+new StartPage();
+
+{% endblock %}
 {% block site %}
 <style>
 
@@ -8,9 +13,6 @@
 
 
 </style>
-    <script>
-        new StartPage();
-    </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
 <div class="container text-center menu-z-index start-page-wrapper">
     <div class="row">
