@@ -21,7 +21,6 @@
             {% endfor %}
         {% endif %}
     </div>
-
     {% set pennantClass = '' %}
     {% if saveGame['playfield'][id]['owner'] is defined %}
         {% set pennantClass = 'pennant-owner-'~saveGame['playfield'][id]['owner'] %}
