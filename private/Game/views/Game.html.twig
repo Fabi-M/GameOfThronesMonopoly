@@ -16,11 +16,33 @@ let round = new Round();
 
             {# Spielfeld #}
             <div class="relative-positioning">
+            <div class="flip-card-stay flip-card"></div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                                    <div class="gemeinschaftskarte"></div>
+                    </div>
+                    <div class="flip-card-back">
+                       gemeinschaftskarten-text
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card-stay flip-card flip-card-new-position"></div>
+            <div class="flip-card flip-card-new-position">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="ereigniskarte"></div>   
+                    </div>
+                    <div class="flip-card-back">
+                       gemeinschaftskarten-text
+                    </div>
+                </div>
+            </div>
+            <div class="ereigniskarte"></div>
 
                 {% for id in 0..39 %}
                     {% include 'Game/views/PlayField/PlayField.html.twig' %}
                 {% endfor %}
-
                 <img class="spielfeld" src="{{ imgPath }}{{ playFieldJPG }}" alt="Spielfeld">
                 {% include 'Game/views/Dice.html.twig' %}
             </div>
