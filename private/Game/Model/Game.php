@@ -93,6 +93,8 @@ class Game
         $this->gameEntity->setMaxActivePlayers($playerCount);
         $this->gameEntity->setSessionId($sessionId);
         $this->gameEntity->setAllowedToEndTurn(0);
+        $this->gameEntity->setRolledDice(0);
+
         $em->persist($this->gameEntity);
 
     }
