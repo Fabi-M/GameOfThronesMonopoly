@@ -26,6 +26,16 @@ class StartPage {
      * @param data
      */
     gameStarted(data){
+        console.log(data);
+        console.log("hi");
+        let that = this;
+        setTimeout(function () {
+            StartPage.redirect();
+        }, 500);
+    }
+
+    static redirect(){
+        console.log("bye");
         window.location.replace(BASEPATH+"/Play");
     }
 

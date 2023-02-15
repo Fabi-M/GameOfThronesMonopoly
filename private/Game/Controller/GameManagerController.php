@@ -156,7 +156,6 @@ class GameManagerController extends BaseController
                 "error" => $e->getMessage()
             ];
         }
-
         echo json_encode($response);
     }
 
