@@ -185,9 +185,6 @@ class BaseController
         if (is_null($game) && $_SERVER["REQUEST_URI"] == "/GameOfThronesMonopoly/Play") {
             header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
             die();
-            $gameService = new GameService();
-            $gameService->createGame($this->em, $this->sessionId, 4);
-            $this->em->flush();
         }
     }
 }

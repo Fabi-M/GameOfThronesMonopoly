@@ -45,7 +45,7 @@ class GameService
         $em->flush();
 
         $playerService = new PlayerService();
-        $playerService->createAllPlayers($em, $sessionId, $game->getGameEntity()->getId(), $playerCount);
+        $playerService->createAllPlayers($em, $game->getGameEntity()->getId(), $playerCount);
 
         return $game;
     }
