@@ -1,5 +1,10 @@
 {% extends 'Core/Views/Base.html.twig' %}
 
+{% block javascript %}
+
+new StartPage();
+
+{% endblock %}
 {% block site %}
 <style>
 
@@ -27,7 +32,7 @@
             <option value="3">3</option>
             <option value="4">4</option>
             </select>
-            <input class="interaktionsbutton" type="button" id="spiel_starten"
+            <input class="interaktionsbutton" type="button" id="spielStarten"
                             name="spiel_starten" value="Neues Spiel starten">
             </form>
         </div>

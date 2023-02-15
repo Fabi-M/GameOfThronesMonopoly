@@ -20,10 +20,9 @@ class GameManagerController extends BaseController
         try {
             // get game
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
-            if ($game === null) { // if no game exists -> use startmenu to initiate a game
-                throw new Exception(
-                    'Es wurde noch kein Spiel gestartet. Besuche unsere Startpage um die Anzahl der Spieler auszuwählen!'
-                );
+            if ($game === null) {
+                header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
+                die();
             }
             // get players
             $players = PlayerFactory::getPlayersOfGame($this->em, $game);
@@ -139,11 +138,13 @@ class GameManagerController extends BaseController
      * @throws Exception
      * @author Fabian Müller
      */
-    public function StartNewGame(): void
+    public function StartNewGame($playerCount): void
     {
         try {
+            session_regenerate_id(true);
+            $this->sessionId = session_id();
             $gameService = new GameService();
-            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $gameService->createGame($this->em, $this->sessionId, $playerCount);
             $response = [
                 "success" => true,
                 "id" => $this->sessionId,
@@ -164,14 +165,39 @@ class GameManagerController extends BaseController
      * @url    /Homepage
      * @return void
      * @throws Exception
-     * @author Christian Teubner
+     * @author Fabian Müller
      */
     public function ShowHomepageAction(): void
     {
+        $this->scriptCollector->addBottom('/js/StartPage.js');
         echo $this->twig->render(
-            "Game/views/StartPage.html.twig",
+            "Game/views/Start-Page.html.twig",
             [
+                'imgPath'=>self::IMG_PATH.'menu/monopoly-title.jpg',
+                'imgPathTrennlinie'=>self::IMG_PATH.'menu/trennlinie.png'
             ]
         );
+    }
+
+    /**
+     * Check if the player has a game saved with current session id
+     * @url    /CanLoadGame
+     * @return void
+     * @throws Exception
+     * @author Fabian Müller
+     */
+    public function CanLoadGameAction(){
+        try{
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
+            if ($game === null) {
+                echo json_encode(false);
+                return;
+            }
+            echo json_encode(true);
+            return;
+        }catch (\Throwable $e){
+            echo json_encode(false);
+            return;
+        }
     }
 }

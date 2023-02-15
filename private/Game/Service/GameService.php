@@ -14,17 +14,18 @@ class GameService
     /**
      * Get a game from the db with the sessionId
      * Create new game if there is no game with the sessionId
-     * @author Fabian Müller
      * @param $em
      * @param $sessionId
      * @return \GameOfThronesMonopoly\Game\Model\Game|null
+     * @throws \Exception
+     * @author Fabian Müller
      */
     public function getGameBySessionId($em, $sessionId): ?\GameOfThronesMonopoly\Game\Model\Game
     {
         $this->em = $em;
         $this->game = GameFactory::filterOne($em, array(array('sessionId', 'equal', $sessionId)));
         if(!isset($this->game)){
-            $this->game = $this->createGame($em, $sessionId);
+            throw new \Exception("no game found");
         }
         return $this->game;
     }
@@ -36,15 +37,15 @@ class GameService
      * @param $sessionId
      * @return \GameOfThronesMonopoly\Game\Model\Game
      */
-    public function createGame($em, $sessionId): \GameOfThronesMonopoly\Game\Model\Game
+    public function createGame($em, $sessionId, $playerCount): \GameOfThronesMonopoly\Game\Model\Game
     {
         $this->em = $em;
         $game = new \GameOfThronesMonopoly\Game\Model\Game();
-        $game->create($em, $sessionId);
+        $game->create($em, $sessionId, $playerCount);
         $em->flush();
 
         $playerService = new PlayerService();
-        $playerService->createAllPlayers($em, $game->getGameEntity()->getId(), $game->getGameEntity()->getMaxActivePlayers());
+        $playerService->createAllPlayers($em, $sessionId, $game->getGameEntity()->getId(), $playerCount);
 
         return $game;
     }

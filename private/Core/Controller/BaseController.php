@@ -94,6 +94,7 @@ class BaseController
      */
     private function addScriptCollectorScripts()
     {
+        // TODO christian you suck
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.bundle.js');
         $this->scriptCollector->addBottom('/node_modules/bootstrap/dist/js/bootstrap.min.js');
@@ -180,10 +181,13 @@ class BaseController
      */
     public function CheckForActiveGame()
     {
+        return;
         $game = GameFactory::getActiveGame($this->em, $this->sessionId);
-        if (is_null($game)) {
+        if (is_null($game) && $_SERVER["REQUEST_URI"] != "/GameOfThronesMonopoly/Play") {
+            header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
+            die();
             $gameService = new GameService();
-            $gameService->createGame($this->em, $this->sessionId);
+            $gameService->createGame($this->em, $this->sessionId, 4);
             $this->em->flush();
         }
     }
