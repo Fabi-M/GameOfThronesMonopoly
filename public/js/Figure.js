@@ -8,12 +8,17 @@ class Figure {
     /**
      * @author Selina Stöcklein
      * @param targetPlayFieldId
+     * @param isNotPasch
      */
     move(targetPlayFieldId, isNotPasch) {
         let oldPlayFieldId = $(this.#$element).parent().parent().attr('data-id');
         let id = $(this.#$element).attr('id');
         // + 1 on targetField, otherwise the animation would stop one field before the real target field
-        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId + 1, this.moveAnimate, isNotPasch)
+        if (targetPlayFieldId < 39) { // else it would be buggy
+            targetPlayFieldId++;
+        }
+
+        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId, this.moveAnimate, isNotPasch)
     }
 
     /**
@@ -22,6 +27,7 @@ class Figure {
      * @param oldPlayFieldId
      * @param targetPlayFieldId
      * @param recursiveCallback
+     * @param isNotPasch
      */
     moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch) {
         let element = $('#' + id);
