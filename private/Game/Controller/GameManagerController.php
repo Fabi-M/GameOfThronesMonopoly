@@ -103,11 +103,12 @@ class GameManagerController extends BaseController
             $paschCount = $game->getGameEntity()->getPaschCount();
             $paschCount++;
             $game->getGameEntity()->setPaschCount($paschCount);
-            $this->em->persist($game->getGameEntity());
             if($paschCount == 3){
                 $activePlayer->goToJail($this->em);
+                $game->getGameEntity()->setAllowedToEndTurn(1);
                 $playFieldId = 10;
             }
+            $this->em->persist($game->getGameEntity());
         }
         // save
         $this->em->flush();
@@ -223,6 +224,8 @@ class GameManagerController extends BaseController
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             $player = PlayerFactory::getActivePlayer($this->em, $game);
             $player->jailBuyout($this->em);
+            $game->getGameEntity()->setPaschCount(0);
+            $this->em->persist($game->getGameEntity());
             $this->em->flush();
             $response = [
                 "escaped" => true,

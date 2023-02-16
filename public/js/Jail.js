@@ -30,6 +30,7 @@ class Jail{
         }else{
             alert("Du bist immer noch im Gefängnis");
         }
+        Jail.UpdateJailButtons(result);
     }
 
     /**
@@ -42,5 +43,17 @@ class Jail{
         let url = BASEPATH + '/JailPayout';
         let request = new Ajax(url, false, data["this"].displayPopup, data);
         request?.execute();
+    }
+
+    static UpdateJailButtons(result){
+        if(result["escaped"] == false){
+            console.log(1);
+            $('.normalbuttons').attr("hidden", true);
+            $('.jailbuttons').removeAttr("hidden");
+        }else{
+            console.log(2);
+            $('.normalbuttons').removeAttr("hidden");
+            $('.jailbuttons').attr("hidden", true);
+        }
     }
 }
