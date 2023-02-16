@@ -22,7 +22,7 @@ class RoutingRepository
     {
         $instance = DataBaseConnection::getInstance();
         $pdo = $instance->getConnection();
-        $stmt = $pdo->prepare("SELECT * FROM route");
+        $stmt = $pdo->prepare("SELECT * FROM Route");
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
