@@ -6,16 +6,10 @@ use Exception;
 use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
-use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Model\Dice;
-use GameOfThronesMonopoly\Game\Model\Factory;
-use GameOfThronesMonopoly\Game\Model\Street;
-use GameOfThronesMonopoly\Game\Model\Trainstation;
-use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\SaveGameService;
 use GameOfThronesMonopoly\Game\Service\ScoreService;
-use GameOfThronesMonopoly\Game\Service\StreetService;
 use Throwable;
 
 class GameManagerController extends BaseController
