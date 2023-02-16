@@ -66,9 +66,16 @@ class BaseController
     {
         $loader = new FilesystemLoader('../private/');
         $this->twig = new Environment($loader, ['cache' => false]);
-        $this->twig->addGlobal(
-            'BASEPATH', "http://localhost/GameOfThronesMonopoly"
-        );
+        if ($_SERVER['REMOTE_ADDR'] == "127.0.0.1") {
+            $this->twig->addGlobal(
+                'BASEPATH', "http://localhost/GameOfThronesMonopoly"
+            );
+        }
+        else {
+            $this->twig->addGlobal(
+                'BASEPATH', "http://178.254.31.157/GameOfThronesMonopoly"
+            );
+        }
 
         $this->addScriptCollector();
         $this->addStyleSheetCollector();

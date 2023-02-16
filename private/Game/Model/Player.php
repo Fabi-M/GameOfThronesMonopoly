@@ -11,9 +11,9 @@ class Player
     private $playerEntity;
 
     /**
-     * @return \GameOfThronesMonopoly\Game\Entities\player
+     * @return \GameOfThronesMonopoly\Game\Entities\Player
      */
-    public function getPlayerEntity(): \GameOfThronesMonopoly\Game\Entities\player
+    public function getPlayerEntity(): \GameOfThronesMonopoly\Game\Entities\Player
     {
         return $this->playerEntity;
     }

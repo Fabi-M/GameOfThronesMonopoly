@@ -17,6 +17,11 @@ class Testcontroller extends BaseController
         );
     }
 
+    public function ChristianTestAction()
+    {
+        echo "Hallo";
+    }
+
     public function EndTurn()
     {
     }

@@ -25,8 +25,10 @@ class SaveGameService
     public function getPlayfieldInitConfig(Game $game, array $players, EntityManager $em)
     {
         $saveGame = [];
+        var_dump($players);
         $activePlayer = $players[$game->getGameEntity()->getActivePlayerId()];
         $saveGame['activePlayerId'] = $activePlayer->getPlayerEntity()->getIngameId();
+        var_dump('help');
         $saveGame['rolledDice'] = $game->getGameEntity()->getRolledDice();
         $saveGame['activePlayerMoney'] = $activePlayer->getPlayerEntity()->getMoney();
 
