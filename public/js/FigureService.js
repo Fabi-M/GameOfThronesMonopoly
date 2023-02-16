@@ -35,21 +35,17 @@ class FigureService {
      * @author Selina Stöcklein
      */
     moveFigure(result, data) {
-        $("#next_player").prop("disabled", false);
+        $(".diceButton").prop("disabled", true);
         let resultObj = JSON.parse(result);
-        if (resultObj['dice'][0] !== resultObj['dice'][1]) {
-            $(".diceButton").prop("disabled", true);
-        }
         console.log(resultObj);
         let me = FigureService.getInstance();
         data['dice'].toastRolledDice(resultObj['dice']); // dice.js
         let playerId = resultObj['activePlayerId'];
         let playFieldId = resultObj['playFieldId'];
-        console.log(playerId)
         let figure = me.getFigure(playerId);
-        console.log(playFieldId)
-        console.log(figure)
-        figure.move(playFieldId);
+        let isNotPasch = resultObj['dice'][0] !== resultObj['dice'][1]
+        console.log(isNotPasch)
+        figure.move(playFieldId, isNotPasch);
         figure.payRent(playFieldId);
 
     }

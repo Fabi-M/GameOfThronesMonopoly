@@ -9,11 +9,11 @@ class Figure {
      * @author Selina Stöcklein
      * @param targetPlayFieldId
      */
-    move(targetPlayFieldId) {
+    move(targetPlayFieldId, isNotPasch) {
         let oldPlayFieldId = $(this.#$element).parent().parent().attr('data-id');
         let id = $(this.#$element).attr('id');
         // + 1 on targetField, otherwise the animation would stop one field before the real target field
-        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId + 1, this.moveAnimate)
+        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId + 1, this.moveAnimate, isNotPasch)
     }
 
     /**
@@ -23,8 +23,7 @@ class Figure {
      * @param targetPlayFieldId
      * @param recursiveCallback
      */
-    moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback) {
-        console.log('moveAnimate')
+    moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch) {
         let element = $('#' + id);
         let newParent = $('#spieler-bereich-' + oldPlayFieldId);
         let oldOffset = element.offset();
@@ -47,10 +46,12 @@ class Figure {
             if (oldPlayFieldId > 39) {
                 oldPlayFieldId = 0;
             }
-            console.log("OldPlayFieldId " + oldPlayFieldId + " --- TargetPlayFieldId " + targetPlayFieldId);
-
             if (oldPlayFieldId !== targetPlayFieldId) {
-                recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback);
+                recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch);
+            } else {
+                console.log(isNotPasch)
+                $(".diceButton").prop("disabled", isNotPasch);
+                $("#next_player").prop("disabled", !isNotPasch);
             }
         });
     }

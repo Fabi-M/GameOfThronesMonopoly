@@ -82,7 +82,7 @@ body {
 }
 
 .spielfeld {
-  height: 98vh;
+  height: 85vh;
 }
 
 @media (max-width: 420px) {

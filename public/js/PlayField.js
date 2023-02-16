@@ -8,7 +8,10 @@ class PlayField {
         let events = new Events();
         events.addEvent('click', $('.playField'), this.requestCardInfo, {"this": this});
         events.addEvent('click', $('.player-card'), this.cardButons, {"this": this});
+        $('#spieler-bereich-0').bind("DOMNodeInserted", function () {
+           let url = BASEPATH + "/OverGo"
 
+        });
     }
 
     requestCardInfo(event, data) {

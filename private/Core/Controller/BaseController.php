@@ -67,7 +67,7 @@ class BaseController
     {
         $loader = new FilesystemLoader('../private/');
         $this->twig = new Environment($loader, ['cache' => false]);
-        if ($_SERVER['REMOTE_ADDR'] == "::1") {
+        if ($_SERVER['REMOTE_ADDR'] == "::1" || $_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
             $this->twig->addGlobal(
                 'BASEPATH', "http://localhost/GameOfThronesMonopoly"
             );
