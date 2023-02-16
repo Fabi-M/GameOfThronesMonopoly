@@ -21,6 +21,7 @@ class GameFactory
      */
     public static function filterOne(EntityManager $em, array $filter): Game|null
     {
+
         /** @var gameEntity $entity */
         $entity = $em->getRepository(self::GAME_NAMESPACE)->findOneBy(
             [
@@ -46,7 +47,8 @@ class GameFactory
         return GameFactory::filterOne(
             $em,
             [
-                ['sessionId', 'equal', $sessionId]
+                ['sessionId', 'equal', $sessionId],
+                ['gameOver', 'equal', 0]
             ]
         );
     }

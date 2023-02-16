@@ -8,10 +8,15 @@ use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Model\Dice;
+use GameOfThronesMonopoly\Game\Model\Factory;
 use GameOfThronesMonopoly\Game\Model\Street;
+use GameOfThronesMonopoly\Game\Model\Trainstation;
 use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\SaveGameService;
+use GameOfThronesMonopoly\Game\Service\ScoreService;
+use GameOfThronesMonopoly\Game\Service\StreetService;
+use Throwable;
 
 class GameManagerController extends BaseController
 {
@@ -31,6 +36,7 @@ class GameManagerController extends BaseController
 
             // add dice
             $this->styleSheetCollector->addBottom('/css/Dice.css');
+            $this->scriptCollector->addBottom('/js/Score.js');
             // display playfield and savegame
             echo $this->twig->render(
                 "Game/Views/Game.html.twig",
@@ -172,8 +178,8 @@ class GameManagerController extends BaseController
         echo $this->twig->render(
             "Game/views/Start-Page.html.twig",
             [
-                'imgPath'=>self::IMG_PATH.'menu/monopoly-title.jpg',
-                'imgPathTrennlinie'=>self::IMG_PATH.'menu/trennlinie.png'
+                'imgPath' => self::IMG_PATH . 'menu/monopoly-title.jpg',
+                'imgPathTrennlinie' => self::IMG_PATH . 'menu/trennlinie.png'
             ]
         );
     }
@@ -185,8 +191,9 @@ class GameManagerController extends BaseController
      * @throws Exception
      * @author Fabian Müller
      */
-    public function CanLoadGameAction(){
-        try{
+    public function CanLoadGameAction()
+    {
+        try {
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             if ($game === null) {
                 echo json_encode(false);
@@ -194,9 +201,35 @@ class GameManagerController extends BaseController
             }
             echo json_encode(true);
             return;
-        }catch (\Throwable $e){
+        } catch (\Throwable $e) {
             echo json_encode(false);
             return;
         }
+    }
+
+    public function GetEndScoreAction()
+    {
+        var_dump('help');
+         try {
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
+            $players = PlayerFactory::getPlayersOfGame($this->em, $game);
+            $scoreService = new ScoreService();
+            $msg = 'Das Spiel wurde beendet! <br> Hier sind die Besten!';
+            $game->getGameEntity()->setGameOver(1);
+            $this->em->persist($game->getGameEntity());
+            $playerScores = $scoreService->calculateScore($players, $game, $this->em);
+            //$this->em->flush();
+        } catch (Throwable $e) {
+            $playerScores = [];
+            $msg = 'Oh no, fail :(';
+            $error = $e->getMessage() . ' --- ' . $e->getTraceAsString();
+            error_log($error);
+        }
+
+        echo $this->twig->render('Game/Views/ScoreBoard.html.twig', [
+            'scores' => $playerScores,
+            'msg' => $msg,
+            'IMG_PATH' => self::IMG_PATH
+        ]);
     }
 }

@@ -80,6 +80,10 @@ class ModalDialog {
         this.element.find('.modal-footer').remove();
     }
 
+    destroyHeader(){
+        this.element.find('.modal-header').remove();
+    }
+
     disableCloseButton() {
         this.element.find('.modalDialogCloseBtn').addClass('invisible');
     }
@@ -104,6 +108,7 @@ class ModalDialog {
      * Call a function $('.modal-backdrop').remove
      */
     destruct() {
+        console.log('stirb')
         this.element.modal('hide');
         this.element.remove();
         $('.modal-backdrop').remove();
@@ -128,6 +133,7 @@ class ModalDialog {
             closeBtn.click(event => {
                 let result = this.successFunction(this.successFunctionOptions)
                 if (result !== false) {
+                    console.log('lalala')
                     this.destruct();
                 }
             }).html(this.successFunctionName);
@@ -142,6 +148,7 @@ class ModalDialog {
             noButton.click(event => {
                 this.abortFunction(this.abortFunctionOptions);
                 this.destruct();
+                console.log('ahhhhhhhhhhh')
             }).html(this.abortFunctionName);
         } else {
             noButton.addClass('invisible').removeClass('visible');

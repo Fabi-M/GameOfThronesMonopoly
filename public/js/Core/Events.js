@@ -13,7 +13,6 @@ class Events {
      * @param dataForCallback // data that will be send to callback function
      */
     addEvent(specificEvent, $target, callback, dataForCallback = null) {
-        console.log("help");
         $target.on(specificEvent, event => {
             callback(event, dataForCallback); // send the event and optional dataForCallback along
         });
