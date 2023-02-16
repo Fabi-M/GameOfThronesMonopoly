@@ -24,7 +24,6 @@ class Figure {
      * @param recursiveCallback
      */
     moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback) {
-        console.log('moveAnimate')
         let element = $('#' + id);
         let newParent = $('#spieler-bereich-' + oldPlayFieldId);
         let oldOffset = element.offset();
@@ -47,7 +46,6 @@ class Figure {
             if (oldPlayFieldId > 39) {
                 oldPlayFieldId = 0;
             }
-            console.log("OldPlayFieldId " + oldPlayFieldId + " --- TargetPlayFieldId " + targetPlayFieldId);
 
             if (oldPlayFieldId !== targetPlayFieldId) {
                 recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback);
