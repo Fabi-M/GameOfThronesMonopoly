@@ -8,7 +8,7 @@ class Renetestcontroller extends BaseController
 {
     public function TestAction(){
         echo $this->twig->render(
-            "Game/views/PlayField/PlayField.html.twig",
+            "Game/Views/PlayField/PlayField.html.twig",
             [
                 'imgPath'=>self::IMG_PATH.'menu/monopoly-title.jpg',
                 'imgPathTrennlinie'=>self::IMG_PATH.'menu/trennlinie.png'

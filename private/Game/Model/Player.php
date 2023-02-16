@@ -36,7 +36,7 @@ class Player
      */
     public function create(EntityManager $em, $playerId, $gameId): void
     {
-        $playerEntity = new \GameOfThronesMonopoly\Game\Entities\player();
+        $playerEntity = new \GameOfThronesMonopoly\Game\Entities\Player();
         $playerEntity->setGameId($gameId);
         $playerEntity->setIngameId($playerId);
         $playerEntity->setPosition(0);

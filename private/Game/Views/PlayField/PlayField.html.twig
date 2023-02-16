@@ -3,7 +3,7 @@
     <div class="spieler-bereich-{{ id }}" id="spieler-bereich-{{ id }}">
         {% if saveGame['playfield'][id]['player'] is defined %}
             {% for figureId in saveGame['playfield'][id]['player'] %}
-                {% include 'Game/views/Figure.html.twig' %}
+                {% include 'Game/Views/Figure.html.twig' %}
             {% endfor %}
 
         {% endif %}
