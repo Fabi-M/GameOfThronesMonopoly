@@ -58,17 +58,17 @@ let score = new Score();
                     <b>Kontostand:</b> <span id="currentMoney">{{ saveGame['activePlayerMoney'] }}</span>
                 </div>
                 <br>
-                {# Karteplatzhalter #}
+                {# Karteplatzhalter
                 {% set selectable='playField' %}
                 {% set id = 1 %}
                 <b>Straßen im Besitz:</b>
                 <div id="ownedStreets">
                     {{ saveGame['activePlayerStreets']  | raw }}
                 </div>
+                #}
                 {# //TODO 09.02.2023 Selina: money anpassen wenn straße gekauft / verkauft
                 {% include 'Game/Views/Single-Card.html.twig' %}
                 #}
-
                 {# Karteplatzhalter Ende #}
 
                 {# Menu-Buttons #}

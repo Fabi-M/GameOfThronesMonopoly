@@ -94,6 +94,7 @@ class Game
         $this->gameEntity->setSessionId($sessionId);
         $this->gameEntity->setAllowedToEndTurn(0);
         $this->gameEntity->setRolledDice(0);
+        $this->gameEntity->setGameOver(0);
 
         $em->persist($this->gameEntity);
 

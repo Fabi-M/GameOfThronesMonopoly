@@ -49,7 +49,6 @@ class Figure {
             if (oldPlayFieldId !== targetPlayFieldId) {
                 recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch);
             } else {
-                console.log(isNotPasch)
                 $(".diceButton").prop("disabled", isNotPasch);
                 $("#next_player").prop("disabled", !isNotPasch);
             }
