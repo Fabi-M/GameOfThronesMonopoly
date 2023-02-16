@@ -15,7 +15,7 @@ class Dice
     public function roll(): array
     {
         //$result = [rand(1, 6), rand(1, 6)];
-        $result = [1,1];
+        $result = [1,2];
         $_SESSION["dice"] = array_sum($result);
         return $result;
     }

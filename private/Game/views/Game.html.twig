@@ -4,6 +4,7 @@
 let gameField = new PlayField();
 let card = new Card();
 let round = new Round();
+new Jail();
 {% endblock %}
 
 {% block site %}
@@ -73,30 +74,11 @@ let round = new Round();
                 {# Menu-Buttons #}
 
             </div>
-            <div class="col margin-buttons">
-                <div class="row interaktionsbuttons">
-                    <div class="row">
-                        {% set disabled = '' %}
-                        {% if saveGame['rolledDice'] == 1 %}
-                            {% set disabled = 'disabled' %}
-                        {% endif %}
-                        <input class="interaktionsbutton diceButton" type="button" id="wuerfeln" data-action="Move"
-                            name="wuerfeln" value="Würfeln" {{ disabled }}>
-                    </div>
-                    <div class="row">
-                        <input class="interaktionsbutton" type="button" id="handelsmenue_oeffnen"
-                            name="handelsmenue_oeffnen" value="Handelsmenü öffnen">
-                    </div>
-                </div>
-                <div class="row next-player-button interaktionsbuttons-margin">
-                    {% set disabled = '' %}
-                    {% if saveGame['rolledDice'] == 0 %}
-                        {% set disabled = 'disabled' %}
-                    {% endif %}
-                    <input class="interaktionsbutton" type="button" id="next_player" name="next_player"
-                        value="nächster Spieler" {{ disabled }}>
-                </div>
-
+            <div class="col margin-buttons normalbuttons">
+                {% include 'Game/views/buttons/NormalButtons.html.twig' %}
+            </div>
+            <div class="col margin-buttons jailbuttons" hidden>
+                {% include 'Game/views/buttons/JailButtons.html.twig' %}
             </div>
         </div>
 

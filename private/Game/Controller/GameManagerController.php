@@ -31,6 +31,7 @@ class GameManagerController extends BaseController
 
             // add dice
             $this->styleSheetCollector->addBottom('/css/Dice.css');
+            $this->scriptCollector->addBottom('/js/Jail.js');
             // display playfield and savegame
             echo $this->twig->render(
                 "Game/Views/Game.html.twig",
@@ -123,14 +124,17 @@ class GameManagerController extends BaseController
      * Rolls the Dice for Escaping
      * @url    /Roll/Escape
      * @return void
+     * @throws Exception
      * @author Christian Teubner, Selina Stöcklein
      */
     public function RollForEscapeAction(): void
     {
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+        $player = PlayerFactory::getActivePlayer($this->em, $game);
         $dice = new Dice();
         $rolled = $dice->roll();
+        $player->hasRolledForEscape($rolled);
         echo json_encode(
             [
                 'dice' => $rolled,
@@ -207,5 +211,31 @@ class GameManagerController extends BaseController
             echo json_encode(false);
             return;
         }
+    }
+
+    /**
+     *
+     * @return void
+     * @author Fabian Müller
+     */
+    public function JailBuyoutAction(){
+        try{
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
+            $player = PlayerFactory::getActivePlayer($this->em, $game);
+            $player->jailBuyout($this->em);
+            $this->em->flush();
+            $response = [
+                "escaped" => true,
+                "success" => true,
+                "id" => $this->sessionId,
+            ];
+        }catch(\Throwable $e){
+            $response = [
+                "escaped" => false,
+                "success" => "false",
+                "error" => $e->getMessage()
+            ];
+        }
+        echo json_encode($response);
     }
 }

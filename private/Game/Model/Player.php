@@ -43,6 +43,7 @@ class Player
         $playerEntity->setMoney(1500);
         $playerEntity->setIsInJail(0);
         $playerEntity->setJailRolls(0);
+        $playerEntity->setCanRollForEscape(1);
         $em->persist($playerEntity);
     }
 
@@ -158,6 +159,37 @@ class Player
     public function goToJail(EntityManager $em){
         $this->getPlayerEntity()->setPosition(10);
         $this->getPlayerEntity()->setIsInJail(1);
+        $em->persist($this->getPlayerEntity());
+    }
+
+    /**
+     * Check if the player has escaped jail
+     * @param $rolled
+     * @return void
+     * @author Fabian Müller
+     */
+    public function hasRolledForEscape($rolled){
+        if($this->getPlayerEntity()->getJailRolls()+1 == 3){
+            $this->getPlayerEntity()->setCanRollForEscape(0);
+        }
+        if($rolled[0] == $rolled[1]){
+            $this->getPlayerEntity()->setIsInJail(0);
+        }else{
+            $rolls = $this->getPlayerEntity()->getJailRolls() + 1;
+            $this->getPlayerEntity()->setJailRolls($rolls);
+        }
+    }
+
+    /**
+     * @param $em
+     * @return void
+     * @author Fabian Müller
+     */
+    public function jailBuyout($em){
+        $this->changeBalance(-50, $em);
+        $this->getPlayerEntity()->setJailRolls(0);
+        $this->getPlayerEntity()->setCanRollForEscape(1);
+        $this->getPlayerEntity()->setIsInJail(0);
         $em->persist($this->getPlayerEntity());
     }
 }

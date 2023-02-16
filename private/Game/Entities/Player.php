@@ -18,6 +18,7 @@ class Player extends BaseEntity
     protected $position;
     protected $isInJail;
     protected $jailRolls;
+    protected $canRollForEscape;
 
     /**
      * @return mixed
@@ -131,5 +132,20 @@ class Player extends BaseEntity
         $this->jailRolls = $jailRolls;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCanRollForEscape()
+    {
+        return $this->canRollForEscape;
+    }
+
+    /**
+     * @param mixed $canRollForEscape
+     */
+    public function setCanRollForEscape($canRollForEscape): void
+    {
+        $this->canRollForEscape = $canRollForEscape;
+    }
 
 }
