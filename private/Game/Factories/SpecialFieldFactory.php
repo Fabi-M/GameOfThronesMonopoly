@@ -14,7 +14,7 @@ use ReflectionException;
  */
 class SpecialFieldFactory
 {
-    const SPECIAL_FIELD_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:specialField';
+    const SPECIAL_FIELD_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:SpecialField';
 
     /**
      * @param EntityManager $em

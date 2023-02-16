@@ -10,7 +10,7 @@ use ReflectionException;
 
 class PlayerFactory
 {
-    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:player';
+    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:Player';
 
     /**
      * @param EntityManager $em

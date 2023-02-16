@@ -26,13 +26,25 @@ class GameManagerController extends BaseController
             // get game
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             if ($game === null) {
-                header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
+                if ($_SERVER['REMOTE_ADDR'] == "::1") {
+                    header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
+                }
+                else {
+                    header("Location: http://178.254.31.157/GameOfThronesMonopoly/Homepage");
+                }
                 die();
             }
             // get players
             $players = PlayerFactory::getPlayersOfGame($this->em, $game);
             $service = new SaveGameService();
-            $saveGameConfig = $service->getPlayfieldInitConfig($game, $players, $this->em);
+            if (count($players) > 0) {
+                $saveGameConfig = $service->getPlayfieldInitConfig($game, $players, $this->em);
+            }
+            else
+            {
+                echo "BOOOOOOOMMMMMMM";
+                return;
+            }
 
             // add dice
             $this->styleSheetCollector->addBottom('/css/Dice.css');
@@ -176,7 +188,7 @@ class GameManagerController extends BaseController
     {
         $this->scriptCollector->addBottom('/js/StartPage.js');
         echo $this->twig->render(
-            "Game/views/Start-Page.html.twig",
+            "Game/Views/Start-Page.html.twig",
             [
                 'imgPath' => self::IMG_PATH . 'menu/monopoly-title.jpg',
                 'imgPathTrennlinie' => self::IMG_PATH . 'menu/trennlinie.png'
