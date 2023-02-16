@@ -17,6 +17,7 @@ class game extends BaseEntity
     protected $maxActivePlayers;
     protected $allowedToEndTurn;
     protected $rolledDice;
+    protected $paschCount;
 
     /**
      * @return mixed
@@ -113,4 +114,21 @@ class game extends BaseEntity
     {
         $this->allowedToEndTurn = $allowedToEndTurn;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPaschCount()
+    {
+        return $this->paschCount;
+    }
+
+    /**
+     * @param mixed $paschCount
+     */
+    public function setPaschCount($paschCount): void
+    {
+        $this->paschCount = $paschCount;
+    }
+
 }

@@ -16,6 +16,8 @@ class player extends BaseEntity
     protected $ingameId;
     protected $money;
     protected $position;
+    protected $isInJail;
+    protected $jailRolls;
 
     /**
      * @return mixed
@@ -96,4 +98,38 @@ class player extends BaseEntity
     {
         $this->position = $position;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsInJail()
+    {
+        return $this->isInJail;
+    }
+
+    /**
+     * @param mixed $isInJail
+     */
+    public function setIsInJail($isInJail): void
+    {
+        $this->isInJail = $isInJail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJailRolls()
+    {
+        return $this->jailRolls;
+    }
+
+    /**
+     * @param mixed $jailRolls
+     */
+    public function setJailRolls($jailRolls): void
+    {
+        $this->jailRolls = $jailRolls;
+    }
+
+
 }

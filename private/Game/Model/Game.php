@@ -75,7 +75,8 @@ class Game
             "ingameId" => $playerEntity->getIngameId(),
             "sessionId" => $gameEntity->getSessionId(),
             'streets' => implode('<br>---------------<br>', $streetNames),
-            "success" => true
+            "success" => true,
+            "inJail" => $playerEntity->getIsInJail()
         ];
     }
 
@@ -94,6 +95,7 @@ class Game
         $this->gameEntity->setSessionId($sessionId);
         $this->gameEntity->setAllowedToEndTurn(0);
         $this->gameEntity->setRolledDice(0);
+        $this->gameEntity->setPaschCount(0);
 
         $em->persist($this->gameEntity);
 

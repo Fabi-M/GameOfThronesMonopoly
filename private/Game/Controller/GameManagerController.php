@@ -98,6 +98,15 @@ class GameManagerController extends BaseController
             $gameService->checkIfAllowedToEndTurn($rolled);
             $game->getGameEntity()->setRolledDice(1);
             $this->em->persist($game->getGameEntity());
+        }else{
+            $paschCount = $game->getGameEntity()->getPaschCount();
+            $paschCount++;
+            $game->getGameEntity()->setPaschCount($paschCount);
+            $this->em->persist($game->getGameEntity());
+            if($paschCount == 3){
+                $activePlayer->goToJail($this->em);
+                $playFieldId = 10;
+            }
         }
         // save
         $this->em->flush();

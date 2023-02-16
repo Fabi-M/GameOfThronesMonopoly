@@ -41,6 +41,8 @@ class Player
         $playerEntity->setIngameId($playerId);
         $playerEntity->setPosition(0);
         $playerEntity->setMoney(1500);
+        $playerEntity->setIsInJail(0);
+        $playerEntity->setJailRolls(0);
         $em->persist($playerEntity);
     }
 
@@ -57,6 +59,9 @@ class Player
         $newPosition = $oldPosition + array_sum($rolled);
         $newPosition = $newPosition <= Game::MAX_PLAY_FIELDS ? $newPosition : $newPosition - 40;
         $this->getPlayerEntity()->setPosition($newPosition);
+        if($rolled[0] == $rolled[1]){
+
+        }
         $em->persist($this->getPlayerEntity());
         return $newPosition;
     }
@@ -142,5 +147,17 @@ class Player
         $this->changeBalance(-($rent), $em);
         $owner->changeBalance($rent, $em);
         return $rent;
+    }
+
+    /**
+     * Send player to jail
+     * @param EntityManager $em
+     * @return void
+     * @author Fabian Müller
+     */
+    public function goToJail(EntityManager $em){
+        $this->getPlayerEntity()->setPosition(10);
+        $this->getPlayerEntity()->setIsInJail(1);
+        $em->persist($this->getPlayerEntity());
     }
 }
