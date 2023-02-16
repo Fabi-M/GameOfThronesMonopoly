@@ -99,6 +99,12 @@ class Figure {
      * @param data
      */
     showResult(result, data) {
-        data['this'].toastRent(result);
+        let parsed = JSON.parse(result);
+        if (parsed.isGameOver === true) {
+            let score = new Score();
+            score.requestScore();
+        } else {
+            data['this'].toastRent(result);
+        }
     }
 }

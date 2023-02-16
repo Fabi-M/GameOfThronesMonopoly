@@ -210,26 +210,41 @@ class GameManagerController extends BaseController
     public function GetEndScoreAction()
     {
         var_dump('help');
-         try {
+        try {
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             $players = PlayerFactory::getPlayersOfGame($this->em, $game);
             $scoreService = new ScoreService();
-            $msg = 'Das Spiel wurde beendet! <br> Hier sind die Besten!';
-            $game->getGameEntity()->setGameOver(1);
-            $this->em->persist($game->getGameEntity());
+            $heading = 'GAME OVER <br> Der aktuelle Spieler ist pleite gegangen.';
+            $msg = "Danke euch für's spielen! <br> Credits an René, Fabian, Christian und Selina.";
             $playerScores = $scoreService->calculateScore($players, $game, $this->em);
-            //$this->em->flush();
         } catch (Throwable $e) {
             $playerScores = [];
-            $msg = 'Oh no, fail :(';
+            $heading = 'Oh no, fail :(';
             $error = $e->getMessage() . ' --- ' . $e->getTraceAsString();
             error_log($error);
         }
 
         echo $this->twig->render('Game/Views/ScoreBoard.html.twig', [
             'scores' => $playerScores,
+            'heading' => $heading,
             'msg' => $msg,
             'IMG_PATH' => self::IMG_PATH
         ]);
+    }
+
+    public function EndGameAction()
+    {
+        try {
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
+            $game->getGameEntity()->setGameOver(1);
+            $this->em->persist($game->getGameEntity());
+            $this->em->flush();
+            session_regenerate_id(true);
+            $this->sessionId = session_id();
+            $result = true;
+        } catch (Throwable $e) {
+            $result = false;
+        }
+        echo json_encode($result);
     }
 }

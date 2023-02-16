@@ -4,25 +4,38 @@
  **/
 class Score {
     constructor() {
-        let events = new Events();
-        //      events.addEvent('click', $('.diceButton'), this.throwDices, {"this": this});
-        this.requestScore();
+        //this.requestScore();
     }
 
     requestScore() {
-        console.log('request')
         let url = BASEPATH + '/Scores';
-        console.log(url)
-        let request = new Ajax(url, false, this.displayScore);
+        let request = new Ajax(url, false, this.displayScore, this);
         request.execute();
     }
 
-    displayScore(result) {
-        console.log(result)
+    displayScore(result, that) {
         let popup = new ModalDialog();
         popup.Body = result;
         popup.destroyHeader();
+        popup.SuccessFunction  = that.redirectAndKill;
+        popup.SuccessFunctionName = 'Spiel beenden';
+        popup.SuccessFunctionOptions=that;
+        popup.enableYesNoButton();
         popup.setBackdrop('static')
         popup.showDialog();
+    }
+
+    redirectAndKill(that) {
+        console.log('kill')
+        let url = BASEPATH + '/EndGame';
+        console.log(this)
+        let request = new Ajax(url, false, that.redirect, that);
+        request.execute();
+    }
+
+    redirect(result) {
+        console.log('redirect')
+        console.log(result)
+        window.location.href = BASEPATH + '/Homepage';
     }
 }

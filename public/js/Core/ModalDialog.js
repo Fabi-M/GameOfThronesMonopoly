@@ -30,15 +30,12 @@ class ModalDialog {
             id = Math.random();
         }
         this.element.attr('id', id);
-        //  this.successFunction = function () {
-        //  };
-        //  this.abortFunction = function () {
-        //  };
 
         this.element.on('hidden.bs.modal', event => {
             this.element.remove();
         });
     }
+
 
     //Functions to set Class Variables
 
@@ -93,6 +90,10 @@ class ModalDialog {
         this.element.find('.modal-button-no').addClass('invisible');
 
     }
+    enableYesNoButton(){
+        this.element.find('.modal-button-yes').removeClass('invisible');
+        this.element.find('.modal-button-no').removeClass('invisible');
+    }
 
     /**
      *
@@ -125,12 +126,12 @@ class ModalDialog {
         this.element.modal('show');
         this.element.find('.modal-title').html(this.title)
         this.element.find('.modal-body').html(this.body);
-        let closeBtn = this.element.find('.modalDialogCloseBtn');
+        let yesButton = this.element.find('.modal-button-yes');
 
         if (this.successFunction !== false) {
-            closeBtn.removeClass('invisible').addClass('visible');
+            yesButton.removeClass('invisible').addClass('visible');
 
-            closeBtn.click(event => {
+            yesButton.click(event => {
                 let result = this.successFunction(this.successFunctionOptions)
                 if (result !== false) {
                     console.log('lalala')
@@ -138,7 +139,7 @@ class ModalDialog {
                 }
             }).html(this.successFunctionName);
         } else {
-            closeBtn.addClass('invisible').removeClass('visible');
+            yesButton.addClass('invisible').removeClass('visible');
 
         }
 
