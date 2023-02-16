@@ -81,6 +81,10 @@ class Figure {
                 body += ' Du bist pleite gegangen... GAMEOVER';
             }
             toast.Body = body;
+            toast.AllowToastClose=true;
+            toast.HideAfter=false;
+            toast.Loader=false;
+            toast.BgColor='#57031e';
             toast.show();
         }
     }
