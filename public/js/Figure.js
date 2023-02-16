@@ -12,8 +12,8 @@ class Figure {
     move(targetPlayFieldId) {
         let oldPlayFieldId = $(this.#$element).parent().parent().attr('data-id');
         let id = $(this.#$element).attr('id');
-
-        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId, this.moveAnimate)
+        // + 1 on targetField, otherwise the animation would stop one field before the real target field
+        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId + 1, this.moveAnimate)
     }
 
     /**
@@ -24,6 +24,7 @@ class Figure {
      * @param recursiveCallback
      */
     moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback) {
+        console.log('moveAnimate')
         let element = $('#' + id);
         let newParent = $('#spieler-bereich-' + oldPlayFieldId);
         let oldOffset = element.offset();
@@ -46,7 +47,9 @@ class Figure {
             if (oldPlayFieldId > 39) {
                 oldPlayFieldId = 0;
             }
-            if (oldPlayFieldId <= targetPlayFieldId) {
+            console.log("OldPlayFieldId " + oldPlayFieldId + " --- TargetPlayFieldId " + targetPlayFieldId);
+
+            if (oldPlayFieldId !== targetPlayFieldId) {
                 recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback);
             }
         });
@@ -72,6 +75,7 @@ class Figure {
      */
     toastRent(result) {
         let resultObj = JSON.parse(result);
+        console.log('toastRent')
         console.log(resultObj);
         if (resultObj['payedRent'] > 0) {
             let toast = new Toast();
@@ -81,10 +85,10 @@ class Figure {
                 body += ' Du bist pleite gegangen... GAMEOVER';
             }
             toast.Body = body;
-            toast.AllowToastClose=true;
-            toast.HideAfter=false;
-            toast.Loader=false;
-            toast.BgColor='#57031e';
+            toast.AllowToastClose = true;
+            toast.HideAfter = false;
+            toast.Loader = false;
+            toast.BgColor = '#57031e';
             toast.show();
         }
     }
