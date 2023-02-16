@@ -26,6 +26,7 @@ class BaseController
     protected $sessionId;
 
     protected const IMG_PATH = 'http://hosting175021.ae88e.netcup.net/img/';
+    //protected const IMG_PATH = '/GameOfThronesMonopoly/public/img/';
 
     /**
      * @var Environment
