@@ -9,12 +9,17 @@ class Testcontroller extends BaseController
     public function SelinaTestAction()
     {
         echo $this->twig->render(
-            "Game/views/Start-Page.html.twig",
+            "Game/Views/Start-Page.html.twig",
             [
                 'imgPath'=>self::IMG_PATH.'menu/monopoly-title.jpg',
                 'imgPathTrennlinie'=>self::IMG_PATH.'menu/trennlinie.png'
             ]
         );
+    }
+
+    public function ChristianTestAction()
+    {
+        echo "Hallo";
     }
 
     public function EndTurn()

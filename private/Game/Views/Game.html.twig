@@ -41,10 +41,10 @@ let round = new Round();
             <div class="ereigniskarte"></div>
 
                 {% for id in 0..39 %}
-                    {% include 'Game/views/PlayField/PlayField.html.twig' %}
+                    {% include 'Game/Views/PlayField/PlayField.html.twig' %}
                 {% endfor %}
                 <img class="spielfeld" src="{{ imgPath }}{{ playFieldJPG }}" alt="Spielfeld">
-                {% include 'Game/views/Dice.html.twig' %}
+                {% include 'Game/Views/Dice.html.twig' %}
             </div>
 
             {# Spieler und Straßenanzeige #}
@@ -65,7 +65,7 @@ let round = new Round();
                     {{ saveGame['activePlayerStreets']  | raw }}
                 </div>
                 {# //TODO 09.02.2023 Selina: money anpassen wenn straße gekauft / verkauft
-                {% include 'Game/views/Single-Card.html.twig' %}
+                {% include 'Game/Views/Single-Card.html.twig' %}
                 #}
 
                 {# Karteplatzhalter Ende #}

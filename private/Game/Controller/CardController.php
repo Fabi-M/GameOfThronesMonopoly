@@ -39,7 +39,7 @@ class CardController extends BaseController
         $type = 'Street';
         }
         
-        echo $this->twig->render('Game/views/CardInfoPopUp.html.twig' ,
+        echo $this->twig->render('Game/Views/CardInfoPopup.html.twig' ,
         [
             'card' => $card,
             'cardType' => $type,
@@ -53,7 +53,7 @@ class CardController extends BaseController
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
 
-        echo $this->twig->render('Game/views/PlayerCardInfoPopUp.html.twig', 
+        echo $this->twig->render('Game/Views/PlayerCardInfoPopUp.html.twig',
         [
         ]);
     }

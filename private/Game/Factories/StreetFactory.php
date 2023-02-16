@@ -14,7 +14,7 @@ use ReflectionException;
 
 class StreetFactory
 {
-    const STREET_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:street';
+    const STREET_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:Street';
 
     /**
      * @param EntityManager $em

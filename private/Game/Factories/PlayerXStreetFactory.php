@@ -12,7 +12,7 @@ use ReflectionException;
 
 class PlayerXStreetFactory
 {
-    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:player_x_street';
+    const GAME_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:Player_x_street';
 
     /**
      * @param EntityManager $em

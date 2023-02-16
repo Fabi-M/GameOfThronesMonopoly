@@ -9,7 +9,7 @@ use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
  * @primaryKey id
  * @Repository
  */
-class player_x_street extends BaseEntity
+class Player_x_street extends BaseEntity
 {
     protected $id;
     protected $playerId;

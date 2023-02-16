@@ -22,9 +22,9 @@ class StreetRepository extends BaseRepository
 
         $query = "
 SELECT IF(
-    (SELECT COUNT(*) FROM street s WHERE s.color=:color)
+    (SELECT COUNT(*) FROM Street s WHERE s.color=:color)
         = 
-    (SELECT COUNT(*) FROM player_x_field pf LEFT JOIN street s ON pf.fieldId = s.playfieldId WHERE s.color=:color AND pf.playerId=:playerId)
+    (SELECT COUNT(*) FROM Player_x_field pf LEFT JOIN Street s ON pf.fieldId = s.playfieldId WHERE s.color=:color AND pf.playerId=:playerId)
     , 'true', 'false') AS bool;";
 
         $stmt = $pdo->prepare($query);
@@ -39,8 +39,8 @@ SELECT IF(
     public static function getAllStreetsOfPlayer(Player $player)
     {
         $pdo = self::getPDO();
-        $query = '  SELECT * FROM street s
-            LEFT JOIN player_x_field pxf
+        $query = '  SELECT * FROM Street s
+            LEFT JOIN Player_x_field pxf
             ON s.playfieldId = pxf.fieldId
             WHERE pxf.playerId = :playerId';
         $stmt = $pdo->prepare($query);
@@ -60,7 +60,7 @@ SELECT IF(
     public static function getStreetIdFromPlayField($playFieldId): int
     {
         $pdo = self::getPDO();
-        $query = "SELECT s.id FROM street s WHERE s.playfieldId = :playfieldId";
+        $query = "SELECT s.id FROM Street s WHERE s.playfieldId = :playfieldId";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
                            ':playfieldId' => $playFieldId

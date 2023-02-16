@@ -3,7 +3,7 @@
 namespace GameOfThronesMonopoly\Game\Service;
 
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
-use GameOfThronesMonopoly\Game\Entities\player;
+use GameOfThronesMonopoly\Game\Entities\Player;
 
 class PlayerService
 {

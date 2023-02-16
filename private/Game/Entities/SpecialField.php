@@ -11,7 +11,7 @@ use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
  * @primaryKey id
  * @Repository
  */
-class specialField extends BaseEntity
+class SpecialField extends BaseEntity
 {
     protected int $id;
     protected int $playfieldId;
