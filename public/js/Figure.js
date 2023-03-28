@@ -30,13 +30,13 @@ class Figure {
      * @param isNotPasch
      */
     moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch) {
-        let element = $('#' + id);
-        let newParent = $('#spieler-bereich-' + oldPlayFieldId);
-        let oldOffset = element.offset();
-        element.appendTo(newParent);
-        let newOffset = element.offset();
-        let temp = element.clone().appendTo('body');
-        element.hide();
+        let playerFigure = $('#' + id);
+        let targetPlayField = $('#spieler-bereich-' + oldPlayFieldId);
+        let oldOffset = playerFigure.offset();
+        playerFigure.appendTo(targetPlayField);
+        let newOffset = playerFigure.offset();
+        let temp = playerFigure.clone().appendTo('body');
+        playerFigure.hide();
         temp.css({
             'position': 'absolute',
             'left': oldOffset.left,
@@ -45,7 +45,7 @@ class Figure {
         });
 
         temp.animate({'top': newOffset.top, 'left': newOffset.left}, 500, function () {
-            element.show();
+            playerFigure.show();
             temp.remove();
             oldPlayFieldId++;
             //recursive
@@ -83,6 +83,7 @@ class Figure {
         let resultObj = JSON.parse(result);
         console.log('toastRent')
         console.log(resultObj);
+        $('#currentMoney').text(resultObj['totalMoney']);
         if (resultObj['payedRent'] > 0) {
             let toast = new Toast();
             toast.Heading = 'Es ist Miete zu zahlen!';

@@ -82,7 +82,7 @@ body {
 }
 
 .spielfeld {
-  height: 85vh;
+  height: 92vh;
 }
 
 @media (max-width: 420px) {
@@ -701,7 +701,7 @@ img {
 }
 
 .container-margin {
-  margin: 35px;
+  margin: 0px 35px 0px 35px
 }
 
 .container.container-align {

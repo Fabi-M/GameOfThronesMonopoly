@@ -95,8 +95,6 @@ class GameManagerController extends BaseController
      */
     public function RollForMoveAction(): void
     {
-        //TODO 23.12.2022 Fabian: add try catch
-        // get the current game
         $gameService = new GameService();
         $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
         // build a dice and roll
@@ -215,7 +213,6 @@ class GameManagerController extends BaseController
 
     public function GetEndScoreAction()
     {
-        var_dump('help');
         try {
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             $players = PlayerFactory::getPlayersOfGame($this->em, $game);

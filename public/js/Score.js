@@ -21,7 +21,7 @@ class Score {
         popup.SuccessFunctionName = 'Spiel beenden';
         popup.SuccessFunctionOptions=that;
         popup.enableYesNoButton();
-        popup.setBackdrop('static')
+        popup.setBackdrop('static');
         popup.showDialog();
     }
 

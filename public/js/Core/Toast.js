@@ -4,7 +4,6 @@
  **/
 class Toast {
 
-
     _body = 'test';
     _heading = 'test';
     _icon = ''; // info, warning, error, success
