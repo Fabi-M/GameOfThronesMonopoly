@@ -92,7 +92,7 @@ class GameManagerController extends BaseController
         $rolled = $dice->roll();
         // get the active player and let it move
         $activePlayer = PlayerFactory::getActivePlayer($this->em, $game);
-        $playFieldId = $activePlayer->move($this->em, $rolled);
+        $response = $activePlayer->move($this->em, $rolled);
         if ($rolled[0] !== $rolled[1]) { // not for pasch
             // save that player rolled for movement
             $gameService->checkIfAllowedToEndTurn($rolled);
@@ -105,19 +105,15 @@ class GameManagerController extends BaseController
             if($paschCount == 3){
                 $activePlayer->goToJail($this->em);
                 $game->getGameEntity()->setAllowedToEndTurn(1);
-                $playFieldId = 10;
+                $response["newPosition"] = 10;
             }
             $this->em->persist($game->getGameEntity());
         }
         // save
         $this->em->flush();
-        echo json_encode(
-            [
-                'dice' => $rolled,
-                'playFieldId' => $playFieldId,
-                'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
-            ]
-        );
+        $response["dice"] = $rolled;
+        $response["activePlayerId"] = $game->getGameEntity()->getActivePlayerId();
+        echo json_encode($response);
     }
 
     /**

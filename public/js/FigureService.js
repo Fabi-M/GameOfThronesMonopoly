@@ -37,6 +37,11 @@ class FigureService {
     moveFigure(result, data) {
         $("#next_player").prop("disabled", false);
         let resultObj = JSON.parse(result);
+        console.log("IMPORTANT______________________________");
+        console.log(resultObj);
+        if(resultObj['comment'] !== undefined){
+            data['dice'].toastSpecialField(resultObj['comment']);
+        }
         if (resultObj['dice'][0] !== resultObj['dice'][1]) {
             $(".diceButton").prop("disabled", true);
         }
@@ -53,6 +58,9 @@ class FigureService {
         figure.payRent(playFieldId);
 
     }
+
+
+
 
 
     /**

@@ -67,9 +67,10 @@ class Player
         }
         $this->getPlayerEntity()->setPosition($newPosition);
         $specialFieldService = new SpecialFieldService();
-        $specialFieldService->checkIfOnSpecialField($em, $newPosition, $this);
+        $speciaFieldReturn = $specialFieldService->checkIfOnSpecialField($em, $newPosition, $this);
         $em->persist($this->getPlayerEntity());
-        return $newPosition;
+        $speciaFieldReturn ["newPosition"] = $newPosition;
+        return $speciaFieldReturn;
     }
 
     /**

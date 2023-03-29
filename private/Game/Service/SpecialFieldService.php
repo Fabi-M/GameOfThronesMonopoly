@@ -21,9 +21,13 @@ class SpecialFieldService
             $this->specialField = SpecialFieldFactory::getByFieldId($em, $fieldId);
             if($this->specialField != null){
                 $functionName = $this->specialField->getEntity()->getAction(); // action
-                $this->$functionName();
+                 $this->$functionName();
+                return [
+                    "comment" => $this->specialField->getEntity()->getComment(),
+                    "amount" => $this->specialField->getEntity()->getAmount()];
             }
         }
+        return [];
     }
 
     public function moneyChange(){

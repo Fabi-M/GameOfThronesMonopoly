@@ -34,6 +34,8 @@ class Dice {
         this.showRollDice(dice);
     }
 
+a
+
     /**
      * @author Selina Stöcklein & Christian Teubner
      * @param result
@@ -94,5 +96,11 @@ class Dice {
 
         d1.classList.remove("show-default");
         d2.classList.remove("show-default");
+    }
+
+    toastSpecialField(message) {
+        let toast = new Toast();
+        toast.Body = message;
+        toast.show();
     }
 }
