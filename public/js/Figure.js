@@ -24,16 +24,16 @@ class Figure {
     /**
      * move player recursively from playfield to playfield
      * @param id
-     * @param oldPlayFieldId
+     * @param nextPlayFieldId
      * @param targetPlayFieldId
      * @param recursiveCallback
      * @param isNotPasch
      */
-    moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch) {
+    moveAnimate(id, nextPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch) {
         let playerFigure = $('#' + id);
-        let targetPlayField = $('#spieler-bereich-' + oldPlayFieldId);
+        let $nextPlayField = $('#spieler-bereich-' + nextPlayFieldId);
         let oldOffset = playerFigure.offset();
-        playerFigure.appendTo(targetPlayField);
+        playerFigure.appendTo($nextPlayField);
         let newOffset = playerFigure.offset();
         let temp = playerFigure.clone().appendTo('body');
         playerFigure.hide();
@@ -47,13 +47,13 @@ class Figure {
         temp.animate({'top': newOffset.top, 'left': newOffset.left}, 500, function () {
             playerFigure.show();
             temp.remove();
-            oldPlayFieldId++;
+            nextPlayFieldId++;
             //recursive
-            if (oldPlayFieldId > 39) {
-                oldPlayFieldId = 0;
+            if (nextPlayFieldId > 39) {
+                nextPlayFieldId = 0;
             }
-            if (oldPlayFieldId !== targetPlayFieldId) {
-                recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch);
+            if (nextPlayFieldId !== targetPlayFieldId) {
+                recursiveCallback(id, nextPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch);
             } else {
                 $(".diceButton").prop("disabled", isNotPasch);
                 $("#next_player").prop("disabled", !isNotPasch);
@@ -81,7 +81,6 @@ class Figure {
      */
     toastRent(result) {
         let resultObj = JSON.parse(result);
-        console.log('toastRent')
         console.log(resultObj);
         $('#currentMoney').text(resultObj['totalMoney']);
         if (resultObj['payedRent'] > 0) {

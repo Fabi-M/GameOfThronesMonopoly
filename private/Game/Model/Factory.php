@@ -13,18 +13,21 @@ class Factory extends Street
         if (!isset($_SESSION["dice"])) {
             throw new \Exception("Last dice result not set");
         }
-
-        $amount = PlayerXStreetFactory::filter(
-            $em,
-            [
-                'WHERE' => [
-                    ['playerId', 'equal', $playerId],
-                ],
-                "IN" => [
-                    "fieldId" => $this->ids
+        if (empty($em)) {
+            $amount = [1];
+        } else {
+            $amount = PlayerXStreetFactory::filter(
+                $em,
+                [
+                    'WHERE' => [
+                        ['playerId', 'equal', $playerId],
+                    ],
+                    "IN" => [
+                        "fieldId" => $this->ids
+                    ]
                 ]
-            ]
-        );
+            );
+        }
         if (count($amount) == 2) {
             return 10 * $_SESSION["dice"];
         }

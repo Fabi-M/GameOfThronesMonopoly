@@ -160,10 +160,12 @@ class StreetController extends BaseController
             $playerId = $player->getPlayerEntity()->getId();
             $totalMoney = $player->getPlayerEntity()->getMoney();
             $street = StreetFactory::getByFieldId($this->em, $fieldId, $game->getGameEntity()->getId());
-            $ownerId = $street->getXField()->getPlayerXStreetEntity()->getPlayerId();
             if (!($street instanceof Street)
-                || $street->isUnOwned()
-                || $playerId === $ownerId) {
+                || $street->isUnOwned()) {
+                throw new Exception("No Rent To Pay");
+            }
+            $ownerId = $street->getXField()->getPlayerXStreetEntity()->getPlayerId();
+            if ($playerId===$ownerId){
                 throw new Exception("No Rent To Pay");
             }
             $owner = PlayerFactory::getPlayerById(

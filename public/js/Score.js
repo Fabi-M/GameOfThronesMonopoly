@@ -26,16 +26,12 @@ class Score {
     }
 
     redirectAndKill(that) {
-        console.log('kill')
         let url = BASEPATH + '/EndGame';
-        console.log(this)
         let request = new Ajax(url, false, that.redirect, that);
         request.execute();
     }
 
     redirect(result) {
-        console.log('redirect')
-        console.log(result)
         window.location.href = BASEPATH + '/Homepage';
     }
 }

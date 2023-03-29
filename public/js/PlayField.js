@@ -9,10 +9,15 @@ class PlayField {
         events.addEvent('click', $('.playField'), this.requestCardInfo, {"this": this});
         events.addEvent('click', $('.player-card'), this.cardButons, {"this": this});
         // If a player steps on the "Über-Los"-playfield, an event will be triggert, to get the 200 $ salary!
-        $('#spieler-bereich-0').bind("DOMNodeInserted", event => {
-            this.requestSalary();
-
+        let x = new MutationObserver( e => {
+            if (e[0].addedNodes) console.log(e);
+            let $target = $(e[0].addedNodes[0]);
+            if ($target.hasClass('playerFigure')) {
+                this.requestSalary();
+            }
         });
+
+        x.observe($('#spieler-bereich-0')[0], {childList: true});
     }
 
     /**
@@ -47,8 +52,8 @@ class PlayField {
         // ajax
         let url = BASEPATH + "/Card/View";
         let playFieldId = $(event.currentTarget).attr('data-id');
-        const bannedFieldIds=[0,2,4,7,10,17,20,22,30,33,36,38];
-        if ($.inArray(parseInt(playFieldId), bannedFieldIds)<0) {
+        const bannedFieldIds = [0, 2, 4, 7, 10, 17, 20, 22, 30, 33, 36, 38];
+        if ($.inArray(parseInt(playFieldId), bannedFieldIds) < 0) {
             let request = new Ajax(url, {'playFieldId': playFieldId}, data['this'].showCardPopUp, data);
             request.execute();
         }
