@@ -4,7 +4,6 @@
 let gameField = new PlayField();
 let card = new Card();
 let round = new Round();
-new Jail();
 let score = new Score();
 {% endblock %}
 
@@ -75,13 +74,11 @@ let score = new Score();
                 {# Menu-Buttons #}
 
             </div>
-<<<<<<< HEAD:private/Game/views/Game.html.twig
             <div class="col margin-buttons normalbuttons">
                 {% include 'Game/views/buttons/NormalButtons.html.twig' %}
             </div>
             <div class="col margin-buttons jailbuttons" hidden>
                 {% include 'Game/views/buttons/JailButtons.html.twig' %}
-=======
             <div class="col margin-buttons">
                 <div class="row interaktionsbuttons">
                     <div class="row">
@@ -101,8 +98,6 @@ let score = new Score();
                     <input class="interaktionsbutton" type="button" id="next_player" name="next_player"
                         value="nächster Spieler" {{ disabled }}>
                 </div>
-
->>>>>>> Selina:private/Game/Views/Game.html.twig
             </div>
         </div>
 
