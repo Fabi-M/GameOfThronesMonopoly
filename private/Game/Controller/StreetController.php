@@ -157,9 +157,13 @@ class StreetController extends BaseController
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             // checken wieviel miete
             $player = PlayerFactory::getActivePlayer($this->em, $game);
+            $playerId = $player->getPlayerEntity()->getId();
             $totalMoney = $player->getPlayerEntity()->getMoney();
             $street = StreetFactory::getByFieldId($this->em, $fieldId, $game->getGameEntity()->getId());
-            if (!($street instanceof Street) || $street->isUnOwned()) {
+            $ownerId = $street->getXField()->getPlayerXStreetEntity()->getPlayerId();
+            if (!($street instanceof Street)
+                || $street->isUnOwned()
+                || $playerId === $ownerId) {
                 throw new Exception("No Rent To Pay");
             }
             $owner = PlayerFactory::getPlayerById(
@@ -204,8 +208,8 @@ class StreetController extends BaseController
         }
 
         echo json_encode([
-                             'totalMoney' => $newMoney,
-                             'salary' => $salary
-                         ]);
+            'totalMoney' => $newMoney,
+            'salary' => $salary
+        ]);
     }
 }
