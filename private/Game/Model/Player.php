@@ -4,6 +4,7 @@ namespace GameOfThronesMonopoly\Game\Model;
 
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
+use GameOfThronesMonopoly\Game\Service\SpecialFieldService;
 use ReflectionException;
 
 class Player
@@ -53,16 +54,20 @@ class Player
      * @return void
      * @author Selina Stöcklein
      */
-    public function move(EntityManager $em, array $rolled)
+    public function move(EntityManager $em, array $rolled, int $overridePosition = 0)
     {
-        $oldPosition = $this->getPlayerEntity()->getPosition();
-        // 0-39 felder
-        $newPosition = $oldPosition + array_sum($rolled);
-        $newPosition = $newPosition <= Game::MAX_PLAY_FIELDS ? $newPosition : $newPosition - 40;
-        $this->getPlayerEntity()->setPosition($newPosition);
-        if($rolled[0] == $rolled[1]){
-
+        $newPosition = 0;
+        if($overridePosition != 0){
+            $newPosition = $overridePosition;
+        }else{
+            $oldPosition = $this->getPlayerEntity()->getPosition();
+            // 0-39 felder
+            $newPosition = $oldPosition + array_sum($rolled);
+            $newPosition = $newPosition <= Game::MAX_PLAY_FIELDS ? $newPosition : $newPosition - 40;
         }
+        $this->getPlayerEntity()->setPosition($newPosition);
+        $specialFieldService = new SpecialFieldService();
+        $specialFieldService->checkIfOnSpecialField($em, $newPosition, $this);
         $em->persist($this->getPlayerEntity());
         return $newPosition;
     }

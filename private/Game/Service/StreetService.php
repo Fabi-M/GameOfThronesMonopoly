@@ -100,15 +100,12 @@ class StreetService
      */
     public function sellStreet($fieldId){
 
-        //TODO 23.12.2022 Selina: create base method for double code
-        //TODO 23.12.2022 Selina: create string classes
         if(!((bool) $this->game->getGameEntity()->getAllowedToEndTurn())) throw new Exception("Player has to roll first!"); // player has to roll first
 
         $this->getAllModels($fieldId);
 
         if($this->playerXField == null) throw new Exception("This street is currently not owned, you can't sell the street"); // doesn't own street
         if($this->playerXField->getPlayerXStreetEntity()->getBuildings() > 0) throw new Exception("You have to sell the houses before you can sell the street"); // has houses on street, needs to sell them first
-        // todo: check if player has houses on other streets with the same color -> can't sell street
 
         $this->playerXField->delete($this->em);
         $this->player->sellStreet($fieldId, $this->em);

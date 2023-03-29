@@ -2,7 +2,7 @@
 
 namespace GameOfThronesMonopoly\Game\Model;
 
-use GameOfThronesMonopoly\Game\Entities\specialField as specialFieldEntity;
+use GameOfThronesMonopoly\Game\Entities\Specialfield as specialFieldEntity;
 
 /**
  * Class SpecialField
@@ -24,4 +24,5 @@ class SpecialField
     public function getEntity():specialFieldEntity {
         return $this->entity;
     }
+
 }

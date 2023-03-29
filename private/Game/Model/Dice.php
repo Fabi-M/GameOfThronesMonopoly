@@ -15,7 +15,9 @@ class Dice
     public function roll(): array
     {
         //$result = [rand(1, 6), rand(1, 6)];
-        $result = [1,2];
+        $result = [1,3]; // steuerfeld;
+        //$result = [1,1]; // pasch;
+        //$result = [1,2]; // normal;
         $_SESSION["dice"] = array_sum($result);
         return $result;
     }

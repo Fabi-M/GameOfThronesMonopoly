@@ -50,6 +50,7 @@ class Game
     public function endTurn(EntityManager $em): array
     {
         $gameEntity = $this->gameEntity;
+        $gameEntity->setPaschCount(0);
         if (!((bool) $gameEntity->getAllowedToEndTurn())) {
             throw new Exception("Player is not allowed to end turn!");
         }
@@ -76,7 +77,8 @@ class Game
             "sessionId" => $gameEntity->getSessionId(),
             'streets' => implode('<br>---------------<br>', $streetNames),
             "success" => true,
-            "inJail" => $playerEntity->getIsInJail()
+            "inJail" => $playerEntity->getIsInJail(),
+            "canRollForEscapes" => $playerEntity->getCanRollForEscape()
         ];
     }
 

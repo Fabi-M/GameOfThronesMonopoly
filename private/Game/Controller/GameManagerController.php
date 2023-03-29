@@ -59,7 +59,6 @@ class GameManagerController extends BaseController
      */
     public function EndTurnAction(): void
     {
-        //TODO 09.02.2023 Selina: Daten des nächsten Spielers zurück geben
         try {
             $gameService = new GameService();
             $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
@@ -126,23 +125,41 @@ class GameManagerController extends BaseController
      * @url    /Roll/Escape
      * @return void
      * @throws Exception
-     * @author Christian Teubner, Selina Stöcklein
+     * @author Christian Teubner, Selina Stöcklein, Fabian Müller
      */
     public function RollForEscapeAction(): void
     {
-        $gameService = new GameService();
-        $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
-        $player = PlayerFactory::getActivePlayer($this->em, $game);
-        $dice = new Dice();
-        $rolled = $dice->roll();
-        $player->hasRolledForEscape($rolled);
-        echo json_encode(
-            [
-                'dice' => $rolled,
-                'escaped' => $rolled[0] == $rolled[1],
-                'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
-            ]
-        );
+        try{
+            $gameService = new GameService();
+            $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
+            $player = PlayerFactory::getActivePlayer($this->em, $game);
+            if($player->getPlayerEntity()->getJailRolls() == 3){
+                Throw new Exception("You are only allowed to roll 3 times, you have to pay the buyout fee now");
+            }
+            $dice = new Dice();
+            $rolled = $dice->roll();
+            $player->hasRolledForEscape($rolled);
+            $game->getGameEntity()->setAllowedToEndTurn(1);
+            $this->em->persist($game->getGameEntity());
+            $this->em->persist($player->getPlayerEntity());
+            $this->em->flush();
+            $response =  json_encode(
+                [
+                    'dice' => $rolled,
+                    'inJail' => $rolled[0] != $rolled[1],
+                    'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
+                ]
+            );
+        }catch(\Throwable $e){
+            $response =  json_encode(
+                [
+                    'inJail' => true,
+                    'activePlayerId' => $game->getGameEntity()->getActivePlayerId(),
+                    'error' => $e->getMessage()
+                ]
+            );
+        }
+        echo $response;
     }
 
     /**
@@ -228,13 +245,13 @@ class GameManagerController extends BaseController
             $this->em->persist($game->getGameEntity());
             $this->em->flush();
             $response = [
-                "escaped" => true,
+                "inJail" => false,
                 "success" => true,
                 "id" => $this->sessionId,
             ];
         }catch(\Throwable $e){
             $response = [
-                "escaped" => false,
+                "inJail" => true,
                 "success" => "false",
                 "error" => $e->getMessage()
             ];

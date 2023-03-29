@@ -12,6 +12,7 @@ class Jail{
      * @param data
      */
     rollDices(event, data){
+        $('#jailDice').attr("disabled", true);
         console.log("ESCAPEROLL");
         let url = BASEPATH + '/Roll/Escape';
         let request = new Ajax(url, false, data["this"].displayPopup, data);
@@ -25,12 +26,18 @@ class Jail{
     displayPopup(result) {
         let resultObj = JSON.parse(result);
         console.log(resultObj);
-        if(resultObj["escaped"] == true){
-            alert("Du hast das Gefängnis verlassen");
-        }else{
-            alert("Du bist immer noch im Gefängnis");
+        if(resultObj['error'] !== undefined){
+            let toast = new Toast("Du hast bereits 3x gewürfelt und musst nun 50$ zahlen um das Gefängnis verlassen zu können","Gefängnis");
+            toast.show();
         }
-        Jail.UpdateJailButtons(result);
+        else if(resultObj["inJail"] == false || resultObj["inJail"] == 0){
+            let toast = new Toast("Pasch! Du hast das Gefängnis verlassen","Gefängnis");
+            toast.show();
+        }else{
+            let toast = new Toast("Kein Pasch! Du bist immer noch im Gefängnis","Gefängnis");
+            toast.show();
+        }
+        Jail.UpdateJailButtons(resultObj);
     }
 
     /**
@@ -46,14 +53,18 @@ class Jail{
     }
 
     static UpdateJailButtons(result){
-        if(result["escaped"] == false){
-            console.log(1);
-            $('.normalbuttons').attr("hidden", true);
-            $('.jailbuttons').removeAttr("hidden");
-        }else{
-            console.log(2);
-            $('.normalbuttons').removeAttr("hidden");
-            $('.jailbuttons').attr("hidden", true);
-        }
+        console.log(result);
+            if(result["inJail"] == true || result["inJail"] == 1){
+                console.log(1);
+                $('.normalbuttons').attr("hidden", true);
+                $('.jailbuttons').removeAttr("hidden");
+                if(result["canRollForEscape"] == 0){
+                    $('#jailDice').attr("disabled", true);
+                }
+            }else{
+                console.log(2);
+                $('.normalbuttons').removeAttr("hidden");
+                $('.jailbuttons').attr("hidden", true);
+            }
     }
 }

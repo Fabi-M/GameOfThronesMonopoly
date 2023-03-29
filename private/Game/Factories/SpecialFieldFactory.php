@@ -3,7 +3,7 @@
 namespace GameOfThronesMonopoly\Game\Factories;
 
 use GameOfThronesMonopoly\Core\Datamapper\EntityManager;
-use GameOfThronesMonopoly\Game\Entities\specialField as specialFieldEntity;
+use GameOfThronesMonopoly\Game\Entities\Specialfield as specialFieldEntity;
 use GameOfThronesMonopoly\Game\Model\SpecialField;
 use ReflectionException;
 
@@ -14,7 +14,7 @@ use ReflectionException;
  */
 class SpecialFieldFactory
 {
-    const SPECIAL_FIELD_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:specialField';
+    const SPECIAL_FIELD_NAMESPACE = 'GameOfThronesMonopoly\Game:Entities:Specialfield';
 
     /**
      * @param EntityManager $em

@@ -4,8 +4,8 @@
         {% if saveGame['rolledDice'] == 1 %}
             {% set disabled = 'disabled' %}
         {% endif %}
-        <input class="interaktionsbutton diceButton" type="button" id="jailDice" data-action="Move"
-               name="jailDice" value="Würfeln" {{ disabled }}>
+        <input class="interaktionsbutton" type="button" id="jailDice" data-action="Move"
+               name="jailDice" value="Würfeln">
     </div>
     <div class="row">
         <input class="interaktionsbutton" type="button" id="payout"
@@ -17,6 +17,6 @@
     {% if saveGame['rolledDice'] == 0 %}
         {% set disabled = 'disabled' %}
     {% endif %}
-    <input class="interaktionsbutton" type="button" id="next_player" name="next_player"
-           value="nächster Spieler" {{ disabled }}>
+    <input class="interaktionsbutton" type="button" id="next_playerJail" name="next_playerJail"
+           value="nächster Spieler">
 </div>

@@ -11,7 +11,7 @@ use GameOfThronesMonopoly\Core\Datamapper\BaseEntity;
  * @primaryKey id
  * @Repository
  */
-class SpecialField extends BaseEntity
+class Specialfield extends BaseEntity
 {
     protected int $id;
     protected int $playfieldId;
@@ -19,6 +19,7 @@ class SpecialField extends BaseEntity
     protected string $action;
     protected string $name;
     protected string $comment;
+    protected int $amount;
 
     /**
      * @return int
@@ -115,4 +116,22 @@ class SpecialField extends BaseEntity
     {
         $this->comment = $comment;
     }
+
+    /**
+     * @return int
+     */
+    public function getAmount(): int
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param int $amount
+     */
+    public function setAmount(int $amount): void
+    {
+        $this->amount = $amount;
+    }
+
+
 }

@@ -6,6 +6,7 @@ class Round {
         Round.INSTANCE = this;
         let events = new Events();
         events.addEvent('click', $('#next_player'), this.endRound, {"this": this});
+        events.addEvent('click', $('#next_playerJail'), this.endRound, {"this": this});
     }
 
     /**
@@ -55,5 +56,9 @@ class Round {
         $('#ownedStreets').html(nextPlayer['streets']);
         $( "#next_player" ).prop( "disabled", true );
         $( "#wuerfeln" ).prop( "disabled", false );
+        $('#jailDice').attr("disabled", false);
+
+
+        Jail.UpdateJailButtons(nextPlayer);
     }
 }
