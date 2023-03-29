@@ -8,6 +8,8 @@ use GameOfThronesMonopoly\Core\Exceptions\SQLException;
 use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
 use GameOfThronesMonopoly\Game\Factories\StreetFactory;
+use GameOfThronesMonopoly\Game\Model\Game;
+use GameOfThronesMonopoly\Game\Model\Player;
 use GameOfThronesMonopoly\Game\Model\Street;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\StreetService;
@@ -19,6 +21,9 @@ use Twig\Error\SyntaxError;
 
 class StreetController extends BaseController
 {
+    // money over go
+    const SALARY = 200;
+
     /**
      * Buys the selected Street
      * @url    /street/buy
@@ -75,7 +80,6 @@ class StreetController extends BaseController
      * @url    /street/house/buy/(.*)
      * @param $fieldId
      * @return void
-     * @throws SQLException
      * @throws Exception
      * @author Fabian Müller
      */
@@ -125,9 +129,10 @@ class StreetController extends BaseController
 
     /**
      * Trade the selected Street to another Player
-     * @url    /street/trade
+     * @url          /street/trade
      * @return void
-     * @author Christian Teubner
+     * @throws Exception
+     * @author       Christian Teubner
      */
     public function TradeStreetAction(): void
     {
@@ -152,9 +157,15 @@ class StreetController extends BaseController
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             // checken wieviel miete
             $player = PlayerFactory::getActivePlayer($this->em, $game);
+            $playerId = $player->getPlayerEntity()->getId();
             $totalMoney = $player->getPlayerEntity()->getMoney();
             $street = StreetFactory::getByFieldId($this->em, $fieldId, $game->getGameEntity()->getId());
-            if (!($street instanceof Street) || $street->isUnOwned()) {
+            if (!($street instanceof Street)
+                || $street->isUnOwned()) {
+                throw new Exception("No Rent To Pay");
+            }
+            $ownerId = $street->getXField()->getPlayerXStreetEntity()->getPlayerId();
+            if ($playerId===$ownerId){
                 throw new Exception("No Rent To Pay");
             }
             $owner = PlayerFactory::getPlayerById(
@@ -176,5 +187,31 @@ class StreetController extends BaseController
                 'payedRent' => $rent
             ]
         );
+    }
+
+    /**
+     * @return void
+     * @author Selina Stöcklein
+     */
+    public function GetSalaryAction(): void
+    {
+        try {
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
+            $activePlayer = PlayerFactory::getActivePlayer($this->em, $game);
+            $playerEntity = $activePlayer->getPlayerEntity();
+            $salary = self::SALARY;
+            $playerEntity->setMoney($playerEntity->getMoney() + $salary);
+            $this->em->persist($playerEntity);
+            $this->em->flush();
+            $newMoney = $playerEntity->getMoney();
+        } catch (Throwable $e) {
+            $newMoney = 'error';
+            $salary = 0;
+        }
+
+        echo json_encode([
+            'totalMoney' => $newMoney,
+            'salary' => $salary
+        ]);
     }
 }

@@ -26,6 +26,7 @@ class BaseController
     protected $sessionId;
 
     protected const IMG_PATH = 'http://hosting175021.ae88e.netcup.net/img/';
+    //protected const IMG_PATH = '/GameOfThronesMonopoly/public/img/';
 
     /**
      * @var Environment
@@ -66,7 +67,7 @@ class BaseController
     {
         $loader = new FilesystemLoader('../private/');
         $this->twig = new Environment($loader, ['cache' => false]);
-        if ($_SERVER['REMOTE_ADDR'] == "::1") {
+        if ($_SERVER['REMOTE_ADDR'] == "::1" || $_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
             $this->twig->addGlobal(
                 'BASEPATH', "http://localhost/GameOfThronesMonopoly"
             );
@@ -190,7 +191,12 @@ class BaseController
     {
         $game = GameFactory::getActiveGame($this->em, $this->sessionId);
         if (is_null($game) && $_SERVER["REQUEST_URI"] == "/GameOfThronesMonopoly/Play") {
-            header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
+            if ($_SERVER['REMOTE_ADDR'] == "::1") {
+                header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
+            }
+            else {
+                header("Location: http://178.254.31.157/GameOfThronesMonopoly/Homepage");
+            }
             die();
         }
     }

@@ -1,0 +1,18 @@
+{{cardType}}
+{% if cardType == 'Street' %}
+{% include 'Game/Views/Single-Card.html.twig' %}
+{% include 'Game/Views/Buttons/Streetbuttons.html.twig' %}
+
+{% elseif cardType == 'Trainstation' %}
+{% include 'Game/Views/Single-Card-Bahnhof.html.twig' %}
+{% include 'Game/Views/Buttons/Bahnhofbuttons.html.twig' %}
+
+{% elseif cardType == 'Factory' %}
+{% include 'Game/Views/Single-Card-Werke.html.twig' %}
+{% include 'Game/Views/Buttons/Bahnhofbuttons.html.twig' %}
+
+{% else %}
+{% include 'Game/Views/Single-Card-Ereignis.html.twig' %}
+{% include 'Game/Views/Buttons/Ereignisbuttons.html.twig' %}
+
+{% endif %}

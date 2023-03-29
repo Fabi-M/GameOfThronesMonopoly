@@ -50,17 +50,13 @@ class FigureService {
         data['dice'].toastRolledDice(resultObj['dice']); // dice.js
         let playerId = resultObj['activePlayerId'];
         let playFieldId = resultObj['playFieldId'];
-        console.log(playerId)
         let figure = me.getFigure(playerId);
-        console.log(playFieldId)
-        console.log(figure)
-        figure.move(playFieldId);
+        let isNotPasch = resultObj['dice'][0] !== resultObj['dice'][1]
+        console.log(isNotPasch)
+        figure.move(playFieldId, isNotPasch);
         figure.payRent(playFieldId);
 
     }
-
-
-
 
 
     /**

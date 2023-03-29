@@ -10,18 +10,22 @@ class Trainstation extends Street
 
     public function getRent($em = null, $playerId = null): mixed
     {
-        $amount = PlayerXStreetFactory::filter(
-            $em,
-            [
-                'WHERE' => [
-                    ['playerId', 'equal', $playerId],
-                ],
-                "IN" => [
-                    "fieldId" => $this->ids
+        if (empty($em)) {
+            $amount = [1];
+        } else {
+            $amount = PlayerXStreetFactory::filter(
+                $em,
+                [
+                    'WHERE' => [
+                        ['playerId', 'equal', $playerId],
+                    ],
+                    "IN" => [
+                        "fieldId" => $this->ids
+                    ]
                 ]
-            ]
 
-        );
+            );
+        }
         return 25 * pow(2, count($amount) - 1);
     }
 }

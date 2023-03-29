@@ -6,12 +6,11 @@ use Exception;
 use GameOfThronesMonopoly\Core\Controller\BaseController;
 use GameOfThronesMonopoly\Game\Factories\GameFactory;
 use GameOfThronesMonopoly\Game\Factories\PlayerFactory;
-use GameOfThronesMonopoly\Game\Factories\StreetFactory;
 use GameOfThronesMonopoly\Game\Model\Dice;
-use GameOfThronesMonopoly\Game\Model\Street;
-use GameOfThronesMonopoly\Game\Repositories\StreetRepository;
 use GameOfThronesMonopoly\Game\Service\GameService;
 use GameOfThronesMonopoly\Game\Service\SaveGameService;
+use GameOfThronesMonopoly\Game\Service\ScoreService;
+use Throwable;
 
 class GameManagerController extends BaseController
 {
@@ -21,17 +20,29 @@ class GameManagerController extends BaseController
             // get game
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             if ($game === null) {
-                header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
+                if ($_SERVER['REMOTE_ADDR'] == "::1") {
+                    header("Location: http://localhost/GameOfThronesMonopoly/Homepage");
+                }
+                else {
+                    header("Location: http://178.254.31.157/GameOfThronesMonopoly/Homepage");
+                }
                 die();
             }
             // get players
             $players = PlayerFactory::getPlayersOfGame($this->em, $game);
             $service = new SaveGameService();
-            $saveGameConfig = $service->getPlayfieldInitConfig($game, $players, $this->em);
+            if (count($players) > 0) {
+                $saveGameConfig = $service->getPlayfieldInitConfig($game, $players, $this->em);
+            }
+            else
+            {
+                echo "BOOOOOOOMMMMMMM";
+                return;
+            }
 
             // add dice
             $this->styleSheetCollector->addBottom('/css/Dice.css');
-            $this->scriptCollector->addBottom('/js/Jail.js');
+            $this->scriptCollector->addBottom('/js/Score.js');
             // display playfield and savegame
             echo $this->twig->render(
                 "Game/Views/Game.html.twig",
@@ -59,6 +70,7 @@ class GameManagerController extends BaseController
      */
     public function EndTurnAction(): void
     {
+        //TODO 09.02.2023 Selina: Daten des nächsten Spielers zurück geben
         try {
             $gameService = new GameService();
             $game = $gameService->getGameBySessionId($this->em, $this->sessionId);
@@ -197,10 +209,10 @@ class GameManagerController extends BaseController
     {
         $this->scriptCollector->addBottom('/js/StartPage.js');
         echo $this->twig->render(
-            "Game/views/Start-Page.html.twig",
+            "Game/Views/Start-Page.html.twig",
             [
-                'imgPath'=>self::IMG_PATH.'menu/monopoly-title.jpg',
-                'imgPathTrennlinie'=>self::IMG_PATH.'menu/trennlinie.png'
+                'imgPath' => self::IMG_PATH . 'menu/monopoly-title.jpg',
+                'imgPathTrennlinie' => self::IMG_PATH . 'menu/trennlinie.png'
             ]
         );
     }
@@ -212,8 +224,9 @@ class GameManagerController extends BaseController
      * @throws Exception
      * @author Fabian Müller
      */
-    public function CanLoadGameAction(){
-        try{
+    public function CanLoadGameAction()
+    {
+        try {
             $game = GameFactory::getActiveGame($this->em, $this->sessionId);
             if ($game === null) {
                 echo json_encode(false);
@@ -221,7 +234,7 @@ class GameManagerController extends BaseController
             }
             echo json_encode(true);
             return;
-        }catch (\Throwable $e){
+        } catch (\Throwable $e) {
             echo json_encode(false);
             return;
         }
@@ -253,5 +266,45 @@ class GameManagerController extends BaseController
             ];
         }
         echo json_encode($response);
+    }
+
+    public function GetEndScoreAction()
+    {
+        try {
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
+            $players = PlayerFactory::getPlayersOfGame($this->em, $game);
+            $scoreService = new ScoreService();
+            $heading = 'GAME OVER <br> Der aktuelle Spieler ist pleite gegangen.';
+            $msg = "Danke euch für's spielen! <br> Credits an René, Fabian, Christian und Selina.";
+            $playerScores = $scoreService->calculateScore($players, $game, $this->em);
+        } catch (Throwable $e) {
+            $playerScores = [];
+            $heading = 'Oh no, fail :(';
+            $error = $e->getMessage() . ' --- ' . $e->getTraceAsString();
+            error_log($error);
+        }
+
+        echo $this->twig->render('Game/Views/ScoreBoard.html.twig', [
+            'scores' => $playerScores,
+            'heading' => $heading,
+            'msg' => $msg,
+            'IMG_PATH' => self::IMG_PATH
+        ]);
+    }
+
+    public function EndGameAction()
+    {
+        try {
+            $game = GameFactory::getActiveGame($this->em, $this->sessionId);
+            $game->getGameEntity()->setGameOver(1);
+            $this->em->persist($game->getGameEntity());
+            $this->em->flush();
+            session_regenerate_id(true);
+            $this->sessionId = session_id();
+            $result = true;
+        } catch (Throwable $e) {
+            $result = false;
+        }
+        echo json_encode($result);
     }
 }

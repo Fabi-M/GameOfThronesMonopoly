@@ -8,29 +8,35 @@ class Figure {
     /**
      * @author Selina Stöcklein
      * @param targetPlayFieldId
+     * @param isNotPasch
      */
-    move(targetPlayFieldId) {
+    move(targetPlayFieldId, isNotPasch) {
         let oldPlayFieldId = $(this.#$element).parent().parent().attr('data-id');
         let id = $(this.#$element).attr('id');
+        // + 1 on targetField, otherwise the animation would stop one field before the real target field
+        if (targetPlayFieldId < 39) { // else it would be buggy
+            targetPlayFieldId++;
+        }
 
-        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId, this.moveAnimate)
+        this.moveAnimate(id, oldPlayFieldId, targetPlayFieldId, this.moveAnimate, isNotPasch)
     }
 
     /**
      * move player recursively from playfield to playfield
      * @param id
-     * @param oldPlayFieldId
+     * @param nextPlayFieldId
      * @param targetPlayFieldId
      * @param recursiveCallback
+     * @param isNotPasch
      */
-    moveAnimate(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback) {
-        let element = $('#' + id);
-        let newParent = $('#spieler-bereich-' + oldPlayFieldId);
-        let oldOffset = element.offset();
-        element.appendTo(newParent);
-        let newOffset = element.offset();
-        let temp = element.clone().appendTo('body');
-        element.hide();
+    moveAnimate(id, nextPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch) {
+        let playerFigure = $('#' + id);
+        let $nextPlayField = $('#spieler-bereich-' + nextPlayFieldId);
+        let oldOffset = playerFigure.offset();
+        playerFigure.appendTo($nextPlayField);
+        let newOffset = playerFigure.offset();
+        let temp = playerFigure.clone().appendTo('body');
+        playerFigure.hide();
         temp.css({
             'position': 'absolute',
             'left': oldOffset.left,
@@ -39,15 +45,18 @@ class Figure {
         });
 
         temp.animate({'top': newOffset.top, 'left': newOffset.left}, 500, function () {
-            element.show();
+            playerFigure.show();
             temp.remove();
-            oldPlayFieldId++;
+            nextPlayFieldId++;
             //recursive
-            if (oldPlayFieldId > 39) {
-                oldPlayFieldId = 0;
+            if (nextPlayFieldId > 39) {
+                nextPlayFieldId = 0;
             }
-            if (oldPlayFieldId <= targetPlayFieldId) {
-                recursiveCallback(id, oldPlayFieldId, targetPlayFieldId, recursiveCallback);
+            if (nextPlayFieldId !== targetPlayFieldId) {
+                recursiveCallback(id, nextPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch);
+            } else {
+                $(".diceButton").prop("disabled", isNotPasch);
+                $("#next_player").prop("disabled", !isNotPasch);
             }
         });
     }
@@ -73,6 +82,7 @@ class Figure {
     toastRent(result) {
         let resultObj = JSON.parse(result);
         console.log(resultObj);
+        $('#currentMoney').text(resultObj['totalMoney']);
         if (resultObj['payedRent'] > 0) {
             let toast = new Toast();
             toast.Heading = 'Es ist Miete zu zahlen!';
@@ -81,6 +91,10 @@ class Figure {
                 body += ' Du bist pleite gegangen... GAMEOVER';
             }
             toast.Body = body;
+            toast.AllowToastClose = true;
+            toast.HideAfter = false;
+            toast.Loader = false;
+            toast.BgColor = '#57031e';
             toast.show();
         }
     }
@@ -91,6 +105,12 @@ class Figure {
      * @param data
      */
     showResult(result, data) {
-        data['this'].toastRent(result);
+        let parsed = JSON.parse(result);
+        if (parsed.isGameOver === true) {
+            let score = new Score();
+            score.requestScore();
+        } else {
+            data['this'].toastRent(result);
+        }
     }
 }

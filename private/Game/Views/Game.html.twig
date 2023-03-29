@@ -5,6 +5,7 @@ let gameField = new PlayField();
 let card = new Card();
 let round = new Round();
 new Jail();
+let score = new Score();
 {% endblock %}
 
 {% block site %}
@@ -28,11 +29,11 @@ new Jail();
                     </div>
                 </div>
             </div>
-            <div class="flip-card-stay flip-card flip-card-new-position"></div>
-            <div class="flip-card flip-card-new-position">
+            <div class="flip-card-stay other-color flip-card flip-card-new-position"></div>
+            <div class="flip-card other-color flip-card-new-position">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <div class="ereigniskarte"></div>   
+                        <div class="ereigniskarte"></div>
                     </div>
                     <div class="flip-card-back">
                        gemeinschaftskarten-text
@@ -42,10 +43,10 @@ new Jail();
             <div class="ereigniskarte"></div>
 
                 {% for id in 0..39 %}
-                    {% include 'Game/views/PlayField/PlayField.html.twig' %}
+                    {% include 'Game/Views/PlayField/PlayField.html.twig' %}
                 {% endfor %}
                 <img class="spielfeld" src="{{ imgPath }}{{ playFieldJPG }}" alt="Spielfeld">
-                {% include 'Game/views/Dice.html.twig' %}
+                {% include 'Game/Views/Dice.html.twig' %}
             </div>
 
             {# Spieler und Straßenanzeige #}
@@ -58,27 +59,50 @@ new Jail();
                     <b>Kontostand:</b> <span id="currentMoney">{{ saveGame['activePlayerMoney'] }}</span>
                 </div>
                 <br>
-                {# Karteplatzhalter #}
+                {# Karteplatzhalter
                 {% set selectable='playField' %}
                 {% set id = 1 %}
                 <b>Straßen im Besitz:</b>
                 <div id="ownedStreets">
                     {{ saveGame['activePlayerStreets']  | raw }}
                 </div>
-                {# //TODO 09.02.2023 Selina: money anpassen wenn straße gekauft / verkauft
-                {% include 'Game/views/Single-Card.html.twig' %}
                 #}
-
+                {# //TODO 09.02.2023 Selina: money anpassen wenn straße gekauft / verkauft
+                {% include 'Game/Views/Single-Card.html.twig' %}
+                #}
                 {# Karteplatzhalter Ende #}
 
                 {# Menu-Buttons #}
 
             </div>
+<<<<<<< HEAD:private/Game/views/Game.html.twig
             <div class="col margin-buttons normalbuttons">
                 {% include 'Game/views/buttons/NormalButtons.html.twig' %}
             </div>
             <div class="col margin-buttons jailbuttons" hidden>
                 {% include 'Game/views/buttons/JailButtons.html.twig' %}
+=======
+            <div class="col margin-buttons">
+                <div class="row interaktionsbuttons">
+                    <div class="row">
+                        {% set disabled = '' %}
+                        {% if saveGame['rolledDice'] == 1 %}
+                            {% set disabled = 'disabled' %}
+                        {% endif %}
+                        <input class="interaktionsbutton diceButton" type="button" id="wuerfeln" data-action="Move"
+                            name="wuerfeln" value="Würfeln" {{ disabled }}>
+                    </div>
+                </div>
+                <div class="row next-player-button interaktionsbuttons-margin">
+                    {% set disabled = '' %}
+                    {% if saveGame['rolledDice'] == 0 %}
+                        {% set disabled = 'disabled' %}
+                    {% endif %}
+                    <input class="interaktionsbutton" type="button" id="next_player" name="next_player"
+                        value="nächster Spieler" {{ disabled }}>
+                </div>
+
+>>>>>>> Selina:private/Game/Views/Game.html.twig
             </div>
         </div>
 

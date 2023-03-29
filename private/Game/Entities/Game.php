@@ -17,7 +17,23 @@ class Game extends BaseEntity
     protected $maxActivePlayers;
     protected $allowedToEndTurn;
     protected $rolledDice;
-    protected $paschCount;
+    protected $gameOver;
+
+    /**
+     * @return mixed
+     */
+    public function getGameOver()
+    {
+        return $this->gameOver;
+    }
+
+    /**
+     * @param mixed $gameOver
+     */
+    public function setGameOver($gameOver): void
+    {
+        $this->gameOver = $gameOver;
+    }
 
     /**
      * @return mixed

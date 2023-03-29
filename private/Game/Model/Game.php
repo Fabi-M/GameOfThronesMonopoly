@@ -98,6 +98,7 @@ class Game
         $this->gameEntity->setAllowedToEndTurn(0);
         $this->gameEntity->setRolledDice(0);
         $this->gameEntity->setPaschCount(0);
+        $this->gameEntity->setGameOver(0);
 
         $em->persist($this->gameEntity);
 

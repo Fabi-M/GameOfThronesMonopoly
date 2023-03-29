@@ -1,0 +1,15 @@
+<div class="container" style="color: black">
+    <div class="row">
+        <h1 style="text-align: center">{{ heading | raw }}</h1>
+    </div>
+    <div class="row">
+        {% for placement, score in scores  %}
+            <h{{ placement+2 }} style="text-align: center"> <img src="{{ IMG_PATH }}pokal{{ placement+1 }}.png" style="width: 20px; height: 20px;"> Platz #{{ placement+1 }} <br> Spieler: {{ score['inGamePlayerId'] }} Score: {{ score['score'] }}</h{{ placement+2 }}>
+            <br>
+        {% endfor %}
+    </div>
+    <br>
+    <div style="text-align: center">
+        {{ msg | raw }}
+    </div>
+</div>
