@@ -198,7 +198,8 @@ class Card {
         let element = $("#strassen-bereich-" + id);
         let className = element.attr("class");
         let deg = className.substring(className.length - 1) * 90;
-        element.append("<img style='position: relative; padding: 0.5px; display: flex; width: 9px; height: 9px; transform: rotate(" + deg + "deg)' alt='house' src=" + path + ">");
+        console.log(deg)
+        element.append("<img class='building" + deg + "' alt='house' src=" + path + ">");
     }
 
     /**

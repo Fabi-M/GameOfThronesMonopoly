@@ -24,7 +24,7 @@ class StreetRepository extends BaseRepository
 SELECT IF(
     (SELECT COUNT(*) FROM Street s WHERE s.color=:color)
         = 
-    (SELECT COUNT(*) FROM Player_x_street pf LEFT JOIN Street s ON pf.fieldId = s.playfieldId WHERE s.color=:color AND pf.playerId=:playerId)
+    (SELECT COUNT(*) FROM Player_x_street pf LEFT JOIN Street s ON pf.streetId = s.id WHERE s.color=:color AND pf.playerId=:playerId)
     , 'true', 'false') AS bool;";
 
         $stmt = $pdo->prepare($query);

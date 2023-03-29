@@ -11,12 +11,12 @@
     <div class="strassen-bereich-{{ id }}" id="strassen-bereich-{{ id }}">
 
         {% if saveGame['playfield'][id]['buildings'] == 5 %}
-            <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house'
+            <img class="building0" alt='house'
                 src='{{ imgPath }}/Hotel.png'>
         {% elseif saveGame['playfield'][id]['buildings']>0 %}
             {% for i in 1..saveGame['playfield'][id]['buildings'] %}
                 {# <img style='position: relative; padding: 0.5px; display: flex; width: 9px; height: 9px; transform: rotate("+deg+"deg)' alt='house' src="+path+"> #}
-                <img style="position: relative; padding: 0.5px;display: flex; width: 9px; height: 9px; " alt='house'
+                <img class="building0" alt='house'
                     src='{{ imgPath }}/House.png'>
             {% endfor %}
         {% endif %}

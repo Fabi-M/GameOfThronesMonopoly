@@ -1,136 +1,136 @@
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 
 body {
-  background-image: url('https://media.istockphoto.com/id/583726578/photo/wood-desk-plank-to-use-as-background-or-texture.jpg?s=612x612&w=0&k=20&c=nZuqX58HAgvD5UkumW_z0xfjeKu-hWncgQbstb4k35A=');
-  background-size: 100% 100%;
-  color: white;
+    background-image: url('https://media.istockphoto.com/id/583726578/photo/wood-desk-plank-to-use-as-background-or-texture.jpg?s=612x612&w=0&k=20&c=nZuqX58HAgvD5UkumW_z0xfjeKu-hWncgQbstb4k35A=');
+    background-size: 100% 100%;
+    color: white;
 }
 
 .imgContainer {
-  position: relative;
-  text-align: center;
-  color: white;
+    position: relative;
+    text-align: center;
+    color: white;
 }
 
 .centeredText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  size: 0.05px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    size: 0.05px;
 }
 
 .interaktionsbuttons {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .interaktionsbuttons-margin {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .interaktionsbutton:disabled {
-  opacity: .25;
+    opacity: .25;
 }
 
 .content {
-  height: 98vh;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  justify-content: space-between;
+    height: 98vh;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .interaktionsbutton {
-  margin-bottom: 10px !important;
-  width: 13em;
-  height: 3em;
-  font-size: 18px;
-  font-family: 'Merienda', cursive;
-  align-items: center;
-  background-color: initial;
-  background-image: linear-gradient(#464d55, #25292e);
-  border-radius: 8px;
-  border-width: 0;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, .1), 0 3px 6px rgba(0, 0, 0, .05);
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  flex-direction: column;
-  height: 52px;
-  justify-content: center;
-  line-height: 1;
-  margin: 0;
-  outline: none;
-  overflow: hidden;
-  padding: 0 32px;
-  transition: all 150ms;
+    margin-bottom: 10px !important;
+    width: 13em;
+    height: 3em;
+    font-size: 18px;
+    font-family: 'Merienda', cursive;
+    align-items: center;
+    background-color: initial;
+    background-image: linear-gradient(#464d55, #25292e);
+    border-radius: 8px;
+    border-width: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1), 0 3px 6px rgba(0, 0, 0, .05);
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    height: 52px;
+    justify-content: center;
+    line-height: 1;
+    margin: 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 32px;
+    transition: all 150ms;
 }
 
 
 .interaktionsbutton:hover {
-  box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
-  opacity: .85;
+    box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
+    opacity: .85;
 }
 
 .interaktionsbutton:active {
-  outline: 0;
+    outline: 0;
 }
 
 .interaktionsbutton:focus {
-  box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
+    box-shadow: rgba(0, 0, 0, .5) 0 0 0 3px;
 }
 
 .spielfeld {
-  height: 92vh;
+    height: 92vh;
 }
 
 @media (max-width: 420px) {
-  .interaktionsbutton {
-    height: 48px;
-  }
+    .interaktionsbutton {
+        height: 48px;
+    }
 }
 
 .row-besides {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .relative-positioning {
-  position: relative;
-  margin: 10px;
+    position: relative;
+    margin: 10px;
 }
 
 .absolute-grid {
-  position: absolute;
+    position: absolute;
 }
 
 .card-0 {
-  width: 13.1%;
-  height: 13.1%;
-  position: absolute;
-  top: 86.5%;
+    width: 13.1%;
+    height: 13.1%;
+    position: absolute;
+    top: 86.5%;
 }
 
 .card-10 {
-  width: 13.1%;
-  height: 13.1%;
-  position: absolute;
+    width: 13.1%;
+    height: 13.1%;
+    position: absolute;
 }
 
 .card-20 {
-  width: 13.1%;
-  height: 13.1%;
-  position: absolute;
-  left: 87.0%;
+    width: 13.1%;
+    height: 13.1%;
+    position: absolute;
+    left: 87.0%;
 }
 
 .card-30 {
-  width: 13.1%;
-  height: 13.1%;
-  position: absolute;
-  left: 87.0%;
-  top: 86.5%;
+    width: 13.1%;
+    height: 13.1%;
+    position: absolute;
+    left: 87.0%;
+    top: 86.5%;
 }
 
 .card-1,
@@ -151,45 +151,45 @@ body {
 .card-27,
 .card-28,
 .card-29 {
-  width: 13.1%;
-  height: 8.15%;
-  position: absolute;
+    width: 13.1%;
+    height: 8.15%;
+    position: absolute;
 }
 
 .card-9 {
-  top: 13.15%;
+    top: 13.15%;
 }
 
 .card-8 {
-  top: 21.3%;
+    top: 21.3%;
 }
 
 .card-7 {
-  top: 29.45%;
+    top: 29.45%;
 }
 
 .card-6 {
-  top: 37.6%;
+    top: 37.6%;
 }
 
 .card-5 {
-  top: 45.75%;
+    top: 45.75%;
 }
 
 .card-4 {
-  top: 53.9%;
+    top: 53.9%;
 }
 
 .card-3 {
-  top: 62.05%;
+    top: 62.05%;
 }
 
 .card-2 {
-  top: 70.2%;
+    top: 70.2%;
 }
 
 .card-1 {
-  top: 78.35%;
+    top: 78.35%;
 }
 
 .card-11,
@@ -210,46 +210,46 @@ body {
 .card-37,
 .card-38,
 .card-39 {
-  height: 13.1%;
-  width: 8.2%;
-  position: absolute;
-  flex-wrap: wrap;
+    height: 13.1%;
+    width: 8.2%;
+    position: absolute;
+    flex-wrap: wrap;
 }
 
 .card-11 {
-  left: 13.2%;
+    left: 13.2%;
 }
 
 .card-12 {
-  left: 21.4%;
+    left: 21.4%;
 }
 
 .card-13 {
-  left: 29.6%;
+    left: 29.6%;
 }
 
 .card-14 {
-  left: 37.8%;
+    left: 37.8%;
 }
 
 .card-15 {
-  left: 46.0%;
+    left: 46.0%;
 }
 
 .card-16 {
-  left: 54.2%;
+    left: 54.2%;
 }
 
 .card-17 {
-  left: 62.4%;
+    left: 62.4%;
 }
 
 .card-18 {
-  left: 70.6%;
+    left: 70.6%;
 }
 
 .card-19 {
-  left: 78.8%;
+    left: 78.8%;
 }
 
 .card-21,
@@ -261,44 +261,44 @@ body {
 .card-27,
 .card-28,
 .card-29 {
-  left: 87.0%;
-  flex-direction: row-reverse;
+    left: 87.0%;
+    flex-direction: row-reverse;
 }
 
 .card-21 {
-  top: 13.15%;
+    top: 13.15%;
 }
 
 .card-22 {
-  top: 21.3%;
+    top: 21.3%;
 }
 
 .card-23 {
-  top: 29.45%;
+    top: 29.45%;
 }
 
 .card-24 {
-  top: 37.6%;
+    top: 37.6%;
 }
 
 .card-25 {
-  top: 45.75%;
+    top: 45.75%;
 }
 
 .card-26 {
-  top: 53.9%;
+    top: 53.9%;
 }
 
 .card-27 {
-  top: 62.05%;
+    top: 62.05%;
 }
 
 .card-28 {
-  top: 70.2%;
+    top: 70.2%;
 }
 
 .card-29 {
-  top: 78.35%;
+    top: 78.35%;
 }
 
 .card-31,
@@ -310,118 +310,118 @@ body {
 .card-37,
 .card-38,
 .card-39 {
-  top: 86.5%;
-  flex-direction: column-reverse;
+    top: 86.5%;
+    flex-direction: column-reverse;
 }
 
 .card-39 {
-  left: 13.2%;
+    left: 13.2%;
 }
 
 .card-38 {
-  left: 21.4%;
+    left: 21.4%;
 }
 
 .card-37 {
-  left: 29.6%;
+    left: 29.6%;
 }
 
 .card-36 {
-  left: 37.8%;
+    left: 37.8%;
 }
 
 .card-35 {
-  left: 46.0%;
+    left: 46.0%;
 }
 
 .card-34 {
-  left: 54.2%;
+    left: 54.2%;
 }
 
 .card-33 {
-  left: 62.4%;
+    left: 62.4%;
 }
 
 .card-32 {
-  left: 70.6%;
+    left: 70.6%;
 }
 
 .card-31 {
-  left: 78.8%;
+    left: 78.8%;
 }
 
 body {
-  font-family: 'Merienda', cursive;
+    font-family: 'Merienda', cursive;
 }
 
 /*CSS Spielkarte*/
 .single-card {
-  border: 1px solid black;
-  background-color: white;
-  font-family: 'Merienda', cursive;
-  font-size: 13px;
-  width: 200px;
-  height: 300px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
-  zoom: 50%;
+    border: 1px solid black;
+    background-color: white;
+    font-family: 'Merienda', cursive;
+    font-size: 13px;
+    width: 200px;
+    height: 300px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    zoom: 50%;
 }
 
 .single-card .street-name {
-  font-size: 17px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 
 .street-color {
-  height: 50px;
+    height: 50px;
 }
 
 .row-street-properties {
-  height: 83%;
+    height: 83%;
 }
 
 .row-width {
-  width: 200px;
+    width: 200px;
 }
 
 .kauf-bereich {
-  padding-top: 10px;
-  border-top: 1px solid black;
+    padding-top: 10px;
+    border-top: 1px solid black;
 }
 
 .kosten-bereich {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5px;
 }
 
 .kauf-bereich {
-  padding-left: 5px;
+    padding-left: 5px;
 }
 
 .line-height {
-  padding-top: 2px;
-  padding-bottom: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 /*CSS Spielkarte Ende*/
 .spieleranzeige {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .margin-buttons {
-  margin-right: 0;
-  margin-left: auto;
+    margin-right: 0;
+    margin-left: auto;
 }
 
 .spieler-strassen-anzeige {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .strassen-bereich {
-  width: 30px;
+    width: 30px;
 }
 
 
@@ -461,13 +461,13 @@ body {
 .card-37,
 .card-38,
 .card-39 {
-  display: flex;
+    display: flex;
 }
 
 
 div[class*="spieler-bereich-"] {
-  position: absolute;
-  z-index: 100 !important;
+    position: absolute;
+    z-index: 100 !important;
 }
 
 .spieler-bereich-1, .spieler-bereich-2,
@@ -475,10 +475,10 @@ div[class*="spieler-bereich-"] {
 .spieler-bereich-5, .spieler-bereich-6,
 .spieler-bereich-7, .spieler-bereich-8,
 .spieler-bereich-9 {
-  width: 75% !important;
-  height: 100% !important;
-  left: 0;
-  top: 0;
+    width: 75% !important;
+    height: 100% !important;
+    left: 0;
+    top: 0;
 }
 
 
@@ -487,10 +487,10 @@ div[class*="spieler-bereich-"] {
 .spieler-bereich-25, .spieler-bereich-26,
 .spieler-bereich-27, .spieler-bereich-28,
 .spieler-bereich-29 {
-  width: 75% !important;
-  height: 100% !important;
-  right: 0;
-  top: 0;
+    width: 75% !important;
+    height: 100% !important;
+    right: 0;
+    top: 0;
 }
 
 .spieler-bereich-11, .spieler-bereich-12,
@@ -498,10 +498,10 @@ div[class*="spieler-bereich-"] {
 .spieler-bereich-15, .spieler-bereich-16,
 .spieler-bereich-17, .spieler-bereich-18,
 .spieler-bereich-19 {
-  right: 0;
-  top: 0;
-  width: 100% !important;
-  height: 75% !important;
+    right: 0;
+    top: 0;
+    width: 100% !important;
+    height: 75% !important;
 }
 
 .spieler-bereich-31, .spieler-bereich-32,
@@ -509,16 +509,16 @@ div[class*="spieler-bereich-"] {
 .spieler-bereich-35, .spieler-bereich-36,
 .spieler-bereich-37, .spieler-bereich-38,
 .spieler-bereich-39 {
-  right: 0;
-  bottom: 0;
-  width: 100% !important;
-  height: 75% !important;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    height: 75% !important;
 }
 
 
 div[class*="strassen-bereich-"] {
-  position: absolute;
-  z-index: 999;
+    position: absolute;
+    z-index: 999;
 }
 
 .strassen-bereich-1, .strassen-bereich-2,
@@ -526,10 +526,11 @@ div[class*="strassen-bereich-"] {
 .strassen-bereich-5, .strassen-bereich-6,
 .strassen-bereich-7, .strassen-bereich-8,
 .strassen-bereich-9 {
-  width: 25% !important;
-  height: 100% !important;
-  right: 0;
-  top: 0;
+    width: 25% !important;
+    height: 100% !important;
+    padding: 5px;
+    right: 0;
+    top: 0;
 }
 
 .strassen-bereich-21, .strassen-bereich-22,
@@ -537,10 +538,11 @@ div[class*="strassen-bereich-"] {
 .strassen-bereich-25, .strassen-bereich-26,
 .strassen-bereich-27, .strassen-bereich-28,
 .strassen-bereich-29 {
-  width: 25% !important;
-  height: 100% !important;
-  left: 0;
-  top: 0;
+    width: 25% !important;
+    padding: 5px;
+    height: 100% !important;
+    left: 0;
+    top: 0;
 }
 
 .strassen-bereich-11, .strassen-bereich-12,
@@ -548,10 +550,11 @@ div[class*="strassen-bereich-"] {
 .strassen-bereich-15, .strassen-bereich-16,
 .strassen-bereich-17, .strassen-bereich-18,
 .strassen-bereich-19 {
-  right: 0;
-  bottom: 0;
-  width: 100% !important;
-  height: 25% !important;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    width: 100% !important;
+    height: 25% !important;
 }
 
 .strassen-bereich-31, .strassen-bereich-32,
@@ -559,448 +562,503 @@ div[class*="strassen-bereich-"] {
 .strassen-bereich-35, .strassen-bereich-36,
 .strassen-bereich-37, .strassen-bereich-38,
 .strassen-bereich-39 {
-  right: 0;
-  top: 0;
-  width: 100% !important;
-  height: 25% !important;
+    right: 0;
+    top: 0;
+    padding: 5px;
+    width: 100% !important;
+    height: 25% !important;
 }
 
 
 div[class*="pennant-owner-"] {
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 15px;
-  border-color: #25292e;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15px;
+    border-color: #25292e;
 }
 
-.pennant-owner-1{
-  background-color: darkred;
+.pennant-owner-1 {
+    background-color: darkred;
 }
 
-.pennant-owner-2{
-  background-color: darkblue;
+.pennant-owner-2 {
+    background-color: darkblue;
 }
 
-.pennant-owner-3{
-  background-color: forestgreen;
+.pennant-owner-3 {
+    background-color: forestgreen;
 }
 
-.pennant-owner-4{
-  background-color: yellow;
+.pennant-owner-4 {
+    background-color: yellow;
 }
 
 .pennant-1, .pennant-3, .pennant-5,
 .pennant-6, .pennant-8, .pennant-9 {
-  top: -2px;
-  width: 30px;
-  height: 100%;
-  position: relative;
-  left: -15px;
-  z-index: -1 !important;
+    top: -2px;
+    width: 30px;
+    height: 100%;
+    position: relative;
+    left: -15px;
+    z-index: -1 !important;
 }
 
 .pennant-21, .pennant-23,
 .pennant-24, .pennant-25,
 .pennant-26, .pennant-27,
 .pennant-28, .pennant-29 {
-  top: -2px;
-  width: 30px;
-  height: 100%;
-  position: relative;
-  right: -15px;
-  z-index: -1 !important;
+    top: -2px;
+    width: 30px;
+    height: 100%;
+    position: relative;
+    right: -15px;
+    z-index: -1 !important;
 }
 
 .pennant-11, .pennant-12,
 .pennant-13, .pennant-14,
 .pennant-15, .pennant-16,
 .pennant-18, .pennant-19 {
-  left: -1px;
-  height: 30px;
-  width: 100%;
-  position: relative;
-  top: -15px;
-  z-index: -1 !important;
+    left: -1px;
+    height: 30px;
+    width: 100%;
+    position: relative;
+    top: -15px;
+    z-index: -1 !important;
 }
 
 
 .pennant-31, .pennant-32,
 .pennant-34, .pennant-35,
 .pennant-37, .pennant-39 {
-  left: -1px;
-  height: 30px;
-  width: 100%;
-  position: relative;
-  bottom: -15px;
-  z-index: -1 !important;
+    left: -1px;
+    height: 30px;
+    width: 100%;
+    position: relative;
+    bottom: -15px;
+    z-index: -1 !important;
 }
 
 .card-0,
 .card-10,
 .card-20,
 .card-30 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 img {
-  vertical-align: unset;
+    vertical-align: unset;
 }
 
 /*Single-Card*/
 .single-card {
-  border: 1px solid black;
-  font-family: 'Merienda', cursive;
-  font-size: 13px;
-  width: 200px;
-  height: 300px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    border: 1px solid black;
+    font-family: 'Merienda', cursive;
+    font-size: 13px;
+    width: 200px;
+    height: 300px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 .single-card .street-name {
-  font-size: 17px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 
 }
 
 .street-color {
-  height: 50px;
+    height: 50px;
 }
 
 .row-street-properties {
-  height: 83%;
+    height: 83%;
 }
 
 .row-width {
-  width: 200px;
+    width: 200px;
 }
 
 .kauf-bereich {
-  border-top: 1px solid black;
+    border-top: 1px solid black;
 }
 
 .line-height {
-  padding-top: 2px;
-  padding-bottom: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 /*Card-Pop-Up*/
 
 
 .single-card-template .single-card {
-  zoom: 1.5;
+    zoom: 1.5;
 }
 
 .playerFigure {
-  z-index: 1000;
-  height: 4vh;
+    z-index: 1000;
+    height: 4vh;
 }
 
 .container-margin {
-  margin: 0px 35px 0px 35px
+    margin: 0px 35px 0px 35px
 }
 
 .container.container-align {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .modal-dialog,
 .modal-content {
-  width: fit-content;
+    width: fit-content;
 }
 
 .modal-body .single-card {
-  zoom: 1.25;
+    zoom: 1.25;
 }
 
 .single-player-card-pop-up.interaktionsbuttons .row {
-  width: unset;
-  margin: 0px;
+    width: unset;
+    margin: 0px;
 }
 
 .single-player-card-pop-up.interaktionsbuttons.row {
-  width: 790px;
-  margin-top: 20px;
+    width: 790px;
+    margin-top: 20px;
 }
 
 .single-player-card-pop-up.bahnhofbuttons.interaktionsbuttons.row {
-  width: 540px;
-  margin-top: 20px;
+    width: 540px;
+    margin-top: 20px;
 }
 
 .single-player-card-pop-up.ereignisbuttons.interaktionsbuttons.row {
-  width: 285px;
-  margin-top: 20px;
+    width: 285px;
+    margin-top: 20px;
 }
 
 .train-picture {
-  width: 70px;
-  padding-top: 30px;
+    width: 70px;
+    padding-top: 30px;
 }
 
 .variables {
-  width: fit-content;
-  padding-left: 0;
+    width: fit-content;
+    padding-left: 0;
 }
 
 .variables-container {
-  justify-content: space-between;
+    justify-content: space-between;
 }
 
 .hotelcosts {
-  float: right;
+    float: right;
 }
 
 .line-height {
-  color: black;
+    color: black;
 }
 
 .single-card .street-name {
-  color: black;
+    color: black;
 }
 
 .single-card-bahnhof .street-name {
-  flex-direction: column;
+    flex-direction: column;
 }
 
 .single-card-bahnhof .street-name img {
-  width: 90px;
+    width: 90px;
 }
 
 .single-card-bahnhof .line-height {
-  justify-content: space-between;
+    justify-content: space-between;
 }
+
 /* Start-Page*/
 
-div{
-  font-family: "Meridana";
-}
-.player-counter-container { 
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  height: 50vh; 
+div {
+    font-family: "Meridana";
 }
 
-.form-class { 
-  display: flex;
-  flex-direction: column;
-  width:233px;
+.player-counter-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 50vh;
 }
 
-body.start-menu-background  {
-  margin: auto;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: auto;
-  background: linear-gradient(315deg, rgb(100, 100, 100) 3%, rgb(215, 88, 103) 38%, rgb(127, 127, 127) 68%, rgba(255,25,25,1) 98%);
-  animation: gradient 15s ease infinite;
-  background-size: 400% 400%;
-  background-attachment: fixed;
+.form-class {
+    display: flex;
+    flex-direction: column;
+    width: 233px;
+}
+
+body.start-menu-background {
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background: linear-gradient(315deg, rgb(100, 100, 100) 3%, rgb(215, 88, 103) 38%, rgb(127, 127, 127) 68%, rgba(255, 25, 25, 1) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
 }
 
 @keyframes gradient {
-  0% {
-      background-position: 0% 0%;
-  }
-  50% {
-      background-position: 100% 100%;
-  }
-  100% {
-      background-position: 0% 0%;
-  }
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 
 .wave {
-  background: rgb(255 255 255 / 25%);
-  border-radius: 1000% 1000% 0 0;
-  position: fixed;
-  width: 200%;
-  height: 12em;
-  animation: wave 10s -3s linear infinite;
-  transform: translate3d(0, 0, 0);
-  opacity: 0.8;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
 }
 
 .wave:nth-of-type(2) {
-  bottom: -1.25em;
-  animation: wave 18s linear reverse infinite;
-  opacity: 0.8;
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
 }
 
 .wave:nth-of-type(3) {
-  bottom: -2.5em;
-  animation: wave 20s -1s reverse infinite;
-  opacity: 0.9;
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
 }
 
 @keyframes wave {
-  2% {
-      transform: translateX(1);
-  }
+    2% {
+        transform: translateX(1);
+    }
 
-  25% {
-      transform: translateX(-25%);
-  }
+    25% {
+        transform: translateX(-25%);
+    }
 
-  50% {
-      transform: translateX(-50%);
-  }
+    50% {
+        transform: translateX(-50%);
+    }
 
-  75% {
-      transform: translateX(-25%);
-  }
+    75% {
+        transform: translateX(-25%);
+    }
 
-  100% {
-      transform: translateX(1);
-  }
+    100% {
+        transform: translateX(1);
+    }
 }
+
 select.decorated option:checked {
-  box-shadow: 0 0 10px 100px #aa4d4d inset;
-}
-.logo-column {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  height: 250px;
-  align-items: center;
-}
-.monopoly-logo { 
-  width: 50%;
-}
-.spiel-laden-button { 
-  margin-bottom:60px;
-}
-.player-counter-container label,
-.player-counter-container select
-{ 
-  font-size: 18px;
-  font-family: 'Merienda', cursive;
-  margin-bottom: 15px;
-}
-.player-count-flex { 
-  display: flex;
-  justify-content: center;
-  font-size: 18px;
-  font-family: 'Merienda', cursive;
-}
-.player-count-flex option:hover { 
-  background-color: #aa4d4d;
-}
-.trenner-logo { 
-  margin-top:30px;
-  margin-bottom:30px;
-  margin-left: -120px;
-  margin-right: -120px;
-}
-.werke-karte { 
-  justify-content: center !important;
-}
-.single-card { 
-  display: flex !important;
-  flex-direction: column;
-  margin-bottom: 30px;
-}
-.bahnhofbuttons .row {
-  display: flex;
-  justify-content: center;
+    box-shadow: 0 0 10px 100px #aa4d4d inset;
 }
 
-.flip-card { 
-  position: absolute;
-  height: 14%;
-  z-index: 999;
-  width: 9%;
-  top: 21%;
-  left: 24%;
-  rotate: 45deg;
-  transition: transform 0.6s;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+.logo-column {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 250px;
+    align-items: center;
 }
-.flip-card.flip-card-new-position { 
-  position: absolute;
-  height: 14%;
-  z-index: 999;
-  width: 9%;
-  top: 65%;
-  left: 68%;
-  rotate: 45deg;
+
+.monopoly-logo {
+    width: 50%;
 }
+
+.spiel-laden-button {
+    margin-bottom: 60px;
+}
+
+.player-counter-container label,
+.player-counter-container select {
+    font-size: 18px;
+    font-family: 'Merienda', cursive;
+    margin-bottom: 15px;
+}
+
+.player-count-flex {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-family: 'Merienda', cursive;
+}
+
+.player-count-flex option:hover {
+    background-color: #aa4d4d;
+}
+
+.trenner-logo {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: -120px;
+    margin-right: -120px;
+}
+
+.werke-karte {
+    justify-content: center !important;
+}
+
+.single-card {
+    display: flex !important;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.bahnhofbuttons .row {
+    display: flex;
+    justify-content: center;
+}
+
+.flip-card {
+    position: absolute;
+    height: 14%;
+    z-index: 999;
+    width: 9%;
+    top: 21%;
+    left: 24%;
+    rotate: 45deg;
+    transition: transform 0.6s;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.flip-card.flip-card-new-position {
+    position: absolute;
+    height: 14%;
+    z-index: 999;
+    width: 9%;
+    top: 65%;
+    left: 68%;
+    rotate: 45deg;
+}
+
 .flip-card-new-position:hover {
-  height: 39%;
-  width: 26%;
-  transform: rotate(-45deg) translate( -109%,-91%) !important;
+    height: 39%;
+    width: 26%;
+    transform: rotate(-45deg) translate(-109%, -91%) !important;
 }
+
 .flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
+
 .flip-card:hover {
-  height: 38%;
-  width: 26%;
-  transform: rotate(-45deg) translate( 43%,26%);
+    height: 38%;
+    width: 26%;
+    transform: rotate(-45deg) translate(43%, 26%);
 }
 
 .flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .flip-card-front {
-  background: rgb(72,11,19);
-background: radial-gradient(circle, rgba(72,11,19,1) 0%, rgba(140,10,37,1) 100%);
-  color: black;
+    background: rgb(72, 11, 19);
+    background: radial-gradient(circle, rgba(72, 11, 19, 1) 0%, rgba(140, 10, 37, 1) 100%);
+    color: black;
 }
 
 .flip-card-back {
-  background-color: #fff;
-  color: #000;
-  transform: rotateY(180deg);
+    background-color: #fff;
+    color: #000;
+    transform: rotateY(180deg);
 }
-.flip-card-stay { 
-  z-index:888;
-  background: rgb(72,11,19);
-background: radial-gradient(circle, rgba(72,11,19,1) 0%, rgba(140,10,37,1) 100%);
+
+.flip-card-stay {
+    z-index: 888;
+    background: rgb(72, 11, 19);
+    background: radial-gradient(circle, rgba(72, 11, 19, 1) 0%, rgba(140, 10, 37, 1) 100%);
 }
+
 .card-text {
-  color: white;
-  transform: rotate(270deg) translateX(-50%);
-  font-size: 12px;
-  letter-spacing: 0;
-  font-family: 'Merienda';
+    color: white;
+    transform: rotate(270deg) translateX(-50%);
+    font-size: 12px;
+    letter-spacing: 0;
+    font-family: 'Merienda';
 }
-.gemeinschaftskarte, .ereigniskarte { 
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
+
+.gemeinschaftskarte, .ereigniskarte {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
+
 .interaktionsbutton:hover:disabled {
-  box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
-  opacity: .25;
+    box-shadow: rgba(0, 1, 0, .2) 0 2px 8px;
+    opacity: .25;
 }
-.other-color .flip-card-front, 
-.other-color
- {
-  background: rgb(72,11,19);
-background: radial-gradient(circle, rgb(27, 11, 72) 0%, rgb(38, 10, 140) 100%);
-  color: black;
+
+.other-color .flip-card-front,
+.other-color {
+    background: rgb(72, 11, 19);
+    background: radial-gradient(circle, rgb(27, 11, 72) 0%, rgb(38, 10, 140) 100%);
+    color: black;
+}
+
+.building0 {
+    padding: 0.5px;
+    position: relative;
+    width: 1.4vh;
+    height: 1.4vh;
+    transform: rotate(0deg)
+}
+
+.building90 {
+    padding: 0.5px;
+    position: relative;
+    width: 1.4vh;
+    height: 1.4vh;
+    transform: rotate(90deg)
+}
+
+.building180 {
+    padding: 0.5px;
+    display: flex;
+    position: relative;
+    width: 1.4vh;
+    height: 1.4vh;
+    transform: rotate(180deg)
+
+}
+
+.building270 {
+    position: relative;
+    padding: 0.5px;
+    width: 1.4vh;
+    height: 1.4vh;
+    transform: rotate(270deg)
 }
