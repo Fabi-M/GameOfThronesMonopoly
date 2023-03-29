@@ -519,6 +519,8 @@ div[class*="spieler-bereich-"] {
 div[class*="strassen-bereich-"] {
     position: absolute;
     z-index: 999;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .strassen-bereich-1, .strassen-bereich-2,
@@ -528,6 +530,7 @@ div[class*="strassen-bereich-"] {
 .strassen-bereich-9 {
     width: 25% !important;
     height: 100% !important;
+    flex-direction: column; !important;
     padding: 5px;
     right: 0;
     top: 0;
@@ -541,6 +544,7 @@ div[class*="strassen-bereich-"] {
     width: 25% !important;
     padding: 5px;
     height: 100% !important;
+    flex-direction: column; !important;
     left: 0;
     top: 0;
 }
@@ -553,6 +557,7 @@ div[class*="strassen-bereich-"] {
     right: 0;
     bottom: 0;
     padding: 5px;
+    flex-direction: row; !important;
     width: 100% !important;
     height: 25% !important;
 }
@@ -565,6 +570,7 @@ div[class*="strassen-bereich-"] {
     right: 0;
     top: 0;
     padding: 5px;
+    flex-direction: row; !important;
     width: 100% !important;
     height: 25% !important;
 }

@@ -116,7 +116,6 @@ class Card {
         }
         let toast = new Toast("Du hast ein Haus auf der Straße " + data["streetName"] + " gekauft", "Haus gekauft");
         toast.show();
-        classInstance['this'].addHouse(data["position"], data["buildings"]);
 
         // Money aktualisieren, eventuelle Fehler anzeigen, etc.
         $('#currentMoney').text(data['totalMoney']);
@@ -197,7 +196,17 @@ class Card {
         }
         let element = $("#strassen-bereich-" + id);
         let className = element.attr("class");
-        let deg = className.substring(className.length - 1) * 90;
+        let streeId = className.replace(/[^0-9.]/g, '');
+        let deg = 0;
+        if(streeId >= 1 && streeId <= 9){
+            deg = 90;
+        }else if(streeId >= 11 && streeId <= 19){
+            deg = 180;
+        }else if(streeId >= 21 && streeId <= 29){
+            deg = 270;
+        }else if(streeId >= 31 && streeId <= 39){
+            deg = 0;
+        }
         console.log(deg)
         element.append("<img class='building" + deg + "' alt='house' src=" + path + ">");
     }
