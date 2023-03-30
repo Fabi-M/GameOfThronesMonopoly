@@ -956,11 +956,7 @@ select.decorated option:checked {
     rotate: 45deg;
 }
 
-.flip-card-new-position:hover {
-    height: 39%;
-    width: 26%;
-    transform: rotate(-45deg) translate(-109%, -91%) !important;
-}
+
 
 .flip-card-inner {
     position: relative;
@@ -972,15 +968,9 @@ select.decorated option:checked {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
 
-.flip-card:hover {
-    height: 38%;
-    width: 26%;
-    transform: rotate(-45deg) translate(43%, 26%);
-}
+
+
 
 .flip-card-front, .flip-card-back {
     position: absolute;
