@@ -124,6 +124,7 @@ class GameManagerController extends BaseController
         // save
         $this->em->flush();
         $response["dice"] = $rolled;
+        $response["money"] = $activePlayer->getPlayerEntity()->getMoney();
         $response["activePlayerId"] = $game->getGameEntity()->getActivePlayerId();
         echo json_encode($response);
     }

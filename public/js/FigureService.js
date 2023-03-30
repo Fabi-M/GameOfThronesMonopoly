@@ -41,6 +41,7 @@ class FigureService {
         console.log(resultObj);
         if(resultObj['comment'] !== undefined){
             data['dice'].toastSpecialField(resultObj['comment']);
+            $('#currentMoney').text(resultObj['money']);
         }
         if (resultObj['dice'][0] !== resultObj['dice'][1]) {
             $(".diceButton").prop("disabled", true);

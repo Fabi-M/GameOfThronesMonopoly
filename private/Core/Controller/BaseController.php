@@ -111,6 +111,7 @@ class BaseController
         $this->scriptCollector->addBottom('/js/Core/Toast.js');
         $this->scriptCollector->addBottom('/js/Core/Ajax.js');
         $this->scriptCollector->addBottom('/js/Core/Events.js');
+        $this->scriptCollector->addBottom('/js/Jail.js');
         $this->scriptCollector->addBottom('/js/Figure.js');
         $this->scriptCollector->addBottom('/js/FigureService.js');
         $this->scriptCollector->addBottom('/js/PlayFieldService.js');

@@ -5,6 +5,7 @@ let gameField = new PlayField();
 let card = new Card();
 let round = new Round();
 let score = new Score();
+let jail = new Jail();
 {% endblock %}
 
 {% block site %}
@@ -79,25 +80,6 @@ let score = new Score();
             </div>
             <div class="col margin-buttons jailbuttons" hidden>
                 {% include 'Game/views/buttons/JailButtons.html.twig' %}
-            <div class="col margin-buttons">
-                <div class="row interaktionsbuttons">
-                    <div class="row">
-                        {% set disabled = '' %}
-                        {% if saveGame['rolledDice'] == 1 %}
-                            {% set disabled = 'disabled' %}
-                        {% endif %}
-                        <input class="interaktionsbutton diceButton" type="button" id="wuerfeln" data-action="Move"
-                            name="wuerfeln" value="Würfeln" {{ disabled }}>
-                    </div>
-                </div>
-                <div class="row next-player-button interaktionsbuttons-margin">
-                    {% set disabled = '' %}
-                    {% if saveGame['rolledDice'] == 0 %}
-                        {% set disabled = 'disabled' %}
-                    {% endif %}
-                    <input class="interaktionsbutton" type="button" id="next_player" name="next_player"
-                        value="nächster Spieler" {{ disabled }}>
-                </div>
             </div>
         </div>
 
