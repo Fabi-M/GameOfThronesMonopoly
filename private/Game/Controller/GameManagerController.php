@@ -114,10 +114,12 @@ class GameManagerController extends BaseController
             $paschCount = $game->getGameEntity()->getPaschCount();
             $paschCount++;
             $game->getGameEntity()->setPaschCount($paschCount);
+            $response["goToJail"] = 0;
             if($paschCount == 3){
                 $activePlayer->goToJail($this->em);
                 $game->getGameEntity()->setAllowedToEndTurn(1);
-                $response["playFieldId"] = 10;
+                $response["goToJail"] = 10;
+
             }
             $this->em->persist($game->getGameEntity());
         }
@@ -126,6 +128,7 @@ class GameManagerController extends BaseController
         $response["dice"] = $rolled;
         $response["money"] = $activePlayer->getPlayerEntity()->getMoney();
         $response["activePlayerId"] = $game->getGameEntity()->getActivePlayerId();
+        $response['paschCount']=$paschCount;
         echo json_encode($response);
     }
 

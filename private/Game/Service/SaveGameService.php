@@ -29,6 +29,7 @@ class SaveGameService
         $saveGame['activePlayerId'] = $activePlayer->getPlayerEntity()->getIngameId();
         $saveGame['rolledDice'] = $game->getGameEntity()->getRolledDice();
         $saveGame['activePlayerMoney'] = $activePlayer->getPlayerEntity()->getMoney();
+        $saveGame['inJail'] = $activePlayer->getPlayerEntity()->getIsInJail();
 
         foreach ($players as $player) {
             /** @var int $inGamePlayerId 1,2,3,4 */

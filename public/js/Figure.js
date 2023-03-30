@@ -4,6 +4,9 @@ class Figure {
     constructor($element) {
         this.#$element = $element;
     }
+    getElement(){
+        return this.#$element;
+    }
 
     /**
      * @author Selina Stöcklein
@@ -30,6 +33,7 @@ class Figure {
      * @param isNotPasch
      */
     moveAnimate(id, nextPlayFieldId, targetPlayFieldId, recursiveCallback, isNotPasch) {
+        console.log(id)
         let playerFigure = $('#' + id);
         let $nextPlayField = $('#spieler-bereich-' + nextPlayFieldId);
         let oldOffset = playerFigure.offset();
@@ -57,6 +61,17 @@ class Figure {
             } else {
                 $(".diceButton").prop("disabled", isNotPasch);
                 $("#next_player").prop("disabled", !isNotPasch);
+                if (nextPlayFieldId==31){
+                    let $jail = $('#spieler-bereich-10');
+                    playerFigure.appendTo($jail);
+                    let toast = new Toast();
+                    toast.Heading = 'Du wurdest in das Gefängnis teleportiert!';
+                    toast.AllowToastClose = true;
+                    toast.HideAfter = false;
+                    toast.Loader = false;
+                    toast.BgColor = '#57031e';
+                    toast.show();
+                }
             }
         });
     }

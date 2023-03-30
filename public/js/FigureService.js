@@ -35,23 +35,34 @@ class FigureService {
      * @author Selina Stöcklein
      */
     moveFigure(result, data) {
-        $("#next_player").prop("disabled", false);
+        $(".diceButton").prop("disabled", true);
         let resultObj = JSON.parse(result);
-        console.log("IMPORTANT______________________________");
-        console.log(resultObj);
         if(resultObj['comment'] !== undefined){
             data['dice'].toastSpecialField(resultObj['comment']);
-            $('#currentMoney').text(resultObj['money']);
         }
-        if (resultObj['dice'][0] !== resultObj['dice'][1]) {
-            $(".diceButton").prop("disabled", true);
-        }
+
         console.log(resultObj);
         let me = FigureService.getInstance();
         data['dice'].toastRolledDice(resultObj['dice']); // dice.js
         let playerId = resultObj['activePlayerId'];
         let playFieldId = resultObj['playFieldId'];
         let figure = me.getFigure(playerId);
+        let playerFigure=figure.getElement();
+
+        if (resultObj['goToJail']!==0){
+            let $jail = $('#spieler-bereich-10');
+            playerFigure.appendTo($jail);
+            let toast = new Toast();
+            toast.Heading = 'Du wurdest in das Gefängnis teleportiert!';
+            toast.AllowToastClose = true;
+            toast.HideAfter = false;
+            toast.Loader = false;
+            toast.BgColor = '#57031e';
+            toast.show();
+            $('#next_player').prop("disabled", false);
+            return;
+        }
+
         let isNotPasch = resultObj['dice'][0] !== resultObj['dice'][1]
         console.log(isNotPasch)
         figure.move(playFieldId, isNotPasch);

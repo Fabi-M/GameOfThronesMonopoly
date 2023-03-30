@@ -18,6 +18,7 @@ class Game extends BaseEntity
     protected $allowedToEndTurn;
     protected $rolledDice;
     protected $gameOver;
+    protected $paschCount;
 
     /**
      * @return mixed
