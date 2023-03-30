@@ -31,7 +31,8 @@ class Jail{
             toast.show();
         }
         else if(resultObj["inJail"] == false || resultObj["inJail"] == 0){
-            let toast = new Toast("Pasch! Du hast das Gefängnis verlassen","Gefängnis");
+            $('#currentMoney').text(resultObj['money']);
+            let toast = new Toast("Du hast das Gefängnis verlassen","Gefängnis");
             toast.show();
         }else{
             let toast = new Toast("Kein Pasch! Du bist immer noch im Gefängnis","Gefängnis");

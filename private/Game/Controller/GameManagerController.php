@@ -156,7 +156,8 @@ class GameManagerController extends BaseController
                 [
                     'dice' => $rolled,
                     'inJail' => $rolled[0] != $rolled[1],
-                    'activePlayerId' => $game->getGameEntity()->getActivePlayerId()
+                    'activePlayerId' => $game->getGameEntity()->getActivePlayerId(),
+                    "money" => $player->getPlayerEntity()->getMoney()
                 ]
             );
         }catch(\Throwable $e){
@@ -258,6 +259,7 @@ class GameManagerController extends BaseController
                 "inJail" => false,
                 "success" => true,
                 "id" => $this->sessionId,
+                "money" => $player->getPlayerEntity()->getMoney()
             ];
         }catch(\Throwable $e){
             $response = [
