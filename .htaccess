@@ -1,7 +1,7 @@
 RewriteEngine on
 
-RedirectMatch 404 /\.git
-RedirectMatch 404 /\.idea
+RedirectMatch 403 /\.git
+RedirectMatch 403 /\.idea
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
