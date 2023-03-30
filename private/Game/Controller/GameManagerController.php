@@ -117,7 +117,7 @@ class GameManagerController extends BaseController
             if($paschCount == 3){
                 $activePlayer->goToJail($this->em);
                 $game->getGameEntity()->setAllowedToEndTurn(1);
-                $response["newPosition"] = 10;
+                $response["playFieldId"] = 10;
             }
             $this->em->persist($game->getGameEntity());
         }

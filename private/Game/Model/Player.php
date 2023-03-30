@@ -69,7 +69,7 @@ class Player
         $specialFieldService = new SpecialFieldService();
         $speciaFieldReturn = $specialFieldService->checkIfOnSpecialField($em, $newPosition, $this);
         $em->persist($this->getPlayerEntity());
-        $speciaFieldReturn ["newPosition"] = $newPosition;
+        $speciaFieldReturn ["playFieldId"] = $newPosition;
         return $speciaFieldReturn;
     }
 
